@@ -2,6 +2,7 @@
   <Folder Name="/Solution Items/">
     <File Path=".gitattributes" />
   </Folder>
-  <Project Path="Crittery.Me.Data/Crittery.Me.Data.csproj" Id="d283b41b-d487-41e6-adca-c5c5a25175a4" />
-  <Project Path="Crittery.Me/Crittery.Me.csproj" />
+  <Project Path="D:/Repos/Crittery.Me/Crittery.Me.Data/Crittery.Me.Data.csproj" Id="d283b41b-d487-41e6-adca-c5c5a25175a4" />
+  <Project Path="D:/Repos/Crittery.Me/Crittery.Me.Editor/Crittery.Me.Editor.csproj" Id="8f0c3763-a068-4d6d-886d-c10d1a75c5e1" />
+  <Project Path="D:/Repos/Crittery.Me/Crittery.Me/Crittery.Me.csproj" />
 </Solution>

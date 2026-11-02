@@ -1,0 +1,53 @@
+﻿@page
+
+@using Crittery.Me.Data.Models
+
+@model Crittery.Me.Editor.Areas.CMS.Pages.Interests.IndexModel
+
+@{
+    ViewData["Title"] = "Interests";
+}
+
+<div class="d-flex justify-content-between gap-3 my-3">
+    <h1 class="h2 m-0">Interests</h1>
+    <a asp-page="/Interests/New" class="btn btn-success">Add New</a>
+</div>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th aria-hidden="true"></th>
+            <th>#</th>
+            <th>Emoji</th>
+            <th>Text</th>
+            <th aria-hidden="true"></th>
+        </tr>
+    </thead>    
+    <tbody>
+        @if (Model.Interests.Count > 0)
+        {
+            foreach(Interest interest in Model.Interests)
+            {
+                <tr class="align-middle">
+                    <td>
+                        <a asp-page-handler="OrderUp" asp-route-id="@interest.Id" class="btn btn-sm btn-secondary">&uarr;</a>
+                        <a asp-page-handler="OrderDown" asp-route-id="@interest.Id" class="btn btn-sm btn-secondary">&darr;</a>
+                    </td>
+                    <td>@interest.Order</td>
+                    <td>@interest.Emoji</td>
+                    <td>@interest.Text</td>
+                    <td class="text-end">
+                        <a asp-page="/Interests/Edit" asp-route-id="@interest.Id" class="btn btn-primary">Edit</a>
+                        <a asp-page-handler="Delete" asp-route-id="@interest.Id" class="btn btn-danger delete-interest">Delete</a>
+                    </td>
+                </tr>
+            }
+        }
+        else
+        {
+            <tr>
+                <td colspan="5" class="fst-italic text-secondary">No Interests</td>
+            </tr>
+        }
+    </tbody>
+</table>

@@ -1,0 +1,23 @@
+﻿@page "{id:guid}"
+
+@model Crittery.Me.Editor.Areas.CMS.Pages.Interests.EditModel
+
+@{
+    ViewData["Title"] = $"Edit Interest";
+}
+
+<h1 class="h2 my-3">Edit Interest</h1>
+
+<form method="post" asp-route-id="@Model.FormData.Id">
+    <div class="row">
+        <div class="col-xs-12 col-lg-4 mb-3">
+            <label asp-for="FormData.Emoji" class="form-label">Emoji</label>
+            <input asp-for="FormData.Emoji" class="form-control" placeholder="🧮" maxlength="8" />
+        </div>
+        <div class="col-xs-12 col-lg-8 mb-3">
+            <label asp-for="FormData.Text" class="form-label">Text</label>
+            <input asp-for="FormData.Text" class="form-control" placeholder="Filing taxes" maxlength="160" />
+        </div>
+    </div>
+    <button type="submit" class="btn btn-lg btn-primary mb-3">Save</button>
+</form>

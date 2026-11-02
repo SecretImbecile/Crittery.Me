@@ -3,14 +3,9 @@
   "defaultProvider": "cdnjs",
   "libraries": [
     {
+      "provider": "cdnjs",
       "library": "bootstrap@5.3.8",
-      "destination": "wwwroot/lib/bootstrap/",
-      "files": [
-        "css/bootstrap-reboot.css",
-        "css/bootstrap-reboot.css.map",
-        "css/bootstrap-reboot.min.css",
-        "css/bootstrap-reboot.min.css.map"
-      ]
+      "destination": "wwwroot/lib/bootstrap/"
     }
   ]
 }
