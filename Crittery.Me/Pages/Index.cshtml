@@ -8,15 +8,61 @@
     ViewData["Title"] = "Linden ⭒ Jittery Critter";
 }
 
+@section Header {
+    <picture id="logo">
+        <source srcset="img/logo-v2.webp" type="image/webp">
+        <source srcset="img/logo-v2.webp" type="image/png">
+        <img src="img/logo-v2.webp" width="900" height="450" alt="Linden (he/they)">
+    </picture>
+}
+
 @foreach(CalendarEvent calendarEvent in Model.CalendarEvents)
 {
     <p><partial name="Partials/_CalendarEvent" model="calendarEvent" /></p>
 }
 
-<h2 class="h3">About Me</h2>
-<ul>
-    @foreach(BioItem item in Model.BioItems)
-    {
-        <li>@item.Text</li>
-    }
-</ul>
+@if (Model.BioItems.Count > 0)
+{
+    <p class="bio">
+        @foreach (BioItem item in Model.BioItems)
+        {
+            <span>@item.Text</span>
+        }
+    </p>
+}
+
+<nav aria-label="Links" class="mb-3">
+    <a class="button" href="https://t.me/Crittery_Me" title="@@Crittery_Me on Telegram">
+        <img src="img/icons/telegram.png" width="28" height="28" alt="">
+        <span>Telegram</span>
+    </a>
+    <a class="button" href="https://discordapp.com/users/539837360519643166" title="crittery.me on Discord">
+        <img src="img/icons/discord.png" width="28" height="28" alt="">
+        <span>Discord</span>
+    </a>
+    <a class="button" href="https://bsky.app/profile/did:plc:c55nkqsopwbgppwkjqup66q2" title="@@crittery.me on Bluesky">
+        <img src="img/icons/bsky.png" width="28" height="28" alt="">
+        <span>Bluesky</span>
+    </a>
+    <a class="button" href="https://www.furtrack.com/user/crittery.me" title="Furmeet photographs on FurTrack">
+        <img src="img/icons/furtrack.png" width="28" height="28" alt="">
+        <span>FurTrack</span>
+    </a>
+    <a class="button" href="https://vgen.co/c/linden-2/initial-sketches" title="Character references on VGen">
+        <img src="img/icons/vgen.png" width="28" height="28" alt="">
+        <span>VGen</span>
+    </a>
+</nav>
+<p class="bio">
+    <span>Interests include:</span>
+    <span>🛹 Skateboarding</span>
+    <span>📷 Photography</span>
+    <span>🖥️ 3D modelling + gamedev</span>
+    <span>🎮 Videogames</span>
+    <span>🎵 Music</span>
+</p>
+<p class="bio mb-0">
+    <span title="Gay">🏳️‍🌈</span>
+    <span>Demisexual</span>
+    <span>In a relationship</span>
+</p>
