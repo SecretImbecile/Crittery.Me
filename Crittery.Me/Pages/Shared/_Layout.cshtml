@@ -3,46 +3,81 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - Crittery.Me</title>
+    <title>@ViewData["Title"]</title>
     <script type="importmap"></script>
     <link rel="stylesheet" href="~/lib/bootstrap/css/bootstrap-reboot.min.css" />
+    <link rel="stylesheet" href="~/css/main.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/Crittery.Me.styles.css" asp-append-version="true" />
 </head>
 <body>
-    <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container">
-                <a class="navbar-brand" asp-area="" asp-page="/Index">Crittery.Me</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/Index">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/Privacy">Privacy</a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </nav>
-    </header>
-    <div class="container">
-        <main role="main" class="pb-3">
+    <picture id="artwork" role="button" tabindex="0" onclick="inspectOpen();">
+        <source srcset="img/art/character-awd.webp" type="image/webp">
+        <source srcset="img/art/character-awd.png" type="image/png">
+        <img src="img/art/character-awd.png" width="773" height="1920" alt="A black and white sketch of Linden by AWD!">
+    </picture>
+    <figure id="artwork-full">
+        <picture tabindex="0" onclick="inspectClose();">
+            <source srcset="img/art/character-awd-full.webp" type="image/webp">
+            <source srcset="img/art/character-awd-full.jpg" type="image/jpg">
+            <img src="img/art/character-awd-full.jpg" width="1484" height="1920" loading="lazy" alt="A black and white sketch of Linden by AWD!">
+        </picture>
+        <figcaption><a href="https://vgen.co/awd/service/character-sketch/91797a16-670d-458b-9bd1-40f189bd9310" target="_blank">Character Sketch</a> commission of Linden by <a href="https://awd.carrd.co/" target="_blank">AWD!</a></figcaption>
+    </figure>
+
+    <div id="container">
+        <main>
+            <header>
+                <picture id="logo">
+                    <source srcset="img/logo-v2.webp" type="image/webp">
+                    <source srcset="img/logo-v2.webp" type="image/png">
+                    <img src="img/logo-v2.webp" width="900" height="450" alt="Linden (he/they)">
+                </picture>
+            </header>
             @RenderBody()
+            <p class="bio">
+                <span>Rabbit (Belgian Hare)</span>
+                <span>aka Jack (Human)</span>
+                <span id="age">32</span>
+                <span>from Manchester, UK</span>
+            </p>
+            <nav aria-label="Links" class="mb-3">
+                <a class="button" href="https://t.me/Crittery_Me" title="@@Crittery_Me on Telegram">
+                    <img src="img/icons/telegram.png" width="28" height="28" alt="">
+                    <span>Telegram</span>
+                </a>
+                <a class="button" href="https://discordapp.com/users/539837360519643166" title="crittery.me on Discord">
+                    <img src="img/icons/discord.png" width="28" height="28" alt="">
+                    <span>Discord</span>
+                </a>
+                <a class="button" href="https://bsky.app/profile/did:plc:c55nkqsopwbgppwkjqup66q2" title="@@crittery.me on Bluesky">
+                    <img src="img/icons/bsky.png" width="28" height="28" alt="">
+                    <span>Bluesky</span>
+                </a>
+                <a class="button" href="https://www.furtrack.com/user/crittery.me" title="Furmeet photographs on FurTrack">
+                    <img src="img/icons/furtrack.png" width="28" height="28" alt="">
+                    <span>FurTrack</span>
+                </a>
+                <a class="button" href="https://vgen.co/c/linden-2/initial-sketches" title="Character references on VGen">
+                    <img src="img/icons/vgen.png" width="28" height="28" alt="">
+                    <span>VGen</span>
+                </a>
+            </nav>
+            <p class="bio">
+                <span>Interests include:</span>
+                <span>🛹 Skateboarding</span>
+                <span>📷 Photography</span>
+                <span>🖥️ 3D modelling + gamedev</span>
+                <span>🎮 Videogames</span>
+                <span>🎵 Music</span>
+            </p>
+            <p class="bio mb-0">
+                <span title="Gay">🏳️‍🌈</span>
+                <span>Demisexual</span>
+                <span>In a relationship</span>
+            </p>            
         </main>
-    </div>
-
-    <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2026 - Crittery.Me - <a asp-area="" asp-page="/Privacy">Privacy</a>
-        </div>
-    </footer>
-
+    </div>        
     <script src="~/js/site.js" asp-append-version="true"></script>
 
     @await RenderSectionAsync("Scripts", required: false)

@@ -37,9 +37,10 @@
 #
 # image files are treated as binary by default.
 ###############################################################################
-#*.jpg   binary
-#*.png   binary
-#*.gif   binary
+*.jpg filter=lfs diff=lfs merge=lfs -text
+*.jpeg filter=lfs diff=lfs merge=lfs -text
+*.png filter=lfs diff=lfs merge=lfs -text
+*.webp filter=lfs diff=lfs merge=lfs -text
 ###############################################################################
 # diff behavior for common document formats
 # 
@@ -57,5 +58,7 @@
 #*.PDF   diff=astextplain
 #*.rtf   diff=astextplain
 #*.RTF   diff=astextplain
-
+###############################################################################
+# diff behavior for site SQLite database
+###############################################################################
 *.db filter=lfs diff=lfs merge=lfs -text
