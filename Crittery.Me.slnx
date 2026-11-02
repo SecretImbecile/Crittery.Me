@@ -2,5 +2,6 @@
   <Folder Name="/Solution Items/">
     <File Path=".gitattributes" />
   </Folder>
+  <Project Path="Crittery.Me.Data/Crittery.Me.Data.csproj" Id="d283b41b-d487-41e6-adca-c5c5a25175a4" />
   <Project Path="Crittery.Me/Crittery.Me.csproj" />
 </Solution>

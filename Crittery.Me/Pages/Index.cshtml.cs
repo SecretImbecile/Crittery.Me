@@ -18,6 +18,11 @@ namespace Crittery.Me.Pages
         public List<BioItem> BioItems { get; set; } = [];
 
         /// <summary>
+        /// Gets or sets the interests to display.
+        /// </summary>
+        public List<Interest> Interests { get; set; } = [];
+
+        /// <summary>
         /// Gets my current age.
         /// </summary>
         public int Age
@@ -53,7 +58,6 @@ namespace Crittery.Me.Pages
                 .OrderBy(item => item.DateStart)
                 .FirstOrDefaultAsync();
 
-
             // Next meet and convention, sorted by date
             this.CalendarEvents = new List<CalendarEvent?>() { nextMeet, nextConvention }
                 .OfType<CalendarEvent>()
@@ -61,6 +65,10 @@ namespace Crittery.Me.Pages
                 .ToList();
 
             this.BioItems = await context.BioItems
+                .OrderBy(item => item.Order)
+                .ToListAsync();
+
+            this.Interests = await context.Interests
                 .OrderBy(item => item.Order)
                 .ToListAsync();
 

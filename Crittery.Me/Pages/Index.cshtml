@@ -53,14 +53,17 @@
         <span>VGen</span>
     </a>
 </nav>
-<p class="bio">
-    <span>Interests include:</span>
-    <span>🛹 Skateboarding</span>
-    <span>📷 Photography</span>
-    <span>🖥️ 3D modelling + gamedev</span>
-    <span>🎮 Videogames</span>
-    <span>🎵 Music</span>
-</p>
+@if (Model.Interests.Count > 0)
+{
+    <p class="bio">
+        <span>Interests include:</span>
+        @foreach(Interest interest in Model.Interests)
+        {
+            <span><i class="icon" aria-hidden="true">@interest.Emoji</i> @interest.Text</span>
+        }
+    </p>
+}
+
 <p class="bio mb-0">
     <span title="Gay">🏳️‍🌈</span>
     <span>Demisexual</span>
