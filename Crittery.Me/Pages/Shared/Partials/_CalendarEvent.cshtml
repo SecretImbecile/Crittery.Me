@@ -1,0 +1,58 @@
+﻿@using Crittery.Me.Data.Models
+
+@model CalendarEvent
+
+@{
+    DateOnly today = DateOnly.FromDateTime(DateTime.Today);
+
+    bool isToday = today >= Model.DateStart && today <= Model.DateEnd;
+    bool hasUrl = !string.IsNullOrWhiteSpace(Model.Url);
+
+    if (isToday)
+    {
+        // Ongoing event
+
+        <time datetime="@today.ToString("yyyy-MM-dd")">Today!</time>
+        
+        <i class="icon" title="at">📍</i>
+        
+        if (hasUrl)
+        {
+            <a href="@Model.Url" target="_blank" rel="noopener">@Model.Name</a>
+        }
+        else
+        {
+            <span>@Model.Name</span>
+        }
+    }
+    else
+    {
+        // Upcoming events
+
+        @if (Model.DateEnd != Model.DateStart)
+        {
+            <span>
+                <time datetime="@Model.DateStart.ToString("yyyy-MM-dd")">@Model.DateStart.ToString("d MMM")</time>
+                &ndash;
+                <time datetime="@Model.DateEnd.ToString("yyyy-MM-dd")">@Model.DateEnd.ToString("d MMM")</time>
+            </span>
+        }
+        else
+        {
+            <span>
+                <time datetime="@Model.DateStart.ToString("yyyy-MM-dd")">@Model.DateStart.ToString("d MMM")</time>
+            </span>
+        }
+
+        <i class="icon" title="going to">🔜</i>
+
+        if (hasUrl)
+        {
+            <a href="@Model.Url" target="_blank" rel="noopener">@Model.Name</a>
+        }
+        else
+        {
+            <span>@Model.Name</span>
+        }
+    }
+}

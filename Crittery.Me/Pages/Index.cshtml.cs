@@ -8,14 +8,9 @@ namespace Crittery.Me.Pages
     public class IndexModel(CritteryMeContext context) : PageModel
     {
         /// <summary>
-        /// Gets or sets the next convention I'm attending.
+        /// Gets or sets the next meet and convention I'm attending.
         /// </summary>
-        public CalendarEvent? NextConvention { get; private set; }
-
-        /// <summary>
-        /// Gets the next meet I'm attending.
-        /// </summary>
-        public CalendarEvent? NextMeet { get; private set; }
+        public List<CalendarEvent> CalendarEvents { get; private set; } = [];
 
         /// <summary>
         /// Gets or sets the bio items to display.
@@ -46,18 +41,24 @@ namespace Crittery.Me.Pages
 
         public async Task OnGetAsync()
         {
-            this.NextConvention = await context.CalendarEvents
-                .Where(item => item.Type == Data.Enums.CalendarEventType.Convention)
-                .Where(item => item.DateEnd >= DateOnly.FromDateTime(DateTime.Today))
-                .OrderBy(item => item.DateStart)
-                .FirstOrDefaultAsync();
-
-            this.NextMeet = await context.CalendarEvents
+            CalendarEvent? nextMeet = await context.CalendarEvents
                 .Where(item => item.Type == Data.Enums.CalendarEventType.Meet)
                 .Where(item => item.DateEnd >= DateOnly.FromDateTime(DateTime.Today))
                 .OrderBy(item => item.DateStart)
                 .FirstOrDefaultAsync();
 
+            CalendarEvent? nextConvention = await context.CalendarEvents
+                .Where(item => item.Type == Data.Enums.CalendarEventType.Convention)
+                .Where(item => item.DateEnd >= DateOnly.FromDateTime(DateTime.Today))
+                .OrderBy(item => item.DateStart)
+                .FirstOrDefaultAsync();
+
+
+            // Next meet and convention, sorted by date
+            this.CalendarEvents = new List<CalendarEvent?>() { nextMeet, nextConvention }
+                .OfType<CalendarEvent>()
+                .OrderBy(calendarEvent => calendarEvent.DateStart)
+                .ToList();
 
             this.BioItems = await context.BioItems
                 .OrderBy(item => item.Order)

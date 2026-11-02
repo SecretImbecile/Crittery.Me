@@ -364,3 +364,4 @@ FodyWeavers.xsd
 
 # Frontend distributed files
 Crittery.Me/wwwroot/lib
+/Crittery.Me/content.db

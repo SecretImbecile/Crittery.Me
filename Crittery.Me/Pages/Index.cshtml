@@ -8,13 +8,9 @@
     ViewData["Title"] = "Home page";
 }
 
-@if (Model.NextConvention != null)
+@foreach(CalendarEvent calendarEvent in Model.CalendarEvents)
 {
-    <p>@Model.NextConvention.DateStart.ToString("dd MMM") 🔜 @Model.NextConvention?.Name</p>
-}
-@if (Model.NextMeet != null)
-{
-    <p>@Model.NextMeet.DateStart.ToString("dd MMM") 🔜 @Model.NextMeet?.Name</p>
+    <p><partial name="Partials/_CalendarEvent" model="calendarEvent" /></p>
 }
 
 <h2 class="h3">About Me</h2>
