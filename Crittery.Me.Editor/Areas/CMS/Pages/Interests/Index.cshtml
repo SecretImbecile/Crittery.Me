@@ -30,8 +30,8 @@
             {
                 <tr class="align-middle">
                     <td>
-                        <a asp-page-handler="OrderUp" asp-route-id="@interest.Id" class="btn btn-sm btn-secondary">&uarr;</a>
-                        <a asp-page-handler="OrderDown" asp-route-id="@interest.Id" class="btn btn-sm btn-secondary">&darr;</a>
+                        <a asp-page-handler="OrderUp" asp-route-id="@interest.Id" title="Move up" aria-label="Move up" class="btn btn-sm btn-secondary rounded-pill">&uarr;</a>
+                        <a asp-page-handler="OrderDown" asp-route-id="@interest.Id" title="Move down" aria-label="Move down" class="btn btn-sm btn-secondary rounded-pill">&darr;</a>
                     </td>
                     <td>@interest.Order</td>
                     <td>@interest.Emoji</td>
