@@ -1,0 +1,42 @@
+﻿@page
+@model Crittery.Me.Editor.Areas.CMS.Pages.Calendar.EditModel
+
+@{
+    ViewData["Title"] = "Edit Calendar Event";
+}
+
+@section Header
+{
+    <h1 class="h2 my-3">Edit Calendar Event</h1>
+}
+
+<form method="post" asp-route-id="@Model.FormData.Id">
+    <div class="row">
+        <div class="col-xs-12 col-lg-6 mb-3">
+            <label asp-for="FormData.DateStart" class="form-label">Start Date</label>
+            <input type="date" asp-for="FormData.DateStart" class="form-control" required />
+        </div>
+        <div class="col-xs-12 col-lg-6 mb-3">
+            <label asp-for="FormData.DateEnd" class="form-label">End Date</label>
+            <input type="date" asp-for="FormData.DateEnd" class="form-control" required />
+        </div>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="FormData.Type" class="form-label">Event Type</label>
+        <select asp-for="FormData.Type" asp-items="Model.EventTypes" class="form-select" required></select>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="FormData.Name" class="form-label">Event Name</label>
+        <input asp-for="FormData.Name" class="form-control" placeholder="MancFurs" maxlength="160" required />
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="FormData.Url" class="form-label">Event Website URL</label>
+        <input asp-for="FormData.Url" class="form-control" placeholder="https://www.mancfurs.org.uk/" />
+    </div>
+    <button type="submit" class="btn btn-lg btn-primary mb-3">Save</button>
+</form>
+
+<p></p>

@@ -21,6 +21,15 @@
                         <a asp-page="/Index" class="nav-link active" aria-current="page">Dashboard</a>
                     </li>
                     <li class="nav-item dropdown">
+                        <a asp-page="/Calendar/Index" class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Calendar
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a asp-page="/Calendar/Index" class="dropdown-item">View</a></li>
+                            <li><a asp-page="/Calendar/New" class="dropdown-item">Add New</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item dropdown">
                         <a asp-page="/Bio/Index" class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                             Bio
                         </a>

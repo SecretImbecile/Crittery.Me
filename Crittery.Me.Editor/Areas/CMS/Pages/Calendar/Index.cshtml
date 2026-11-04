@@ -1,0 +1,144 @@
+﻿@page
+
+@using Crittery.Me.Data.Models
+
+@model Crittery.Me.Editor.Areas.CMS.Pages.Calendar.IndexModel
+
+@{
+    ViewData["Title"] = "Event Calendar";
+}
+
+@section Header
+{
+    <div class="d-flex justify-content-between gap-2 mb-2">
+        <h1 class="h2 mb-0">Event Calendar</h1>
+        <a asp-page="/Calendar/New" class="btn btn-success">Add New</a>
+    </div>
+}
+
+<h2 class="h4">Upcoming Events</h2>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Date</th>
+            <th>Type</th>
+            <th>Name</th>
+            <th aria-hidden="true"></th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model.UpcomingEvents.Any())
+        {
+            foreach (CalendarEvent calendarEvent in Model.UpcomingEvents)
+            {
+                <tr class="align-middle">
+                    <td>
+                        @if (calendarEvent.DateStart.Equals(calendarEvent.DateEnd))
+                        {
+                            <time datetime="@calendarEvent.DateStart.ToString("yyyy-MM-dd")">@calendarEvent.DateStart.ToString("d MMM yyyy")</time>
+                        }
+                        else
+                        {
+                            <span>
+                                <time datetime="@calendarEvent.DateStart.ToString("yyyy-MM-dd")">@calendarEvent.DateStart.ToString("d MMM")</time>
+                                &ndash;
+                                <time datetime="@calendarEvent.DateEnd.ToString("yyyy-MM-dd")">@calendarEvent.DateEnd.ToString("d MMM yyyy")</time>
+                            </span>
+                        }
+                    </td>
+                    <td>
+                        @Enum.GetName(calendarEvent.Type)
+                    </td>
+                    <td>
+                        @if (!string.IsNullOrWhiteSpace(calendarEvent.Url))
+                        {
+                            <a href="@calendarEvent.Url" target="_blank" rel="noopener">@calendarEvent.Name</a>
+                        }
+                        else
+                        {
+                            <span>@calendarEvent.Name</span>
+                        }
+                    </td>
+                    <td class="text-end">
+                        <a asp-page="/Calendar/Edit" asp-route-id="@calendarEvent.Id" class="btn btn-primary">Edit</a>
+                        <a asp-page-handler="Delete" asp-route-id="@calendarEvent.Id" class="btn btn-danger delete-bio">Delete</a>
+                    </td>
+                </tr>
+            }
+        }
+        else
+        {
+            <tr>
+                <td colspan="5" class="fst-italic text-secondary">No upcoming events</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<h2 class="h4">Past Events</h2>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Date</th>
+            <th>Type</th>
+            <th>Name</th>
+            <th class="text-end">                
+                @if (Model.PastEvents.Any())
+                {
+                    <a asp-page-handler="Clear" id="clear-events" class="btn btn-danger">Clear</a>
+                }
+                else
+                {
+                    <button class="btn btn-danger" disabled>Clear</button>
+                }
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model.PastEvents.Any())
+        {
+            foreach (CalendarEvent calendarEvent in Model.PastEvents)
+            {
+                <tr class="align-middle">
+                    <td>
+                        @if (calendarEvent.DateStart.Equals(calendarEvent.DateEnd))
+                        {
+                            <time datetime="@calendarEvent.DateStart.ToString("yyyy-MM-dd")">@calendarEvent.DateStart.ToString("d MMM yyyy")</time>
+                        }
+                        else
+                        {
+                            <span>
+                                <time datetime="@calendarEvent.DateStart.ToString("yyyy-MM-dd")">@calendarEvent.DateStart.ToString("d MMM")</time>
+                                &ndash;
+                                <time datetime="@calendarEvent.DateEnd.ToString("yyyy-MM-dd")">@calendarEvent.DateEnd.ToString("d MMM yyyy")</time>
+                            </span>
+                        }
+                    </td>
+                    <td>
+                        @Enum.GetName(calendarEvent.Type)
+                    </td>
+                    <td>
+                        @if (!string.IsNullOrWhiteSpace(calendarEvent.Url))
+                        {
+                            <a href="@calendarEvent.Url" target="_blank" rel="noopener">@calendarEvent.Name</a>
+                        }
+                        else
+                        {
+                            <span>@calendarEvent.Name</span>
+                        }
+                    </td>
+                    <td class="text-end">
+                        <a asp-page="/Calendar/Edit" asp-route-id="@calendarEvent.Id" class="btn btn-primary">Edit</a>
+                        <a asp-page-handler="Delete" asp-route-id="@calendarEvent.Id" class="btn btn-danger delete-bio">Delete</a>
+                    </td>
+                </tr>
+            }
+        }
+        else
+        {
+            <tr>
+                <td colspan="5" class="fst-italic text-secondary">No past events</td>
+            </tr>
+        }
+    </tbody>
+</table>
