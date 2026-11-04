@@ -6,7 +6,10 @@
     ViewData["Title"] = $"Edit Interest";
 }
 
-<h1 class="h2 my-3">Edit Interest</h1>
+@section Header
+{
+    <h1 class="h2 my-3">Edit Interest</h1>
+}
 
 <form method="post" asp-route-id="@Model.FormData.Id">
     <div class="row">

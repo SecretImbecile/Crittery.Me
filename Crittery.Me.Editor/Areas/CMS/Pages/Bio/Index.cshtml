@@ -1,0 +1,54 @@
+﻿@page
+
+@using Crittery.Me.Data.Models
+
+@model Crittery.Me.Editor.Areas.CMS.Pages.Bio.IndexModel
+
+@{
+    ViewData["Title"] = "Bio Items";
+}
+
+@section Header
+{
+    <div class="d-flex justify-content-between gap-2 mb-2">
+        <h1 class="h2 mb-0">Bio Items</h1>
+        <a asp-page="/Bio/New" class="btn btn-success">Add New</a>
+    </div>
+}
+
+<table class="table">
+    <thead>
+        <tr>
+            <th aria-hidden="true"></th>
+            <th>#</th>
+            <th>Text</th>
+            <th aria-hidden="true"></th>
+        </tr>
+    </thead>    
+    <tbody>
+        @if (Model.BioItems.Count > 0)
+        {
+            foreach(BioItem bioItem in Model.BioItems)
+            {
+                <tr class="align-middle">
+                    <td>
+                        <a asp-page-handler="OrderUp" asp-route-id="@bioItem.Id" title="Move up" aria-label="Move up" class="btn btn-sm btn-outline-secondary">▲</a>
+                        <a asp-page-handler="OrderDown" asp-route-id="@bioItem.Id" title="Move down" aria-label="Move down" class="btn btn-sm btn-outline-secondary">▼</a>
+                    </td>
+                    <td>@bioItem.Order</td>
+                    <td>@bioItem.Text</td>
+                    <td class="text-end">
+                        <a asp-page="/Bio/Edit" asp-route-id="@bioItem.Id" class="btn btn-primary">Edit</a>
+                        <a asp-page-handler="Delete" asp-route-id="@bioItem.Id" class="btn btn-danger delete-bio">Delete</a>
+                    </td>
+                </tr>
+            }
+        }
+        else
+        {
+            <tr>
+                <td colspan="5" class="fst-italic text-secondary">No Bio Items</td>
+            </tr>
+        }
+    </tbody>
+</table>

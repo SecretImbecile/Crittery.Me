@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore;
 namespace Crittery.Me.Editor.Areas.CMS.Pages.Interests
 {
     /// <summary>
-    /// Page model for the new interests form.
+    /// Page model for the edit interests form.
     /// </summary>
     public class EditModel(CritteryMeContext context) : PageModel
     {

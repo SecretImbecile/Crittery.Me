@@ -9,28 +9,47 @@
     <link rel="stylesheet" href="~/_content/Crittery.Me.Editor/css/cms.css" asp-append-version="true" />
 </head>
 <body>
-    <header>
-        <nav class="navbar navbar-expand-lg bg-body-tertiary">
-            <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-page="/Index">crittery.me</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse" id="navbarNav">
-                    <ul class="navbar-nav">
-                        <li class="nav-item">
-                            <a asp-page="/Index" class="nav-link active" aria-current="page">Dashboard</a>
-                        </li>
-                        <li class="nav-item">
-                            <a asp-page="/Interests/Index" class="nav-link">Interests</a>
-                        </li>
-                    </ul>
-                </div>
+    <nav class="navbar navbar-expand-lg bg-body-tertiary">
+        <div class="container-fluid">
+            <a asp-area="" asp-page="/Index" target="_blank" class="navbar-brand">crittery.me</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a asp-page="/Index" class="nav-link active" aria-current="page">Dashboard</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a asp-page="/Bio/Index" class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Bio
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a asp-page="/Bio/Index" class="dropdown-item">View</a></li>
+                            <li><a asp-page="/Bio/New" class="dropdown-item">Add New</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a asp-page="/Interests/Index" class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Interests
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a asp-page="/Interests/Index" class="dropdown-item">View</a></li>
+                            <li><a asp-page="/Interests/New" class="dropdown-item">Add New</a></li>
+                        </ul>
+                    </li>
+                </ul>
             </div>
-        </nav>
-    </header>
-    <div class="container">
+        </div>
+    </nav>
+    <div class="container my-3">
         <main>
+            @if (IsSectionDefined("Header"))
+            {
+                <header>
+                    @await RenderSectionAsync("Header", required: false)
+                </header>
+            }
             @RenderBody()
         </main>
     </div>
