@@ -1,0 +1,42 @@
+﻿@using Crittery.Me.Data.Models
+
+@model IEnumerable<RelationshipContent>?
+
+<div id="dashboard-relationships" class="card">
+    <div class="card-body">
+        <div class="card-title d-flex justify-content-between gap-2">
+            <h2 class="h5 m-0">Relationship Items</h2>
+            <a asp-page="/Relationship/Index" class="btn btn-outline-info">View All</a>
+        </div>
+        <table class="table table-sm">
+            <thead>
+                <tr>
+                    <th aria-label="Order">#</th>
+                    <th>Text</th>
+                    <th aria-hidden="true"></th>
+                </tr>
+            </thead>    
+            <tbody>
+                @if (Model != null && Model.Any())
+                {
+                    foreach(RelationshipContent relationship in Model)
+                    {
+                        <tr class="align-middle">
+                            <td>@relationship.Order</td>
+                            <td>@relationship.Text</td>
+                            <td class="text-end">
+                                <a asp-page="/Relationship/Edit" asp-route-id="@relationship.Id" class="btn btn-primary">Edit</a>
+                            </td>
+                        </tr>
+                    }
+                }
+                else
+                {
+                    <tr>
+                        <td colspan="5" class="fst-italic text-center text-secondary">No relationship content</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

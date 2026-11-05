@@ -1,0 +1,49 @@
+﻿@using Crittery.Me.Data.Models
+
+@model IEnumerable<InterestContent>?
+
+<div id="dashboard-interests" class="card">
+    <div class="card-body">
+        <div class="card-title d-flex justify-content-between gap-2">
+            <h2 class="h5 m-0">Interest Items</h2>
+            <a asp-page="/Interests/Index" class="btn btn-outline-info">View All</a>
+        </div>
+        <table class="table table-sm">
+            <thead>
+                <tr>
+                    <th aria-hidden="true"></th>
+                    <th aria-label="Order">#</th>
+                    <th>Emoji</th>
+                    <th>Text</th>
+                    <th aria-hidden="true"></th>
+                </tr>
+            </thead>    
+            <tbody>
+                @if (Model != null && Model.Any())
+                {
+                    foreach(InterestContent interest in Model)
+                    {
+                        <tr class="align-middle">
+                            <td>
+                                <a asp-page-handler="OrderUp" asp-route-id="@interest.Id" title="Move up" aria-label="Move up" class="btn btn-sm btn-outline-secondary">▲</a>
+                                <a asp-page-handler="OrderDown" asp-route-id="@interest.Id" title="Move down" aria-label="Move down" class="btn btn-sm btn-outline-secondary">▼</a>
+                            </td>
+                            <td>@interest.Order</td>
+                            <td>@interest.Emoji</td>
+                            <td>@interest.Text</td>
+                            <td class="text-end">
+                                <a asp-page="/Interests/Edit" asp-route-id="@interest.Id" class="btn btn-primary">Edit</a>
+                            </td>
+                        </tr>
+                    }
+                }
+                else
+                {
+                    <tr>
+                        <td colspan="5" class="fst-italic text-center text-secondary">No interest content</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

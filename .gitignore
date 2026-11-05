@@ -368,6 +368,7 @@ FodyWeavers.xsd
 
 # Frontend distributed files
 Crittery.Me/wwwroot/lib
+Crittery.Me/wwwroot/font
 
 # Licensed image assets
 /Crittery.Me/wwwroot/img/art

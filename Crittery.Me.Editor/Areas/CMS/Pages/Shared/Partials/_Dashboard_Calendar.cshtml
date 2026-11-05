@@ -1,0 +1,68 @@
+﻿@using Crittery.Me.Data.Models
+
+@model IEnumerable<CalendarEvent>?
+
+<div id="dashboard-calendar" class="card">
+    <div class="card-body">
+        <div class="card-title d-flex justify-content-between gap-2">
+            <h2 class="h5 m-0">Upcoming Calendar Events</h2>
+            <a asp-page="/Calendar/Index" class="btn btn-outline-info">View All</a>
+        </div>
+        <table class="table table-sm">
+            <thead>
+                <tr>
+                    <th>Date</th>
+                    <th>Type</th>
+                    <th>Name</th>
+                    <th aria-hidden="true"></th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (Model != null && Model.Any())
+                {
+                    foreach (CalendarEvent calendarEvent in Model)
+                    {
+                        <tr class="align-middle">
+                            <td>
+                                @if (calendarEvent.DateStart.Equals(calendarEvent.DateEnd))
+                                {
+                                    <time datetime="@calendarEvent.DateStart.ToString("yyyy-MM-dd")">@calendarEvent.DateStart.ToString("d MMM yyyy")</time>
+                                }
+                                else
+                                {
+                                    <span>
+                                        <time datetime="@calendarEvent.DateStart.ToString("yyyy-MM-dd")">@calendarEvent.DateStart.ToString("d MMM")</time>
+                                        &ndash;
+                                        <time datetime="@calendarEvent.DateEnd.ToString("yyyy-MM-dd")">@calendarEvent.DateEnd.ToString("d MMM yyyy")</time>
+                                    </span>
+                                }
+                            </td>
+                            <td>
+                                @Enum.GetName(calendarEvent.Type)
+                            </td>
+                            <td>
+                                @if (!string.IsNullOrWhiteSpace(calendarEvent.Url))
+                                {
+                                    <a href="@calendarEvent.Url" target="_blank" rel="noopener">@calendarEvent.Name</a>
+                                }
+                                else
+                                {
+                                    <span>@calendarEvent.Name</span>
+                                }
+                            </td>
+                            <td class="text-end">
+                                <a asp-page="/Calendar/Edit" asp-route-id="@calendarEvent.Id" class="btn btn-primary">Edit</a>
+                            </td>
+                        </tr>
+                    }
+                }
+                else
+                {
+                    <tr>
+                        <td colspan="5" class="fst-italic text-center text-secondary">No upcoming events</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

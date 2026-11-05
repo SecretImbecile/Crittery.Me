@@ -11,7 +11,7 @@
 <body>
     <nav class="navbar navbar-expand-lg bg-body-tertiary">
         <div class="container-fluid">
-            <a asp-area="" asp-page="/Index" target="_blank" class="navbar-brand">crittery.me</a>
+            <a asp-area="" asp-page="/Index" asp-route-from="CMS" target="_blank" class="navbar-brand">crittery.me</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -26,7 +26,7 @@
                         </a>
                         <ul class="dropdown-menu">
                             <li><a asp-page="/Calendar/Index" class="dropdown-item">View</a></li>
-                            <li><a asp-page="/Calendar/New" class="dropdown-item">Add New</a></li>
+                            <li><a asp-page="/Calendar/New" class="dropdown-item">+ Add New</a></li>
                         </ul>
                     </li>
                     <li class="nav-item dropdown">
@@ -35,13 +35,13 @@
                         </a>
                         <ul class="dropdown-menu">
                             <li><a asp-page="/Bio/Index" class="dropdown-item">Bio</a></li>
-                            <li><a asp-page="/Bio/New" class="dropdown-item">Add New</a></li>
+                            <li><a asp-page="/Bio/New" class="dropdown-item">+ Add New</a></li>
                             <li><hr class="dropdown-divider"></li>
                             <li><a asp-page="/Interests/Index" class="dropdown-item">Interests</a></li>
-                            <li><a asp-page="/Interests/New" class="dropdown-item">Add New</a></li>
+                            <li><a asp-page="/Interests/New" class="dropdown-item">+ Add New</a></li>
                             <li><hr class="dropdown-divider"></li>
                             <li><a asp-page="/Relationship/Index" class="dropdown-item">Relationship</a></li>
-                            <li><a asp-page="/Relationship/New" class="dropdown-item">Add New</a></li>
+                            <li><a asp-page="/Relationship/New" class="dropdown-item">+ Add New</a></li>
                         </ul>
                     </li>
                 </ul>

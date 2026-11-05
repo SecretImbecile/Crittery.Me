@@ -16,15 +16,15 @@
     </picture>
 }
 
-@foreach(CalendarEvent calendarEvent in Model.CalendarEvents)
+@foreach(CalendarEvent calendarEvent in Model.ContentCalendar)
 {
     <p><partial name="Partials/_CalendarEvent" model="calendarEvent" /></p>
 }
 
-@if (Model.BioItems.Count > 0)
+@if (Model.ContentBio.Count > 0)
 {
     <p class="bio">
-        @foreach (BioContent item in Model.BioItems)
+        @foreach (BioContent item in Model.ContentBio)
         {
             <span>@item.Text</span>
         }
@@ -53,19 +53,27 @@
         <span>VGen</span>
     </a>
 </nav>
-@if (Model.Interests.Count > 0)
-{
-    <p class="bio">
-        <span>Interests include:</span>
-        @foreach(InterestContent interest in Model.Interests)
-        {
-            <span><i class="icon" aria-hidden="true">@interest.Emoji</i> @interest.Text</span>
-        }
-    </p>
-}
 
-<p class="bio mb-0">
-    <span title="Gay">🏳️‍🌈</span>
-    <span>Demisexual</span>
-    <span>In a relationship</span>
-</p>
+@if (Model.IsExtraContentEnabled)
+{
+    if (Model.ContentInterests.Count > 0)
+    {
+        <p class="bio">
+            <span>Interests include:</span>
+            @foreach(InterestContent content in Model.ContentInterests)
+            {
+                <span><i class="icon" aria-hidden="true">@content.Emoji</i> @content.Text</span>
+            }
+        </p>
+    }
+
+    if (Model.ContentRelationships.Count > 0)
+    {
+        <p class="bio mb-0">
+            @foreach(RelationshipContent content in Model.ContentRelationships)
+            {
+                <span>@content.Text</span>
+            }
+        </p>
+    }
+}

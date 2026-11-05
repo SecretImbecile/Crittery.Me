@@ -1,0 +1,42 @@
+﻿@using Crittery.Me.Data.Models
+
+@model IEnumerable<BioContent>?
+
+<div id="dashboard-bio" class="card">
+    <div class="card-body">
+        <div class="card-title d-flex justify-content-between gap-2">
+            <h2 class="h5 m-0">Bio Items</h2>
+            <a asp-page="/Bio/Index" class="btn btn-outline-info">View All</a>
+        </div>
+        <table class="table table-sm">
+            <thead>
+                <tr>
+                    <th aria-label="Order">#</th>
+                    <th>Text</th>
+                    <th aria-hidden="true"></th>
+                </tr>
+            </thead>    
+            <tbody>
+                @if (Model != null && Model.Any())
+                {
+                    foreach(BioContent bioItem in Model)
+                    {
+                        <tr class="align-middle">
+                            <td>@bioItem.Order</td>
+                            <td>@bioItem.Text</td>
+                            <td class="text-end">
+                                <a asp-page="/Bio/Edit" asp-route-id="@bioItem.Id" class="btn btn-primary">Edit</a>
+                            </td>
+                        </tr>
+                    }
+                }
+                else
+                {
+                    <tr>
+                        <td colspan="5" class="fst-italic text-center text-secondary">No bio content</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

@@ -1,12 +1,69 @@
+using Crittery.Me.Data;
+using Crittery.Me.Data.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.EntityFrameworkCore;
 
 namespace Crittery.Me.Editor.Areas.CMS.Pages
 {
-    public class IndexModel : PageModel
+    public class IndexModel(CritteryMeContext context) : PageModel
     {
-        public void OnGet()
+        private const int TopN = 10;
+
+        /// <summary>
+        /// Fetch the dashboard AJAX partial for bio content.
+        /// </summary>
+        public async Task<IActionResult> OnGetBioAsync()
         {
+            IEnumerable<BioContent> model = await context.BioItems
+                .OrderBy(content => content.Order)
+                .Take(TopN)
+                .ToListAsync();
+
+            return this
+                .Partial("Partials/_Dashboard_Bio", model);
+        }
+
+        /// <summary>
+        /// Fetch the dashboard AJAX partial for calendar events.
+        /// </summary>
+        public async Task<IActionResult> OnGetCalendarAsync()
+        {
+            IEnumerable<CalendarEvent> model = await context.CalendarEvents
+                .OrderByDescending(calendarEvent => calendarEvent.DateEnd)
+                .Take(TopN)
+                .ToListAsync();
+
+            return this
+                .Partial("Partials/_Dashboard_Calendar", model);
+        }
+
+        /// <summary>
+        /// Fetch the dashboard AJAX partial for interest content.
+        /// </summary>
+        public async Task<IActionResult> OnGetInterestsAsync()
+        {
+            IEnumerable<InterestContent> model = await context.Interests
+                .OrderBy(content => content.Order)
+                .Take(TopN)
+                .ToListAsync();
+
+            return this
+                .Partial("Partials/_Dashboard_Interests", model);
+        }
+
+        /// <summary>
+        /// Fetch the dashboard AJAX partial for relationship content.
+        /// </summary>
+        public async Task<IActionResult> OnGetRelationshipsAsync()
+        {
+            IEnumerable<RelationshipContent> model = await context.RelationshipItems
+                .OrderBy(content => content.Order)
+                .Take(TopN)
+                .ToListAsync();
+
+            return this
+                .Partial("Partials/_Dashboard_Relationships", model);
         }
     }
 }
