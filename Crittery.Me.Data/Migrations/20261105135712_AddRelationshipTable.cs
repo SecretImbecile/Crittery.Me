@@ -1,0 +1,58 @@
+﻿using System;
+using Microsoft.EntityFrameworkCore.Migrations;
+
+#nullable disable
+
+namespace Crittery.Me.Migrations
+{
+    /// <inheritdoc />
+    public partial class AddRelationshipTable : Migration
+    {
+        /// <inheritdoc />
+        protected override void Up(MigrationBuilder migrationBuilder)
+        {
+            migrationBuilder.CreateTable(
+                name: "RelationshipItems",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "TEXT", nullable: false),
+                    Text = table.Column<string>(type: "TEXT", nullable: false),
+                    Order = table.Column<int>(type: "INTEGER", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_RelationshipItems", x => x.Id);
+                });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Interests_Order",
+                table: "Interests",
+                column: "Order");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_BioItems_Order",
+                table: "BioItems",
+                column: "Order");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_RelationshipItems_Order",
+                table: "RelationshipItems",
+                column: "Order");
+        }
+
+        /// <inheritdoc />
+        protected override void Down(MigrationBuilder migrationBuilder)
+        {
+            migrationBuilder.DropTable(
+                name: "RelationshipItems");
+
+            migrationBuilder.DropIndex(
+                name: "IX_Interests_Order",
+                table: "Interests");
+
+            migrationBuilder.DropIndex(
+                name: "IX_BioItems_Order",
+                table: "BioItems");
+        }
+    }
+}

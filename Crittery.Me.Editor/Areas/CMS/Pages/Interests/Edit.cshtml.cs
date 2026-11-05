@@ -15,7 +15,7 @@ namespace Crittery.Me.Editor.Areas.CMS.Pages.Interests
         /// Gets or sets the submitted form data.
         /// </summary>
         [BindProperty]
-        public Interest FormData { get; set; } = null!;
+        public InterestContent FormData { get; set; } = null!;
 
         /// <summary>
         /// Loads the edit interest form.
@@ -23,7 +23,7 @@ namespace Crittery.Me.Editor.Areas.CMS.Pages.Interests
         /// <param name="id">The ID of the interest to edit.</param>
         public async Task<IActionResult> OnGetAsync(Guid id)
         {
-            Interest? dbInterest = await context.Interests
+            InterestContent? dbInterest = await context.Interests
                 .AsNoTracking()
                 .SingleOrDefaultAsync(interest => interest.Id == id);
 
@@ -47,7 +47,7 @@ namespace Crittery.Me.Editor.Areas.CMS.Pages.Interests
         /// <returns></returns>
         public async Task<IActionResult> OnPostAsync(Guid id)
         {
-            Interest? dbInterest = await context.Interests
+            InterestContent? dbInterest = await context.Interests
                 .SingleOrDefaultAsync(interest => interest.Id == id);
 
             if (dbInterest != null)

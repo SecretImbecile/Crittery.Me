@@ -31,20 +31,17 @@
                     </li>
                     <li class="nav-item dropdown">
                         <a asp-page="/Bio/Index" class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            Bio
+                            Content
                         </a>
                         <ul class="dropdown-menu">
-                            <li><a asp-page="/Bio/Index" class="dropdown-item">View</a></li>
+                            <li><a asp-page="/Bio/Index" class="dropdown-item">Bio</a></li>
                             <li><a asp-page="/Bio/New" class="dropdown-item">Add New</a></li>
-                        </ul>
-                    </li>
-                    <li class="nav-item dropdown">
-                        <a asp-page="/Interests/Index" class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            Interests
-                        </a>
-                        <ul class="dropdown-menu">
-                            <li><a asp-page="/Interests/Index" class="dropdown-item">View</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a asp-page="/Interests/Index" class="dropdown-item">Interests</a></li>
                             <li><a asp-page="/Interests/New" class="dropdown-item">Add New</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a asp-page="/Relationship/Index" class="dropdown-item">Relationship</a></li>
+                            <li><a asp-page="/Relationship/New" class="dropdown-item">Add New</a></li>
                         </ul>
                     </li>
                 </ul>

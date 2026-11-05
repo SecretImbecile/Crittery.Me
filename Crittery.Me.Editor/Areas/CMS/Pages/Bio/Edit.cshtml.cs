@@ -15,7 +15,7 @@ namespace Crittery.Me.Editor.Areas.CMS.Pages.Bio
         /// Gets or sets the submitted form data.
         /// </summary>
         [BindProperty]
-        public BioItem FormData { get; set; } = null!;
+        public BioContent FormData { get; set; } = null!;
 
         /// <summary>
         /// Loads the edit bio item form.
@@ -23,7 +23,7 @@ namespace Crittery.Me.Editor.Areas.CMS.Pages.Bio
         /// <param name="id">The ID of the bio item to edit.</param>
         public async Task<IActionResult> OnGetAsync(Guid id)
         {
-            BioItem? dbItem = await context.BioItems
+            BioContent? dbItem = await context.BioItems
                 .AsNoTracking()
                 .SingleOrDefaultAsync(bioItem => bioItem.Id == id);
 
@@ -47,7 +47,7 @@ namespace Crittery.Me.Editor.Areas.CMS.Pages.Bio
         /// <returns></returns>
         public async Task<IActionResult> OnPostAsync(Guid id)
         {
-            BioItem? dbItem = await context.BioItems
+            BioContent? dbItem = await context.BioItems
                 .SingleOrDefaultAsync(bioItem => bioItem.Id == id);
 
             if (dbItem != null)

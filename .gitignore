@@ -362,6 +362,10 @@ MigrationBackup/
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
 
+# Database temp files
+*.db-shm
+*.db-wal
+
 # Frontend distributed files
 Crittery.Me/wwwroot/lib
 

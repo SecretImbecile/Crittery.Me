@@ -15,7 +15,7 @@ namespace Crittery.Me.Editor.Areas.CMS.Pages.Interests
         /// Gets or sets the submitted form data.
         /// </summary>
         [BindProperty]
-        public Interest FormData { get; set; } = null!;
+        public InterestContent FormData { get; set; } = null!;
 
         /// <summary>
         /// Submits the new interest form.
@@ -31,7 +31,7 @@ namespace Crittery.Me.Editor.Areas.CMS.Pages.Interests
             highestOrderValue = highestOrderValue
                 ?? 0;
 
-            Interest newInterest = FormData with
+            InterestContent newInterest = FormData with
             {
                 Id = Guid.NewGuid(),
                 Order = highestOrderValue.Value + 1,

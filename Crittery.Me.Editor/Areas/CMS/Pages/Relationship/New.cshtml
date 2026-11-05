@@ -1,0 +1,21 @@
+﻿@page
+@model Crittery.Me.Editor.Areas.CMS.Pages.Relationship.NewModel
+
+@{
+    ViewData["Title"] = "New Relationship Item";
+}
+
+@section Header
+{
+    <h1 class="h2 my-3">New Relationship Item</h1>
+}
+
+<form method="post">
+    <div class="mb-3">
+        <label asp-for="FormData.Text" class="form-label">Text</label>
+        <input asp-for="FormData.Text" class="form-control" placeholder="It's complicated" maxlength="160" required />
+    </div>
+    <button type="submit" class="btn btn-lg btn-primary mb-3">Save</button>
+</form>
+
+<p></p>

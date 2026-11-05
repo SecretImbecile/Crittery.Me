@@ -17,7 +17,7 @@ namespace Crittery.Me.Migrations
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "10.0.14");
 
-            modelBuilder.Entity("Crittery.Me.Data.Models.BioItem", b =>
+            modelBuilder.Entity("Crittery.Me.Data.Models.BioContent", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -32,7 +32,9 @@ namespace Crittery.Me.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("BioItems");
+                    b.HasIndex("Order");
+
+                    b.ToTable("BioItems", (string)null);
                 });
 
             modelBuilder.Entity("Crittery.Me.Data.Models.CalendarEvent", b =>
@@ -63,7 +65,7 @@ namespace Crittery.Me.Migrations
                     b.ToTable("CalendarEvents");
                 });
 
-            modelBuilder.Entity("Crittery.Me.Data.Models.Interest", b =>
+            modelBuilder.Entity("Crittery.Me.Data.Models.InterestContent", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -81,7 +83,29 @@ namespace Crittery.Me.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Interests");
+                    b.HasIndex("Order");
+
+                    b.ToTable("Interests", (string)null);
+                });
+
+            modelBuilder.Entity("Crittery.Me.Data.Models.RelationshipContent", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("Order")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Text")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("Order");
+
+                    b.ToTable("RelationshipItems", (string)null);
                 });
 #pragma warning restore 612, 618
         }

@@ -24,7 +24,7 @@
 @if (Model.BioItems.Count > 0)
 {
     <p class="bio">
-        @foreach (BioItem item in Model.BioItems)
+        @foreach (BioContent item in Model.BioItems)
         {
             <span>@item.Text</span>
         }
@@ -57,7 +57,7 @@
 {
     <p class="bio">
         <span>Interests include:</span>
-        @foreach(Interest interest in Model.Interests)
+        @foreach(InterestContent interest in Model.Interests)
         {
             <span><i class="icon" aria-hidden="true">@interest.Emoji</i> @interest.Text</span>
         }

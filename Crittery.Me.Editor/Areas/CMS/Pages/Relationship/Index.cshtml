@@ -1,0 +1,54 @@
+﻿@page
+
+@using Crittery.Me.Data.Models
+
+@model Crittery.Me.Editor.Areas.CMS.Pages.Relationship.IndexModel
+
+@{
+    ViewData["Title"] = "Relationship Items";
+}
+
+@section Header
+{
+    <div class="d-flex justify-content-between gap-2 mb-2">
+        <h1 class="h2 mb-0">Relationship Items</h1>
+        <a asp-page="/Relationship/New" class="btn btn-success">Add New</a>
+    </div>
+}
+
+<table class="table">
+    <thead>
+        <tr>
+            <th aria-hidden="true"></th>
+            <th>#</th>
+            <th>Text</th>
+            <th aria-hidden="true"></th>
+        </tr>
+    </thead>    
+    <tbody>
+        @if (Model.Relationships.Count > 0)
+        {
+            foreach(RelationshipContent relationship in Model.Relationships)
+            {
+                <tr class="align-middle">
+                    <td>
+                        <a asp-page-handler="OrderUp" asp-route-id="@relationship.Id" title="Move up" aria-label="Move up" class="btn btn-sm btn-outline-secondary">▲</a>
+                        <a asp-page-handler="OrderDown" asp-route-id="@relationship.Id" title="Move down" aria-label="Move down" class="btn btn-sm btn-outline-secondary">▼</a>
+                    </td>
+                    <td>@relationship.Order</td>
+                    <td>@relationship.Text</td>
+                    <td class="text-end">
+                        <a asp-page="/Relationship/Edit" asp-route-id="@relationship.Id" class="btn btn-primary">Edit</a>
+                        <a asp-page-handler="Delete" asp-route-id="@relationship.Id" class="btn btn-danger delete-item" data-item-type="relationship">Delete</a>
+                    </td>
+                </tr>
+            }
+        }
+        else
+        {
+            <tr class="text-center">
+                <td colspan="5" class="fst-italic text-secondary">No relationship content</td>
+            </tr>
+        }
+    </tbody>
+</table>

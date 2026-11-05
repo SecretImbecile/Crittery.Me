@@ -28,7 +28,7 @@
     <tbody>
         @if (Model.BioItems.Count > 0)
         {
-            foreach(BioItem bioItem in Model.BioItems)
+            foreach(BioContent bioItem in Model.BioItems)
             {
                 <tr class="align-middle">
                     <td>
@@ -46,8 +46,8 @@
         }
         else
         {
-            <tr>
-                <td colspan="5" class="fst-italic text-secondary">No Bio Items</td>
+            <tr class="text-center">
+                <td colspan="5" class="fst-italic text-secondary">No bio content</td>
             </tr>
         }
     </tbody>

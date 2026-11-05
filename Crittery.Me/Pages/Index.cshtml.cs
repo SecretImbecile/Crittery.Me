@@ -15,12 +15,12 @@ namespace Crittery.Me.Pages
         /// <summary>
         /// Gets or sets the bio items to display.
         /// </summary>
-        public List<BioItem> BioItems { get; set; } = [];
+        public List<BioContent> BioItems { get; set; } = [];
 
         /// <summary>
         /// Gets or sets the interests to display.
         /// </summary>
-        public List<Interest> Interests { get; set; } = [];
+        public List<InterestContent> Interests { get; set; } = [];
 
         /// <summary>
         /// Gets my current age.
@@ -73,7 +73,7 @@ namespace Crittery.Me.Pages
                 .ToListAsync();
 
             // Substitute my actual age
-            foreach(BioItem item in this.BioItems)
+            foreach(BioContent item in this.BioItems)
             {
                 if (item.Text.Equals("{Age}", StringComparison.OrdinalIgnoreCase))
                 {

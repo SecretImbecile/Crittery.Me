@@ -1,19 +1,18 @@
 ﻿namespace Crittery.Me.Data.Models
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Text;
+
     /// <summary>
-    /// A record that is part of the itemised bio.
+    /// Base record for text content records.
     /// </summary>
-    public sealed record BioItem
+    public abstract record BaseContent
     {
         /// <summary>
         /// Gets or sets the primary identifier of the record.
         /// </summary>
         public Guid Id { get; set; }
-
-        /// <summary>
-        /// Gets the display order of the item.
-        /// </summary>
-        public required int Order { get; set; }
 
         /// <summary>
         /// Gets the text of the item.

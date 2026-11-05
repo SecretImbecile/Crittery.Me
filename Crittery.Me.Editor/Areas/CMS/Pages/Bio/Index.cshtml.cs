@@ -13,7 +13,7 @@ namespace Crittery.Me.Editor.Areas.CMS.Pages.Bio
     /// </summary>
     public class IndexModel(CritteryMeContext context) : PageModel
     {
-        public List<BioItem> BioItems { get; set; } = [];
+        public List<BioContent> BioItems { get; set; } = [];
 
         /// <summary>
         /// Load the bio items.
@@ -54,7 +54,7 @@ namespace Crittery.Me.Editor.Areas.CMS.Pages.Bio
         /// <param name="id">ID of the bio item to shift.</param>
         public async Task<IActionResult> OnGetOrderUpAsync(Guid id)
         {
-            List<BioItem> bioItems = await context.BioItems
+            List<BioContent> bioItems = await context.BioItems
                 .OrderBy(bioItem => bioItem.Order)
                 .ToListAsync();
 
@@ -70,8 +70,8 @@ namespace Crittery.Me.Editor.Areas.CMS.Pages.Bio
             if (selectedIndex > 0)
             {
                 // Swap order in list
-                BioItem selected = bioItems[selectedIndex];
-                BioItem swap = bioItems[selectedIndex - 1];
+                BioContent selected = bioItems[selectedIndex];
+                BioContent swap = bioItems[selectedIndex - 1];
 
                 bioItems[selectedIndex] = swap;
                 bioItems[selectedIndex - 1] = selected;
@@ -110,7 +110,7 @@ namespace Crittery.Me.Editor.Areas.CMS.Pages.Bio
         /// <param name="id">ID of the bio item to shift.</param>
         public async Task<IActionResult> OnGetOrderDownAsync(Guid id)
         {
-            List<BioItem> bioItems = await context.BioItems
+            List<BioContent> bioItems = await context.BioItems
                 .OrderBy(bioItem => bioItem.Order)
                 .ToListAsync();
 
@@ -131,8 +131,8 @@ namespace Crittery.Me.Editor.Areas.CMS.Pages.Bio
             else if (selectedIndex >= 0)
             {
                 // Swap order in list
-                BioItem selected = bioItems[selectedIndex];
-                BioItem swap = bioItems[selectedIndex + 1];
+                BioContent selected = bioItems[selectedIndex];
+                BioContent swap = bioItems[selectedIndex + 1];
 
                 bioItems[selectedIndex] = swap;
                 bioItems[selectedIndex + 1] = selected;

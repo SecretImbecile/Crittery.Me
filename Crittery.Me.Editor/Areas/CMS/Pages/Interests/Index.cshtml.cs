@@ -13,7 +13,7 @@ namespace Crittery.Me.Editor.Areas.CMS.Pages.Interests
     /// </summary>
     public class IndexModel(CritteryMeContext context) : PageModel
     {
-        public List<Interest> Interests { get; set; } = [];
+        public List<InterestContent> Interests { get; set; } = [];
 
         /// <summary>
         /// Load the interest list.
@@ -50,7 +50,7 @@ namespace Crittery.Me.Editor.Areas.CMS.Pages.Interests
 
         public async Task<IActionResult> OnGetOrderUpAsync(Guid id)
         {
-            List<Interest> interests = await context.Interests
+            List<InterestContent> interests = await context.Interests
                 .OrderBy(interest => interest.Order)
                 .ToListAsync();
 
@@ -66,8 +66,8 @@ namespace Crittery.Me.Editor.Areas.CMS.Pages.Interests
             if (selectedIndex > 0)
             {
                 // Swap order in list
-                Interest selected = interests[selectedIndex];
-                Interest swap = interests[selectedIndex - 1];
+                InterestContent selected = interests[selectedIndex];
+                InterestContent swap = interests[selectedIndex - 1];
 
                 interests[selectedIndex] = swap;
                 interests[selectedIndex - 1] = selected;
@@ -102,7 +102,7 @@ namespace Crittery.Me.Editor.Areas.CMS.Pages.Interests
 
         public async Task<IActionResult> OnGetOrderDownAsync(Guid id)
         {
-            List<Interest> interests = await context.Interests
+            List<InterestContent> interests = await context.Interests
                 .OrderBy(interest => interest.Order)
                 .ToListAsync();
 
@@ -123,8 +123,8 @@ namespace Crittery.Me.Editor.Areas.CMS.Pages.Interests
             else if (selectedIndex >= 0)
             {
                 // Swap order in list
-                Interest selected = interests[selectedIndex];
-                Interest swap = interests[selectedIndex + 1];
+                InterestContent selected = interests[selectedIndex];
+                InterestContent swap = interests[selectedIndex + 1];
 
                 interests[selectedIndex] = swap;
                 interests[selectedIndex + 1] = selected;

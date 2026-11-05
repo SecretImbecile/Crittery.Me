@@ -15,7 +15,7 @@ namespace Crittery.Me.Editor.Areas.CMS.Pages.Bio
         /// Gets or sets the submitted form data.
         /// </summary>
         [BindProperty]
-        public BioItem FormData { get; set; } = null!;
+        public BioContent FormData { get; set; } = null!;
 
         /// <summary>
         /// Submits the new bio item form.
@@ -30,7 +30,7 @@ namespace Crittery.Me.Editor.Areas.CMS.Pages.Bio
 
             highestOrderValue = highestOrderValue ?? 0;
 
-            BioItem newItem = FormData with
+            BioContent newItem = FormData with
             {
                 Id = Guid.NewGuid(),
                 Order = highestOrderValue.Value + 1,
