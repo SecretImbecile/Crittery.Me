@@ -2,6 +2,7 @@
 {
     using Crittery.Me.Data.Enums;
     using Crittery.Me.Data.Models;
+    using Crittery.Me.Data.Models.Images;
     using Microsoft.EntityFrameworkCore;
 
     public class CritteryMeContext : DbContext
@@ -20,6 +21,8 @@
         /// Gets or sets the interests table.
         /// </summary>
         public DbSet<InterestContent> Interests { get; set; }
+
+        public DbSet<Link> Links { get; set; }
 
         /// <summary>
         /// Gets or sets the relationship status table.
@@ -50,6 +53,17 @@
             modelBuilder.Entity<RelationshipContent>()
                 .ToTable(nameof(RelationshipItems))
                 .HasIndex(content => content.Order);
+
+            modelBuilder.Entity<Link>()
+                .ToTable(nameof(Links))
+                .HasIndex(content => content.Order);
+
+            modelBuilder.Entity<Link>()
+                .ToTable(nameof(Links))
+                .OwnsOne(link => link.Icon, builder =>
+                    builder.OwnsMany(image => image.Files)
+                    .WithOwner(file => file.Image)
+                    .HasForeignKey(file => file.ImageId));
         }
     }
 }

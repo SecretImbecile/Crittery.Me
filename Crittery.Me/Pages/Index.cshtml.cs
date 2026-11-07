@@ -28,6 +28,8 @@ namespace Crittery.Me.Pages
         /// </summary>
         public List<RelationshipContent> ContentRelationships { get; set; } = [];
 
+        public List<Link> Links { get; set; } = [];
+
         /// <summary>
         /// Gets or sets a value indicating whether today is an event day.
         /// </summary>
@@ -92,6 +94,10 @@ namespace Crittery.Me.Pages
                 .ToListAsync();
 
             this.ContentRelationships = await context.RelationshipItems
+                .OrderBy(item => item.Order)
+                .ToListAsync();
+
+            this.Links = await context.Links
                 .OrderBy(item => item.Order)
                 .ToListAsync();
 

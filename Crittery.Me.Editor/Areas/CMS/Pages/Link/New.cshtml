@@ -1,0 +1,73 @@
+﻿@page
+
+@using Crittery.Me.Data.Enums
+
+@model Crittery.Me.Editor.Areas.CMS.Pages.Link.NewModel
+
+@{
+    ViewData["Title"] = "New Link";
+}
+
+@section Header
+{
+    <h1 class="h2 my-3">New Link</h1>
+}
+
+<form method="post">
+    <div class="mb-3">
+        <label asp-for="FormData.Url" class="form-label">URL</label>
+        <input asp-for="FormData.Url" inputmode="url" autocomplete="url" class="form-control" placeholder="https://www.myspace.com/profile/crittery.me" maxlength="255" required />
+    </div>
+    <div class="mb-3">
+        <label asp-for="FormData.Text" class="form-label">Text</label>
+        <input asp-for="FormData.Text" class="form-control" placeholder="MySpace" maxlength="40" required />
+    </div>
+    <div class="mb-3">
+        <label asp-for="FormData.Title" class="form-label"><span class="font-monospace">title</span> Attribute</label>
+        <input asp-for="FormData.Title" class="form-control" placeholder="crittery.me on MySpace" maxlength="160" />
+    </div>
+    <div class="mb-3">
+        <label asp-for="FormData.Visiblity" class="form-label">Visibility</label>
+        <div class="form-check">
+            <input type="radio" asp-for="FormData.Visiblity" value="@LinkVisiblity.OnAllDays" id="VisiblityAllDays" class="form-check-input">
+            <label class="form-check-label" for="VisiblityAllDays">All Days</label>
+        </div>
+        <div class="form-check">
+            <input type="radio" asp-for="FormData.Visiblity" value="@LinkVisiblity.OnEventDay" id="VisiblityEventDays" class="form-check-input">
+            <label class="form-check-label" for="VisiblityEventDays">Event Days Only</label>
+        </div>
+    </div>
+    <section>
+        <h4>Icon</h4>
+        <div class="row">
+            <div class="col-xs-12 col-lg-6 mb-3">
+                <label asp-for="FormData.Icon.Files[0].Source" class="form-label">Source (PNG)</label>
+                <input asp-for="FormData.Icon.Files[0].Source" inputmode="url" autocomplete="photo" class="form-control" placeholder="/img/icons/myspace.png" maxlength="255" required />
+                <input type="hidden" asp-for="FormData.Icon.Files[0].MediaType" value="image/png" />
+            </div>
+            <div class="col-xs-12 col-lg-6 mb-3">
+                <label for="preview-icon-png" class="form-label text-secondary">Preview</label>
+                <div class="form-control image-preview">
+                    <img id="preview-icon-png" src="" width="64" height="64" />
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12 col-lg-6 mb-3">
+                <label asp-for="FormData.Icon.Files[1].Source" class="form-label">Source (WEBP)</label>
+                <input asp-for="FormData.Icon.Files[1].Source" inputmode="url" autocomplete="photo" class="form-control" placeholder="/img/icons/myspace.webp" maxlength="255" required />
+                <input type="hidden" asp-for="FormData.Icon.Files[1].MediaType" value="image/webp" />
+            </div>
+            <div class="col-xs-12 col-lg-6 mb-3">
+                <label for="preview-icon-webp" class="form-label text-secondary">Preview</label>
+                <div class="form-control image-preview">
+                    <img id="preview-icon-webp" src="" width="64" height="64" />
+                </div>
+            </div>
+        </div>
+        <input type="hidden" asp-for="FormData.Icon.Alt" value="" />
+    </section>
+    <button type="submit" class="btn btn-lg btn-primary mb-3">Save</button>
+</form>
+
+<p></p>

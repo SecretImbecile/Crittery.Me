@@ -16,11 +16,6 @@
     </picture>
 }
 
-@foreach(CalendarEvent calendarEvent in Model.ContentCalendar)
-{
-    <p><partial name="Partials/_CalendarEvent" model="calendarEvent" /></p>
-}
-
 @if (Model.ContentBio.Count > 0)
 {
     <p class="bio">
@@ -31,40 +26,46 @@
     </p>
 }
 
-<nav aria-label="Links" class="mb-3">
-    <a class="button" href="https://t.me/Crittery_Me" title="@@Crittery_Me on Telegram">
-        <img src="img/icons/telegram.png" width="28" height="28" alt="">
-        <span>Telegram</span>
-    </a>
-    <a class="button" href="https://discordapp.com/users/539837360519643166" title="crittery.me on Discord">
-        <img src="img/icons/discord.png" width="28" height="28" alt="">
-        <span>Discord</span>
-    </a>
-    <a class="button" href="https://bsky.app/profile/did:plc:c55nkqsopwbgppwkjqup66q2" title="@@crittery.me on Bluesky">
-        <img src="img/icons/bsky.png" width="28" height="28" alt="">
-        <span>Bluesky</span>
-    </a>
-    <a class="button" href="https://www.furtrack.com/user/crittery.me" title="Furmeet photographs on FurTrack">
-        <img src="img/icons/furtrack.png" width="28" height="28" alt="">
-        <span>FurTrack</span>
-    </a>
-    <a class="button" href="https://vgen.co/c/linden-2/initial-sketches" title="Character references on VGen">
-        <img src="img/icons/vgen.png" width="28" height="28" alt="">
-        <span>VGen</span>
-    </a>
-</nav>
+@if (Model.Links.Count > 0)
+{
+    <nav aria-label="Links" class="mb-3">
+        @foreach(Link link in Model.Links)
+        {
+            @if (Model.IsExtraContentEnabled || link.Visiblity.HasFlag(Data.Enums.LinkVisiblity.OnOtherDays))
+            {
+                <a class="button" href="@link.Url" title="@link.Title">
+                    <img src="@link.Icon.Files.FirstOrDefault()?.Source" width="28" height="28" alt="">
+                    <span>@link.Text</span>
+                </a>
+            }
+        }
+    </nav>
+}
+
+@if (Model.ContentCalendar.Count > 0)
+{
+    <div class="mb-3">
+        <p class="fw-bold text-center mb-0">Attending:</p>
+        @foreach(CalendarEvent calendarEvent in Model.ContentCalendar)
+        {
+            <p class="text-center mb-0"><partial name="Partials/_CalendarEvent" model="calendarEvent" /></p>
+        }
+    </div>
+}
 
 @if (Model.IsExtraContentEnabled)
 {
     if (Model.ContentInterests.Count > 0)
     {
-        <p class="bio">
-            <span>Interests include:</span>
-            @foreach(InterestContent content in Model.ContentInterests)
-            {
-                <span><i class="icon" aria-hidden="true">@content.Emoji</i> @content.Text</span>
-            }
-        </p>
+        <div class="mb-3">
+            <p class="fw-bold text-center mb-0">Interests include:</p>
+            <p class="bio">
+                @foreach(InterestContent content in Model.ContentInterests)
+                {
+                    <span><i class="icon" aria-hidden="true">@content.Emoji</i> @content.Text</span>
+                }
+            </p>
+        </div>
     }
 
     if (Model.ContentRelationships.Count > 0)
@@ -72,7 +73,14 @@
         <p class="bio mb-0">
             @foreach(RelationshipContent content in Model.ContentRelationships)
             {
-                <span>@content.Text</span>
+                if (content.Text.Contains("🏳️‍🌈"))
+                {
+                    <span aria-label="Gay">@content.Text</span>
+                }
+                else
+                {
+                    <span>@content.Text</span>
+                }
             }
         </p>
     }

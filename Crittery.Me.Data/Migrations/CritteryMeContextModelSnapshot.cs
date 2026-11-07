@@ -88,6 +88,36 @@ namespace Crittery.Me.Migrations
                     b.ToTable("Interests", (string)null);
                 });
 
+            modelBuilder.Entity("Crittery.Me.Data.Models.Link", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("Order")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Text")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Title")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Url")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("Visiblity")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("Order");
+
+                    b.ToTable("Links", (string)null);
+                });
+
             modelBuilder.Entity("Crittery.Me.Data.Models.RelationshipContent", b =>
                 {
                     b.Property<Guid>("Id")
@@ -106,6 +136,61 @@ namespace Crittery.Me.Migrations
                     b.HasIndex("Order");
 
                     b.ToTable("RelationshipItems", (string)null);
+                });
+
+            modelBuilder.Entity("Crittery.Me.Data.Models.Link", b =>
+                {
+                    b.OwnsOne("Crittery.Me.Data.Models.Images.Image", "Icon", b1 =>
+                        {
+                            b1.Property<Guid>("LinkId")
+                                .HasColumnType("TEXT");
+
+                            b1.Property<string>("Alt")
+                                .IsRequired()
+                                .HasColumnType("TEXT");
+
+                            b1.Property<Guid>("Id")
+                                .HasColumnType("TEXT");
+
+                            b1.HasKey("LinkId");
+
+                            b1.ToTable("Links");
+
+                            b1.WithOwner()
+                                .HasForeignKey("LinkId");
+
+                            b1.OwnsMany("Crittery.Me.Data.Models.Images.ImageFile", "Files", b2 =>
+                                {
+                                    b2.Property<Guid>("ImageId")
+                                        .HasColumnType("TEXT");
+
+                                    b2.Property<Guid>("Id")
+                                        .ValueGeneratedOnAdd()
+                                        .HasColumnType("TEXT");
+
+                                    b2.Property<string>("MediaType")
+                                        .IsRequired()
+                                        .HasColumnType("TEXT");
+
+                                    b2.Property<string>("Source")
+                                        .IsRequired()
+                                        .HasColumnType("TEXT");
+
+                                    b2.HasKey("ImageId", "Id");
+
+                                    b2.ToTable("ImageFile");
+
+                                    b2.WithOwner("Image")
+                                        .HasForeignKey("ImageId");
+
+                                    b2.Navigation("Image");
+                                });
+
+                            b1.Navigation("Files");
+                        });
+
+                    b.Navigation("Icon")
+                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }

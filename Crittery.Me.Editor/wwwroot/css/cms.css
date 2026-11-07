@@ -5,6 +5,14 @@
     gap: 1rem;
 }
 
+.form-control.image-preview {
+    padding: 0;
+    min-height: 2.25rem;
+    display:flex;
+    justify-content: center;
+    align-content: stretch;
+}
+
 @media (min-width: 1200px) {
     .dashboard-grid {
         grid-template-columns: 1fr 1fr;

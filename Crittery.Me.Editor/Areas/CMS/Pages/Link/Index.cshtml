@@ -1,0 +1,98 @@
+﻿@page
+
+@using Crittery.Me.Data.Enums
+@using Crittery.Me.Data.Models
+@using Crittery.Me.Data.Models.Images
+
+@model Crittery.Me.Editor.Areas.CMS.Pages.Link.IndexModel
+
+@{
+    ViewData["Title"] = "Links";
+}
+
+@section Header
+{
+    <div class="d-flex justify-content-between gap-2 mb-2">
+        <h1 class="h2 mb-0">Links</h1>
+        <a asp-page="/Link/New" class="btn btn-success">Add New</a>
+    </div>
+}
+
+<table class="table">
+    <thead>
+        <tr>
+            <th aria-hidden="true"></th>
+            <th aria-label="Order">#</th>
+            <th>Icon</th>
+            <th>Link</th>
+            <th class="text-monospace">Title</th>
+            <th>Visible</th>
+            <th aria-hidden="true"></th>
+        </tr>
+    </thead>    
+    <tbody>
+        @if (Model.Links.Count > 0)
+        {
+            foreach (Link link in Model.Links)
+            {
+                ImageFile? filePng = link.Icon.Files
+                    .FirstOrDefault(file => file.MediaType.EndsWith("png", StringComparison.OrdinalIgnoreCase));
+                ImageFile? fileWebp = link.Icon.Files
+                    .FirstOrDefault(file => file.MediaType.EndsWith("webp", StringComparison.OrdinalIgnoreCase));
+
+                <tr class="align-middle">
+                    <td>
+                        <a asp-page-handler="OrderUp" asp-route-id="@link.Id" title="Move up" aria-label="Move up" class="btn btn-sm btn-outline-secondary">▲</a>
+                        <a asp-page-handler="OrderDown" asp-route-id="@link.Id" title="Move down" aria-label="Move down" class="btn btn-sm btn-outline-secondary">▼</a>
+                    </td>
+                    <td>@link.Order</td>
+                    <td>
+                        @if (filePng != null)
+                        {
+                            <picture>
+                                @if (fileWebp != null)
+                                {
+                                    <source srcset="@fileWebp.Source" type="image/webp" />
+                                }
+                                <source srcset="@filePng.Source" type="image/png" />
+                                <img src="@filePng.Source" width="32" height="32" alt="Image preview" />
+                            </picture>
+                        }
+                    </td>
+                    <td>
+                        <a href="@link.Url" target="_blank" rel="noopener noreferrer">@link.Text</a>
+                    </td>
+                    <td>
+                        @link.Title
+                    </td>
+                    @if (link.Visiblity == LinkVisiblity.OnAllDays)
+                    {
+                        <td>Always</td>
+                    }
+                    else if (link.Visiblity == LinkVisiblity.OnEventDay)
+                    {
+                        <td>Event Days</td>
+                    }
+                    else if (link.Visiblity == LinkVisiblity.OnOtherDays)
+                    {
+                        <td>Non-event Days</td>
+                    }
+                    else
+                    {
+                        <td>Never</td>
+                    }
+                    <td class="text-end">
+                        <a asp-page="/Bio/Edit" asp-route-id="@link.Id" class="btn btn-primary">Edit</a>
+                        <a asp-page-handler="Delete" asp-route-id="@link.Id" class="btn btn-danger delete-bio">Delete</a>
+                    </td>
+                </tr>
+            }
+        }
+        else
+        {
+            <tr>
+                <td colspan="5" class="fst-italic text-center text-secondary">No links</td>
+            </tr>
+        }
+    </tbody>
+</table>

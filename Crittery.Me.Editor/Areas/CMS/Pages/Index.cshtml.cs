@@ -1,11 +1,11 @@
-using Crittery.Me.Data;
-using Crittery.Me.Data.Models;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.EntityFrameworkCore;
-
 namespace Crittery.Me.Editor.Areas.CMS.Pages
 {
+    using Crittery.Me.Data;
+    using Crittery.Me.Data.Models;
+    using Microsoft.AspNetCore.Mvc;
+    using Microsoft.AspNetCore.Mvc.RazorPages;
+    using Microsoft.EntityFrameworkCore;
+
     public class IndexModel(CritteryMeContext context) : PageModel
     {
         private const int TopN = 10;
@@ -50,6 +50,20 @@ namespace Crittery.Me.Editor.Areas.CMS.Pages
 
             return this
                 .Partial("Partials/_Dashboard_Interests", model);
+        }
+
+        /// <summary>
+        /// Fetch the dashboard AJAX partial for links.
+        /// </summary>
+        public async Task<IActionResult> OnGetLinksAsync()
+        {
+            IEnumerable<Crittery.Me.Data.Models.Link> model = await context.Links
+                .OrderBy(content => content.Order)
+                .Take(TopN)
+                .ToListAsync();
+
+            return this
+                .Partial("Partials/_Dashboard_Links", model);
         }
 
         /// <summary>
