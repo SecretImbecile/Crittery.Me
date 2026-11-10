@@ -5,6 +5,7 @@ namespace Crittery.Me.Editor.Areas.CMS.Pages.Link
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.AspNetCore.Mvc.RazorPages;
     using Microsoft.EntityFrameworkCore;
+    using System.Net.Mime;
 
 
     /// <summary>
@@ -33,12 +34,12 @@ namespace Crittery.Me.Editor.Areas.CMS.Pages.Link
                         new()
                         {
                             Source = string.Empty,
-                            MediaType = "image/png",
+                            MediaType = MediaTypeNames.Image.Png,
                         },
                         new()
                         {
                             Source = string.Empty,
-                            MediaType = "image/webp",
+                            MediaType = MediaTypeNames.Image.Webp,
                         }
                     ],
                     Alt = string.Empty,

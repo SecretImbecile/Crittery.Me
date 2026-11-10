@@ -118,6 +118,26 @@ namespace Crittery.Me.Migrations
                     b.ToTable("Links", (string)null);
                 });
 
+            modelBuilder.Entity("Crittery.Me.Data.Models.Photo", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime>("CapturedOn")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("UrlFurTrack")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CapturedOn")
+                        .IsDescending();
+
+                    b.ToTable("Photos", (string)null);
+                });
+
             modelBuilder.Entity("Crittery.Me.Data.Models.RelationshipContent", b =>
                 {
                     b.Property<Guid>("Id")
@@ -178,7 +198,7 @@ namespace Crittery.Me.Migrations
 
                                     b2.HasKey("ImageId", "Id");
 
-                                    b2.ToTable("ImageFile");
+                                    b2.ToTable("Links_Files");
 
                                     b2.WithOwner("Image")
                                         .HasForeignKey("ImageId");
@@ -190,6 +210,159 @@ namespace Crittery.Me.Migrations
                         });
 
                     b.Navigation("Icon")
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Crittery.Me.Data.Models.Photo", b =>
+                {
+                    b.OwnsOne("Crittery.Me.Data.Models.Images.Image", "ImageFullSize", b1 =>
+                        {
+                            b1.Property<Guid>("PhotoId")
+                                .HasColumnType("TEXT");
+
+                            b1.Property<string>("Alt")
+                                .IsRequired()
+                                .HasColumnType("TEXT");
+
+                            b1.Property<Guid>("Id")
+                                .HasColumnType("TEXT");
+
+                            b1.HasKey("PhotoId");
+
+                            b1.ToTable("Photos");
+
+                            b1.WithOwner()
+                                .HasForeignKey("PhotoId");
+
+                            b1.OwnsMany("Crittery.Me.Data.Models.Images.ImageFile", "Files", b2 =>
+                                {
+                                    b2.Property<Guid>("ImageId")
+                                        .HasColumnType("TEXT");
+
+                                    b2.Property<Guid>("Id")
+                                        .ValueGeneratedOnAdd()
+                                        .HasColumnType("TEXT");
+
+                                    b2.Property<string>("MediaType")
+                                        .IsRequired()
+                                        .HasColumnType("TEXT");
+
+                                    b2.Property<string>("Source")
+                                        .IsRequired()
+                                        .HasColumnType("TEXT");
+
+                                    b2.HasKey("ImageId", "Id");
+
+                                    b2.ToTable("Photos_Files", (string)null);
+
+                                    b2.WithOwner("Image")
+                                        .HasForeignKey("ImageId");
+
+                                    b2.Navigation("Image");
+                                });
+
+                            b1.Navigation("Files");
+                        });
+
+                    b.OwnsOne("Crittery.Me.Data.Models.Images.Image", "ImageThumbnail", b1 =>
+                        {
+                            b1.Property<Guid>("PhotoId")
+                                .HasColumnType("TEXT");
+
+                            b1.Property<string>("Alt")
+                                .IsRequired()
+                                .HasColumnType("TEXT");
+
+                            b1.Property<Guid>("Id")
+                                .HasColumnType("TEXT");
+
+                            b1.HasKey("PhotoId");
+
+                            b1.ToTable("Photos");
+
+                            b1.WithOwner()
+                                .HasForeignKey("PhotoId");
+
+                            b1.OwnsMany("Crittery.Me.Data.Models.Images.ImageFile", "Files", b2 =>
+                                {
+                                    b2.Property<Guid>("ImageId")
+                                        .HasColumnType("TEXT");
+
+                                    b2.Property<Guid>("Id")
+                                        .ValueGeneratedOnAdd()
+                                        .HasColumnType("TEXT");
+
+                                    b2.Property<string>("MediaType")
+                                        .IsRequired()
+                                        .HasColumnType("TEXT");
+
+                                    b2.Property<string>("Source")
+                                        .IsRequired()
+                                        .HasColumnType("TEXT");
+
+                                    b2.HasKey("ImageId", "Id");
+
+                                    b2.ToTable("Photos_Thumbnails", (string)null);
+
+                                    b2.WithOwner("Image")
+                                        .HasForeignKey("ImageId");
+
+                                    b2.Navigation("Image");
+                                });
+
+                            b1.Navigation("Files");
+                        });
+
+                    b.OwnsOne("Crittery.Me.Data.Models.PhotoMetadata", "Metadata", b1 =>
+                        {
+                            b1.Property<Guid>("PhotoId")
+                                .HasColumnType("TEXT");
+
+                            b1.Property<double?>("ApertureValue")
+                                .HasColumnType("REAL");
+
+                            b1.Property<string>("CameraModel")
+                                .HasColumnType("TEXT");
+
+                            b1.Property<string>("Copyright")
+                                .HasColumnType("TEXT");
+
+                            b1.Property<string>("CopyrightUrl")
+                                .HasColumnType("TEXT");
+
+                            b1.Property<DateTime?>("DateTimeOriginal")
+                                .HasColumnType("TEXT");
+
+                            b1.Property<double?>("ExposureTime")
+                                .HasColumnType("REAL");
+
+                            b1.Property<bool?>("Flash")
+                                .HasColumnType("INTEGER");
+
+                            b1.Property<double?>("FocalLength")
+                                .HasColumnType("REAL");
+
+                            b1.Property<string>("ImageDescription")
+                                .HasColumnType("TEXT");
+
+                            b1.Property<string>("LensModel")
+                                .HasColumnType("TEXT");
+
+                            b1.HasKey("PhotoId");
+
+                            b1.ToTable("Photos");
+
+                            b1.WithOwner()
+                                .HasForeignKey("PhotoId");
+                        });
+
+                    b.Navigation("ImageFullSize")
+                        .IsRequired();
+
+                    b.Navigation("ImageThumbnail")
+                        .IsRequired();
+
+                    b.Navigation("Metadata")
                         .IsRequired();
                 });
 #pragma warning restore 612, 618

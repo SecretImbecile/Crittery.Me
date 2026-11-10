@@ -7,6 +7,7 @@ namespace Crittery.Me.Editor.Areas.CMS.Pages.Photo
     using Microsoft.AspNetCore.Http;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.AspNetCore.Mvc.RazorPages;
+    using System.Net.Mime;
 
     /// <summary>
     /// Page model for the new photo form.
@@ -28,11 +29,56 @@ namespace Crittery.Me.Editor.Areas.CMS.Pages.Photo
         };
 
         /// <summary>
+        /// Gets or sets the submitted form data.
+        /// </summary>
+        [BindProperty]
+        public Photo FormData { get; set; } = null!;
+
+        /// <summary>
         /// Load the new photo form.
         /// </summary>
-        public async Task<IActionResult> OnGetAsync()
+        public async void OnGetAsync()
         {
-            return await this.OnGetMetadataAsync("/img/photos/_MG_0222.jpg");
+            this.FormData = new()
+            {
+                CapturedOn = default,
+                Title = string.Empty,
+                ImageFullSize = new()
+                {
+                    Files =
+                    [
+                        new()
+                        {
+                            Source = string.Empty,
+                            MediaType = MediaTypeNames.Image.Jpeg,
+                        },
+                        new()
+                        {
+                            Source = string.Empty,
+                            MediaType = MediaTypeNames.Image.Webp,
+                        }
+                    ],
+                    Alt = string.Empty,
+                },
+                ImageThumbnail = new()
+                {
+                    Files =
+                    [
+                        new()
+                        {
+                            Source = string.Empty,
+                            MediaType = MediaTypeNames.Image.Jpeg,
+                        },
+                        new()
+                        {
+                            Source = string.Empty,
+                            MediaType = MediaTypeNames.Image.Webp,
+                        }
+                    ],
+                    Alt = string.Empty,
+                },
+                Metadata = new(),
+            };
         }
 
         /// <summary>

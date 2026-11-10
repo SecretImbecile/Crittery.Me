@@ -13,9 +13,14 @@
         public Guid Id { get; set; }
 
         /// <summary>
-        /// Gets or sets the photo's alt text.
+        /// Gets or sets the photo's capture date.
         /// </summary>
-        public required string AltText { get; set; }
+        public required DateTime CapturedOn { get; set; }
+
+        /// <summary>
+        /// Gets or sets the photo's Title.
+        /// </summary>
+        public required string Title { get; set; }
 
         /// <summary>
         /// Gets or sets the full-size image.
@@ -26,10 +31,16 @@
         /// Gets or sets the thumbnail image.
         /// </summary>
         public required Image ImageThumbnail { get; set; }
+        
+        /// <summary>
+        /// Gets or sets the photo's metadata.
+        /// </summary>
+        public required PhotoMetadata Metadata { get; set; }
 
         /// <summary>
         /// Gets or sets the URL of the photo on FurTrack.
         /// </summary>
         public string? UrlFurTrack { get; set; }
+
     }
 }

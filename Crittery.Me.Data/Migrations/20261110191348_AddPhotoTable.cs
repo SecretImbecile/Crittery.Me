@@ -1,0 +1,147 @@
+﻿using System;
+using Microsoft.EntityFrameworkCore.Migrations;
+
+#nullable disable
+
+namespace Crittery.Me.Migrations
+{
+    /// <inheritdoc />
+    public partial class AddPhotoTable : Migration
+    {
+        /// <inheritdoc />
+        protected override void Up(MigrationBuilder migrationBuilder)
+        {
+            migrationBuilder.DropTable(
+                name: "ImageFile");
+
+            migrationBuilder.CreateTable(
+                name: "Links_Files",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "TEXT", nullable: false),
+                    ImageId = table.Column<Guid>(type: "TEXT", nullable: false),
+                    Source = table.Column<string>(type: "TEXT", nullable: false),
+                    MediaType = table.Column<string>(type: "TEXT", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Links_Files", x => new { x.ImageId, x.Id });
+                    table.ForeignKey(
+                        name: "FK_Links_Files_Links_ImageId",
+                        column: x => x.ImageId,
+                        principalTable: "Links",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Photos",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "TEXT", nullable: false),
+                    CapturedOn = table.Column<DateTime>(type: "TEXT", nullable: false),
+                    ImageFullSize_Id = table.Column<Guid>(type: "TEXT", nullable: false),
+                    ImageFullSize_Alt = table.Column<string>(type: "TEXT", nullable: false),
+                    ImageThumbnail_Id = table.Column<Guid>(type: "TEXT", nullable: false),
+                    ImageThumbnail_Alt = table.Column<string>(type: "TEXT", nullable: false),
+                    Metadata_Copyright = table.Column<string>(type: "TEXT", nullable: true),
+                    Metadata_CopyrightUrl = table.Column<string>(type: "TEXT", nullable: true),
+                    Metadata_DateTimeOriginal = table.Column<DateTime>(type: "TEXT", nullable: true),
+                    Metadata_ImageDescription = table.Column<string>(type: "TEXT", nullable: true),
+                    Metadata_CameraModel = table.Column<string>(type: "TEXT", nullable: true),
+                    Metadata_LensModel = table.Column<string>(type: "TEXT", nullable: true),
+                    Metadata_FocalLength = table.Column<double>(type: "REAL", nullable: true),
+                    Metadata_ApertureValue = table.Column<double>(type: "REAL", nullable: true),
+                    Metadata_ExposureTime = table.Column<double>(type: "REAL", nullable: true),
+                    Metadata_Flash = table.Column<bool>(type: "INTEGER", nullable: true),
+                    UrlFurTrack = table.Column<string>(type: "TEXT", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Photos", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Photos_Files",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "TEXT", nullable: false),
+                    ImageId = table.Column<Guid>(type: "TEXT", nullable: false),
+                    Source = table.Column<string>(type: "TEXT", nullable: false),
+                    MediaType = table.Column<string>(type: "TEXT", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Photos_Files", x => new { x.ImageId, x.Id });
+                    table.ForeignKey(
+                        name: "FK_Photos_Files_Photos_ImageId",
+                        column: x => x.ImageId,
+                        principalTable: "Photos",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Photos_Thumbnails",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "TEXT", nullable: false),
+                    ImageId = table.Column<Guid>(type: "TEXT", nullable: false),
+                    Source = table.Column<string>(type: "TEXT", nullable: false),
+                    MediaType = table.Column<string>(type: "TEXT", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Photos_Thumbnails", x => new { x.ImageId, x.Id });
+                    table.ForeignKey(
+                        name: "FK_Photos_Thumbnails_Photos_ImageId",
+                        column: x => x.ImageId,
+                        principalTable: "Photos",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Photos_CapturedOn",
+                table: "Photos",
+                column: "CapturedOn",
+                descending: new bool[0]);
+        }
+
+        /// <inheritdoc />
+        protected override void Down(MigrationBuilder migrationBuilder)
+        {
+            migrationBuilder.DropTable(
+                name: "Links_Files");
+
+            migrationBuilder.DropTable(
+                name: "Photos_Files");
+
+            migrationBuilder.DropTable(
+                name: "Photos_Thumbnails");
+
+            migrationBuilder.DropTable(
+                name: "Photos");
+
+            migrationBuilder.CreateTable(
+                name: "ImageFile",
+                columns: table => new
+                {
+                    ImageId = table.Column<Guid>(type: "TEXT", nullable: false),
+                    Id = table.Column<Guid>(type: "TEXT", nullable: false),
+                    MediaType = table.Column<string>(type: "TEXT", nullable: false),
+                    Source = table.Column<string>(type: "TEXT", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ImageFile", x => new { x.ImageId, x.Id });
+                    table.ForeignKey(
+                        name: "FK_ImageFile_Links_ImageId",
+                        column: x => x.ImageId,
+                        principalTable: "Links",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+        }
+    }
+}

@@ -11,7 +11,145 @@
 }
 
 <form method="post">
+    <div class="mb-3">
+        <label asp-for="FormData.CapturedOn" class="form-label">Photo Date</label>
+        <input type="datetime-local" asp-for="FormData.CapturedOn" class="form-control" max="@(DateTime.Now.ToString())" value="" required />
+    </div>
+    <div class="mb-3">
+        <label asp-for="FormData.Title" class="form-label">Title</label>
+        <input asp-for="FormData.Title" class="form-control" placeholder="Bob" maxlength="40" required />
+    </div>
+    <div class="mb-3">
+        <label asp-for="FormData.Metadata.ImageDescription" class="form-label">Description</label>
+        <textarea asp-for="FormData.Metadata.ImageDescription" class="form-control" placeholder="Bob, a fursuiter, poses for the camera in front of some backdrop" rows="3" maxlength="1000" required></textarea>
+    </div>
+    <section>
+        <h4>Image</h4>
+        <div class="row">
+            <div class="col-xs-12 col-lg-6 mb-3">
+                <label asp-for="FormData.ImageFullSize.Files[0].Source" class="form-label">Source (JPEG)</label>
+                <input asp-for="FormData.ImageFullSize.Files[0].Source" inputmode="url" autocomplete="photo" class="form-control" placeholder="/img/photos/_MG_0999.jpg" maxlength="255" required />
+                <input type="hidden" asp-for="FormData.ImageFullSize.Files[0].MediaType" value="image/jpeg" />
+            </div>
+            <div class="col-xs-12 col-lg-6 mb-3">
+                <label for="preview-icon-png" class="form-label text-secondary">Preview</label>
+                <div class="form-control image-preview">
+                    <img id="preview-icon-png" src="" width="64" height="64" />
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12 col-lg-6 mb-3">
+                <label asp-for="FormData.ImageFullSize.Files[1].Source" class="form-label">Source (WEBP)</label>
+                <input asp-for="FormData.ImageFullSize.Files[1].Source" inputmode="url" autocomplete="photo" class="form-control" placeholder="/img/icons/_MG_0999.webp" maxlength="255" required />
+                <input type="hidden" asp-for="FormData.ImageFullSize.Files[1].MediaType" value="image/webp" />
+            </div>
+            <div class="col-xs-12 col-lg-6 mb-3">
+                <label for="preview-icon-webp" class="form-label text-secondary">Preview</label>
+                <div class="form-control image-preview">
+                    <img id="preview-icon-webp" src="" width="64" height="64" />
+                </div>
+            </div>
+        </div>
+        <input type="hidden" asp-for="FormData.ImageFullSize.Alt" value="" />
+        <h4>Thumbnail</h4>
+        <div class="row">
+            <div class="col-xs-12 col-lg-6 mb-3">
+                <label asp-for="FormData.ImageThumbnail.Files[0].Source" class="form-label">Source (JPEG)</label>
+                <input asp-for="FormData.ImageThumbnail.Files[0].Source" inputmode="url" autocomplete="photo" class="form-control" placeholder="/img/photos/_MG_0999.jpg" maxlength="255" required />
+                <input type="hidden" asp-for="FormData.ImageThumbnail.Files[0].MediaType" value="image/jpeg" />
+            </div>
+            <div class="col-xs-12 col-lg-6 mb-3">
+                <label for="preview-icon-png" class="form-label text-secondary">Preview</label>
+                <div class="form-control image-preview">
+                    <img id="preview-icon-png" src="" width="64" height="64" />
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12 col-lg-6 mb-3">
+                <label asp-for="FormData.ImageThumbnail.Files[1].Source" class="form-label">Source (WEBP)</label>
+                <input asp-for="FormData.ImageThumbnail.Files[1].Source" inputmode="url" autocomplete="photo" class="form-control" placeholder="/img/icons/_MG_0999.webp" maxlength="255" required />
+                <input type="hidden" asp-for="FormData.ImageThumbnail.Files[1].MediaType" value="image/webp" />
+            </div>
+            <div class="col-xs-12 col-lg-6 mb-3">
+                <label for="preview-icon-webp" class="form-label text-secondary">Preview</label>
+                <div class="form-control image-preview">
+                    <img id="preview-icon-webp" src="" width="64" height="64" />
+                </div>
+            </div>
+        </div>
+        <input type="hidden" asp-for="FormData.ImageThumbnail.Alt" value="" />
+    </section>
+    <section>
+        <h4>Metadata</h4>
+        <div class="row">
+            <div class="col-xs-12 col-lg-6">
+                <div class="mb-3">
+                    <label asp-for="FormData.Metadata.Copyright" class="form-label">Copyright</label>
+                    <input asp-for="FormData.Metadata.Copyright" class="form-control" placeholder="CC-BY-NC-ND" required />
+                </div>
+                <div class="mb-3">
+                    <label asp-for="FormData.Metadata.CopyrightUrl" class="form-label">Copyright URL</label>
+                    <input asp-for="FormData.Metadata.CopyrightUrl" inputmode="url" autocomplete="url" class="form-control" placeholder="https://creativecommons.org/licenses/by-nc-nd/4.0" />
+                </div>
+                <div class="mb-3">
+                    <label asp-for="FormData.Metadata.CameraModel" class="form-label">Camera Model</label>
+                    <input asp-for="FormData.Metadata.CameraModel" class="form-control" placeholder="Canon EOS 6D Mark II" required />
+                </div>
+                <div class="mb-3">
+                    <label asp-for="FormData.Metadata.LensModel" class="form-label">Lens Model</label>
+                    <input asp-for="FormData.Metadata.LensModel" class="form-control" placeholder="Canon EF 50mm f/1.8 STM" />
+                </div>
+                <div class="mb-3">
+                    <label asp-for="FormData.Metadata.FocalLength" class="form-label">Focal Length</label>
+                    <div class="input-group">
+                        <input type="number" asp-for="FormData.Metadata.FocalLength" step="1" min="1" class="form-control" placeholder="50" />
+                        <span class="input-group-text">mm</span>
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <label asp-for="FormData.Metadata.ApertureValue" class="form-label">Aperture</label>
+                    <div class="input-group">
+                        <span class="input-group-text">f/</span>
+                        <input type="number" asp-for="FormData.Metadata.FocalLength" step="0.1" min="1" max="64" class="form-control" placeholder="1.8" />
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <label asp-for="FormData.Metadata.ExposureTime" class="form-label">Exposure Time</label>
+                    <div class="input-group">
+                        <span class="input-group-text">1/</span>
+                        <input type="number" asp-for="FormData.Metadata.FocalLength" step="1" min="1" max="8000" class="form-control" placeholder="320" />
+                        <span class="input-group-text" aria-label="seconds">s</span>
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <label asp-for="FormData.Metadata.Flash" class="form-label">Flash Used?</label>
+                    <div class="form-check">
+                        <input type="radio" asp-for="FormData.Metadata.Flash" value="@(null)" checked id="FlashUnknown" class="form-check-input">
+                        <label class="form-check-label" for="FlashUnknown">Unknown</label>
+                    </div>
+                    <div class="form-check">
+                        <input type="radio" asp-for="FormData.Metadata.Flash" value="@(true)" id="FlashYes" class="form-check-input">
+                        <label class="form-check-label" for="FlashYes">Yes</label>
+                    </div>
+                    <div class="form-check">
+                        <input type="radio" asp-for="FormData.Metadata.Flash" value="@(false)" id="FlashNo" class="form-check-input">
+                        <label class="form-check-label" for="FlashNo">No</label>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-12 col-lg-6">
+                <div class="card">
+                    <div class="card-header">
+                        Embedded Metadata
+                    </div>
+                    <div id="photo-metadata" class="card-body">
+                        <partial name="Partials/_Photo_Metadata" model="@(null)" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
     <button type="submit" class="btn btn-lg btn-primary mb-3">Save</button>
 </form>
-
-<p></p>

@@ -1,0 +1,20 @@
+﻿@using Crittery.Me.Data.Models
+
+@model PhotoMetadata?
+
+@if(Model != null)
+{
+    <dl>
+        <dt>
+
+        </dt>
+        <dd>
+
+        </dd>
+    </dl>
+}
+else
+{
+    <p class="text-secondary fst-italic">Select an image to populate...</p>
+    <button class="btn btn-secondary" disabled>Auto-fill</button>
+}

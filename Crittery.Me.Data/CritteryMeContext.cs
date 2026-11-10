@@ -22,7 +22,15 @@
         /// </summary>
         public DbSet<InterestContent> Interests { get; set; }
 
+        /// <summary>
+        /// Gets or sets the links table.
+        /// </summary>
         public DbSet<Link> Links { get; set; }
+
+        /// <summary>
+        /// Gets or sets the photos table.
+        /// </summary>
+        public DbSet<Photo> Photos { get; set; }
 
         /// <summary>
         /// Gets or sets the relationship status table.
@@ -62,6 +70,31 @@
                 .ToTable(nameof(Links))
                 .OwnsOne(link => link.Icon, builder =>
                     builder.OwnsMany(image => image.Files)
+                    .WithOwner(file => file.Image)
+                    .HasForeignKey(file => file.ImageId));
+
+            modelBuilder.Entity<Photo>()
+                .ToTable(nameof(Photos))
+                .HasIndex(photo => photo.CapturedOn)
+                .IsDescending();
+
+            modelBuilder.Entity<Photo>()
+                .ToTable(nameof(Photos))
+                .OwnsOne(photo => photo.Metadata);
+
+            modelBuilder.Entity<Photo>()
+                .ToTable(nameof(Photos))
+                .OwnsOne(link => link.ImageFullSize, builder =>
+                    builder.OwnsMany(image => image.Files)
+                    .ToTable("Photos_Files")
+                    .WithOwner(file => file.Image)
+                    .HasForeignKey(file => file.ImageId));
+
+            modelBuilder.Entity<Photo>()
+                .ToTable(nameof(Photos))
+                .OwnsOne(link => link.ImageThumbnail, builder =>
+                    builder.OwnsMany(image => image.Files)
+                    .ToTable("Photos_Thumbnails")
                     .WithOwner(file => file.Image)
                     .HasForeignKey(file => file.ImageId));
         }
