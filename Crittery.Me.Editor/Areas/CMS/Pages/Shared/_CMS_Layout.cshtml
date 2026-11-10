@@ -33,6 +33,15 @@
                         </ul>
                     </li>
                     <li class="nav-item dropdown" ">
+                        <a asp-page="/Photo/Index" class="nav-link @(page.StartsWith("/Photo") ? "active" : string.Empty) dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Photos
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a asp-page="/Photo/Index" class="dropdown-item @(page.Equals("/Photo/Index") ? "active" : string.Empty)">View</a></li>
+                            <li><a asp-page="/Photo/New" class="dropdown-item @(page.Equals("/Photo/New") ? "active" : string.Empty)">+ Add New</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item dropdown" ">
                         <a asp-page="/Link/Index" class="nav-link @(page.StartsWith("/Link") ? "active" : string.Empty) dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                             Links
                         </a>

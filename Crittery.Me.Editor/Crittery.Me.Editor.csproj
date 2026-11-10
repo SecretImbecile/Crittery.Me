@@ -12,6 +12,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="ExifLibNet" Version="2.1.4" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\Crittery.Me.Data\Crittery.Me.Data.csproj" />
   </ItemGroup>
 

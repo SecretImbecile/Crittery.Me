@@ -1,0 +1,91 @@
+﻿@page
+
+@model Crittery.Me.Pages.PhotosModel
+
+@{
+    ViewData["Title"] = "Photos ⭒ Crittery Me";
+}
+
+@section Header {
+    <picture id="logo">
+        <source srcset="img/logo-photo-v2.png" type="image/webp">
+        <source srcset="img/logo-photo-v2.webp" type="image/png">
+        <img src="img/logo-photo-v2.png" width="1024" height="256" alt="crittery.me">
+    </picture>
+}
+
+<nav aria-label="Links" class="mb-3">
+    <a class="button" href="https://www.furtrack.com/index/photographer:crittery_me" title="crittery_me on Furtrack">
+        <img src="img/icons/furtrack.png" width="28" height="28" alt="">
+        <span>FurTrack</span>
+    </a>
+</nav>
+
+<div class="photos">
+    <a href="img/photos/_MG_8758.jpg"
+        data-webp="img/photos/_MG_8758.webp"
+        data-caption="Minty, a cheetah fursuiter, poking his head out the side of Hideout Tiki Bar in Warrington"
+        data-furtrack="https://www.furtrack.com/p/1557791">
+        <picture>
+            <source srcset="img/photos/_MG_8758_thumb.webp" type="image/webp">
+            <source srcset="img/photos/_MG_8758_thumb.jpg" type="image/jpg">
+            <img src="img/photos/_MG_8758_thumb.jpg" width="512" height="512" alt="Minty in the Hideout Doorway">
+        </picture>
+    </a>
+    <a href="img/photos/_MG_8987.jpg" data-webp="img/photos/_MG_8987.webp">
+        <picture>
+            <source srcset="img/photos/_MG_8987_thumb.webp" type="image/webp">
+            <source srcset="img/photos/_MG_8987_thumb.jpg" type="image/jpg">
+            <img src="img/photos/_MG_8987_thumb.jpg" width="512" height="512" alt="Tangoh on the Park Bench">
+        </picture>
+    </a>
+    <a href="img/photos/_MG_9015.jpg" data-webp="img/photos/_MG_9015.webp">
+        <picture>
+            <source srcset="img/photos/_MG_9015_thumb.webp" type="image/webp">
+            <source srcset="img/photos/_MG_9015_thumb.jpg" type="image/jpg">
+            <img src="img/photos/_MG_9015_thumb.jpg" width="512" height="512" alt="Cami on Canal Street">
+        </picture>
+    </a>
+    <a href="img/photos/_MG_9702.jpg" data-webp="img/photos/_MG_9702.webp">
+        <picture>
+            <source srcset="img/photos/_MG_9702_thumb.webp" type="image/webp">
+            <source srcset="img/photos/_MG_9702_thumb.jpg" type="image/jpg">
+            <img src="img/photos/_MG_9702_thumb.jpg" width="512" height="512" alt="Coco in front of Warrington Town Hall">
+        </picture>
+    </a>
+    <a href="img/photos/_MG_0222.jpg" data-webp="img/photos/_MG_0222.webp">
+        <picture>
+            <source srcset="img/photos/_MG_0222_thumb.webp" type="image/webp">
+            <source srcset="img/photos/_MG_0222_thumb.jpg" type="image/jpg">
+            <img src="img/photos/_MG_0222_thumb.jpg" width="512" height="512" alt="Elgin at Park Gates">
+        </picture>
+    </a>
+    <a href="img/photos/_MG_0276.jpg"
+        data-webp="img/photos/_MG_0276.webp"
+        data-caption="A red and orange kobold fursuiter poses for the camera on Canal Street, Manchester"
+        data-furtrack="https://www.furtrack.com/p/1896615">
+        <picture>
+            <source srcset="img/photos/_MG_0276_thumb.webp" type="image/webp">
+            <source srcset="img/photos/_MG_0276_thumb.jpg" type="image/jpg">
+            <img src="img/photos/_MG_0276_thumb.jpg" width="512" height="512" alt="The Demon Kobold">
+        </picture>
+    </a>
+</div>
+
+<p>
+    All of my furmeet photos are released under the
+    <a href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank">CC BY-NC-ND</a> licence.
+</p>
+<p class="fineprint">
+    This means you are free to repost my photos without asking me, so long as you leave them unedited and attribute them to me. Leaving the watermark uncropped is sufficient attribution, but tagging me on any social platform I'm on is also appreciated.
+</p>
+<p>
+    If you wish to license a photo for commercial use, or would like an unwatermarked version for personal printing, please email me:
+</p>
+
+<nav aria-label="Email Me" class="mb-3">
+    <a class="button" href="mailto:photos@crittery.me?subject=Photo Request" title="Email photos@crittery.me">
+        <i aria-hidden="true">@@</i>
+        <span>Email</span>
+    </a>
+</nav>

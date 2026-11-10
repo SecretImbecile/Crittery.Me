@@ -1,4 +1,7 @@
-﻿<!DOCTYPE html>
+﻿@{
+    string page = ViewContext.RouteData.Values["page"]?.ToString() ?? string.Empty;
+}
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -30,6 +33,10 @@
             <header>
                 @await RenderSectionAsync("Header", required: true)
             </header>
+            <nav class="site-nav mb-3" aria-label="Pages">
+                <a asp-page="/Index" aria-current="@(page.Equals("/Index") ? "page" : null)" class="@(page.Equals("/Index") ? "active" : null)">About</a>
+                <a asp-page="/Photos" aria-current="@(page.Equals("/Photos") ? "page" : null)" class="@(page.Equals("/Photos") ? "active" : null)">Photos</a>
+            </nav>
             @RenderBody()
         </main>
     </div>        

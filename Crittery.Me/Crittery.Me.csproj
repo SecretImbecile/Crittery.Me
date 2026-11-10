@@ -17,7 +17,6 @@
 		<ProjectReference Include="..\Crittery.Me.Data\Crittery.Me.Data.csproj" />
 	</ItemGroup>
 
-	<!--CMS is only loaded on debug-->
 	<ItemGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU'">
 		<ProjectReference Include="..\Crittery.Me.Editor\Crittery.Me.Editor.csproj" />
 	</ItemGroup>
