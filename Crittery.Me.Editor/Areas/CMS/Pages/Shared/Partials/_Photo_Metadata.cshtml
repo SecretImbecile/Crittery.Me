@@ -5,6 +5,10 @@
 @if(Model != null)
 {
     <dl>
+        <dt>Taken On</dt>
+        <dd>
+            @Model.DateTimeOriginal?.ToString("HH:mm ddd d MMM yyyy")
+        </dd>
         <dt>Description</dt>
         <dd>
             @Model.ImageDescription
@@ -73,6 +77,7 @@
         id="button-photo-autofill"
         class="btn btn-secondary"
         data-description="@Model.ImageDescription"
+        data-datetime="@Model.DateTimeOriginal"
         data-copyright="@Model.Copyright"
         data-copyrighturl="@Model.CopyrightUrl"
         data-cameramodel="@Model.CameraModel"

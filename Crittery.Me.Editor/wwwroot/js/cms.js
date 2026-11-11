@@ -217,6 +217,7 @@ buttonExposureFraction?.addEventListener("click", function () {
  * @param {HTMLButtonElement} button The button that triggered the event.
  */
 function photoAutoFill(button) {
+    document.getElementById("FormData_CapturedOn").value = button.dataset.datetime;
     document.getElementById("FormData_Metadata_ImageDescription").value = button.dataset.description;
     document.getElementById("FormData_Metadata_Copyright").value = button.dataset.copyright;
     document.getElementById("FormData_Metadata_CopyrightUrl").value = button.dataset.copyrighturl;

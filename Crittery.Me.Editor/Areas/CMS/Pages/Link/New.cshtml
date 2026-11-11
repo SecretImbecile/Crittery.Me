@@ -16,7 +16,7 @@
 <form method="post">
     <div class="mb-3">
         <label asp-for="FormData.Url" class="form-label">URL</label>
-        <input asp-for="FormData.Url" inputmode="url" autocomplete="url" class="form-control" placeholder="https://www.myspace.com/profile/crittery.me" maxlength="255" required />
+        <input type="url" asp-for="FormData.Url" autocomplete="url" class="form-control" placeholder="https://www.myspace.com/profile/crittery.me" maxlength="255" required />
     </div>
     <div class="mb-3">
         <label asp-for="FormData.Text" class="form-label">Text</label>
