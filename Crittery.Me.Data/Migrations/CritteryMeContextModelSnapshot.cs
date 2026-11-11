@@ -127,6 +127,10 @@ namespace Crittery.Me.Migrations
                     b.Property<DateTime>("CapturedOn")
                         .HasColumnType("TEXT");
 
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
                     b.Property<string>("UrlFurTrack")
                         .HasColumnType("TEXT");
 
@@ -344,6 +348,9 @@ namespace Crittery.Me.Migrations
 
                             b1.Property<string>("ImageDescription")
                                 .HasColumnType("TEXT");
+
+                            b1.Property<int?>("IsoSpeedRating")
+                                .HasColumnType("INTEGER");
 
                             b1.Property<string>("LensModel")
                                 .HasColumnType("TEXT");

@@ -5,16 +5,88 @@
 @if(Model != null)
 {
     <dl>
-        <dt>
-
-        </dt>
+        <dt>Description</dt>
         <dd>
-
+            @Model.ImageDescription
+        </dd>
+        <dt>Copyright</dt>
+        <dd>
+            @if(!string.IsNullOrWhiteSpace(Model.CopyrightUrl))
+            {
+                <a href="@Model.CopyrightUrl" target="_blank" rel="noopener">@Model.Copyright</a>
+            }
+            else
+            {
+                <span>@Model.Copyright</span>
+            }
+        </dd>
+        <dt>Camera Model</dt>
+        <dd>
+            @Model.CameraModel
+        </dd>
+        <dt>Lens Model</dt>
+        <dd>
+            @Model.LensModel
+        </dd>
+        <dt>Focal Length</dt>
+        <dd>
+            @($"{Model.FocalLength:0} mm")
+        </dd>
+        <dt>Aperture</dt>
+        <dd>
+            @($"f/{Model.ApertureValue:0.#}")
+        </dd>
+        <dt>Exposure Time</dt>
+        <dd>
+            @if (Model.ExposureTime != null && Model.ExposureTime >= 1.0)
+            {
+                @($"{Model.ExposureTime} s")
+            }
+            else if (Model.ExposureTime != null && Model.ExposureTime > 0.0)
+            {
+                double fraction = 1 / Model.ExposureTime.Value;
+                @($"1/{fraction:0} s")
+            }
+        </dd>
+        <dt>ISO</dt>
+        <dd>
+            @Model.IsoSpeedRating
+        </dd>
+        <dt>Flash Used?</dt>
+        <dd>
+            @if(Model.Flash == true)
+            {
+                <span>Yes</span>
+            }
+            else if (Model.Flash == false)
+            {
+                <span>No</span>
+            }
+            else
+            {
+                <span>Unknown</span>
+            }
         </dd>
     </dl>
+    <button
+        type="button"
+        id="button-photo-autofill"
+        class="btn btn-secondary"
+        data-description="@Model.ImageDescription"
+        data-copyright="@Model.Copyright"
+        data-copyrighturl="@Model.CopyrightUrl"
+        data-cameramodel="@Model.CameraModel"
+        data-lensmodel="@Model.LensModel"
+        data-focallength="@Model.FocalLength"
+        data-aperture="@Model.ApertureValue"
+        data-exposure="@Model.ExposureTime"
+        data-iso="@Model.IsoSpeedRating"
+        data-flash="@Model.Flash">
+        Autofill
+    </button>
 }
 else
 {
     <p class="text-secondary fst-italic">Select an image to populate...</p>
-    <button class="btn btn-secondary" disabled>Auto-fill</button>
+    <button type="button" class="btn btn-secondary" disabled>Autofill</button>
 }

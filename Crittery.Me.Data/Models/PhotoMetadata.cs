@@ -58,6 +58,11 @@ namespace Crittery.Me.Data.Models
         public double? ExposureTime { get; set; }
 
         /// <summary>
+        /// Gets or sets the photo's exposure time.
+        /// </summary>
+        public int? IsoSpeedRating { get; set; }
+
+        /// <summary>
         /// Gets or sets a value indicating whether flash was used for this photo.
         /// </summary>
         public bool? Flash { get; set; }

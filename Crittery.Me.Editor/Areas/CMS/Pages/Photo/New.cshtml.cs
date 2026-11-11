@@ -102,7 +102,8 @@ namespace Crittery.Me.Editor.Areas.CMS.Pages.Photo
                         .FirstOrDefault();
                 }
 
-                return new JsonResult(metadata);
+                return this
+                    .Partial("Partials/_Photo_Metadata", metadata);
             }
             catch (Exception)
             {
@@ -141,6 +142,7 @@ namespace Crittery.Me.Editor.Areas.CMS.Pages.Photo
                 ExposureTime = metadata.GetExposureTime(),
                 Flash = metadata.GetFlash(),
                 ImageDescription = metadata.GetImageDescription(),
+                IsoSpeedRating = metadata.GetIsoSpeedRating(),
                 LensModel = metadata.GetLensCombined(),
                 FocalLength = metadata.GetFocalLength(),
             };

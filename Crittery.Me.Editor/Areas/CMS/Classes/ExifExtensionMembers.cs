@@ -104,6 +104,29 @@
             }
 
             /// <summary>
+            /// Gets the <see cref="ExifTag.ISOSpeedRatings"/> integer value.
+            /// </summary>
+            /// <returns>A <see langword="int"/> representing the first ISO rating, or <see langword="null"/>.</returns>
+            public int? GetIsoSpeedRating()
+            {
+                bool propertyExists = exifProperties
+                    .Where(property => property.Tag == ExifTag.ISOSpeedRatings)
+                    .Any();
+
+                if (propertyExists)
+                {
+                    ExifUShort exifSpeedRatings = exifProperties
+                        .Get<ExifUShort>(ExifTag.ISOSpeedRatings);
+
+                    return exifSpeedRatings.Value;
+                }
+                else
+                {
+                    return null;
+                }
+            }
+
+            /// <summary>
             /// Gets the <see cref="ExifTag.LensMake"/> string value.
             /// </summary>
             /// <returns>A <see langword="string"/> representing the field, or <see langword="null"/>.</returns>
@@ -130,10 +153,10 @@
                 string? make = GetLensMake(exifProperties);
                 string? model = GetLensModel(exifProperties);
 
-                if (!string.IsNullOrWhiteSpace(make) || !string.IsNullOrWhiteSpace(model))
+                if (!string.IsNullOrWhiteSpace(model))
                 {
                     return string
-                        .Join(' ', make, model)
+                        .Join(' ', make ?? "Unknown", model)
                         .Trim();
                 }
                 else
