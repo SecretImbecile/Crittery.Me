@@ -1,5 +1,7 @@
 ﻿@page
 
+@using Crittery.Me.Data.Models
+
 @model Crittery.Me.Pages.PhotosModel
 
 @{
@@ -14,70 +16,44 @@
     </picture>
 }
 
+<p>
+    I take photgraphs at local furmeets and publish them under the <em>crittery.me</em> branding.
+    All of my fursuit photography can be found in full-resoluton on FurTrack:</p>
+
 <nav aria-label="Links" class="mb-3">
-    <a class="button" href="https://www.furtrack.com/index/photographer:crittery_me" title="crittery_me on Furtrack">
+    <a class="button" href="https://www.furtrack.com/index/photographer:crittery_me" target="_blank" rel="noopener" title="Photographer tag on FurTrack">
         <img src="img/icons/furtrack.png" width="28" height="28" alt="">
-        <span>FurTrack</span>
+        <span>All Photographs</span>
     </a>
 </nav>
 
-<div class="photos">
-    <a href="img/photos/_MG_8758.jpg"
-        data-webp="img/photos/_MG_8758.webp"
-        data-caption="Minty, a cheetah fursuiter, poking his head out the side of Hideout Tiki Bar in Warrington"
-        data-furtrack="https://www.furtrack.com/p/1557791">
-        <picture>
-            <source srcset="img/photos/_MG_8758_thumb.webp" type="image/webp">
-            <source srcset="img/photos/_MG_8758_thumb.jpg" type="image/jpg">
-            <img src="img/photos/_MG_8758_thumb.jpg" width="512" height="512" alt="Minty in the Hideout Doorway">
-        </picture>
-    </a>
-    <a href="img/photos/_MG_8987.jpg" data-webp="img/photos/_MG_8987.webp">
-        <picture>
-            <source srcset="img/photos/_MG_8987_thumb.webp" type="image/webp">
-            <source srcset="img/photos/_MG_8987_thumb.jpg" type="image/jpg">
-            <img src="img/photos/_MG_8987_thumb.jpg" width="512" height="512" alt="Tangoh on the Park Bench">
-        </picture>
-    </a>
-    <a href="img/photos/_MG_9015.jpg" data-webp="img/photos/_MG_9015.webp">
-        <picture>
-            <source srcset="img/photos/_MG_9015_thumb.webp" type="image/webp">
-            <source srcset="img/photos/_MG_9015_thumb.jpg" type="image/jpg">
-            <img src="img/photos/_MG_9015_thumb.jpg" width="512" height="512" alt="Cami on Canal Street">
-        </picture>
-    </a>
-    <a href="img/photos/_MG_9702.jpg" data-webp="img/photos/_MG_9702.webp">
-        <picture>
-            <source srcset="img/photos/_MG_9702_thumb.webp" type="image/webp">
-            <source srcset="img/photos/_MG_9702_thumb.jpg" type="image/jpg">
-            <img src="img/photos/_MG_9702_thumb.jpg" width="512" height="512" alt="Coco in front of Warrington Town Hall">
-        </picture>
-    </a>
-    <a href="img/photos/_MG_0222.jpg" data-webp="img/photos/_MG_0222.webp">
-        <picture>
-            <source srcset="img/photos/_MG_0222_thumb.webp" type="image/webp">
-            <source srcset="img/photos/_MG_0222_thumb.jpg" type="image/jpg">
-            <img src="img/photos/_MG_0222_thumb.jpg" width="512" height="512" alt="Elgin at Park Gates">
-        </picture>
-    </a>
-    <a href="img/photos/_MG_0276.jpg"
-        data-webp="img/photos/_MG_0276.webp"
-        data-caption="A red and orange kobold fursuiter poses for the camera on Canal Street, Manchester"
-        data-furtrack="https://www.furtrack.com/p/1896615">
-        <picture>
-            <source srcset="img/photos/_MG_0276_thumb.webp" type="image/webp">
-            <source srcset="img/photos/_MG_0276_thumb.jpg" type="image/jpg">
-            <img src="img/photos/_MG_0276_thumb.jpg" width="512" height="512" alt="The Demon Kobold">
-        </picture>
-    </a>
-</div>
+@if (Model.Photos.Count > 0)
+{
+    <div class="photos" aria-label="Photo Highlights">
+        @foreach (Photo photo in Model.Photos)
+        {
+            <a href="@photo.ImageFullSize.Files[0].Source"
+               data-webp="@photo.ImageFullSize.Files[1].Source"
+               data-caption="@photo.Metadata.ImageDescription"
+               data-furtrack="@photo.UrlFurTrack">
+                <picture>
+                    <source srcset="@photo.ImageThumbnail.Files[1].Source" type="image/webp">
+                    <source srcset="@photo.ImageThumbnail.Files[0].Source" type="image/jpg">
+                    <img src="@photo.ImageThumbnail.Files[0].Source" width="512" height="512" alt="@photo.Title">
+                </picture>
+            </a>
+        }
+    </div>
+}
 
 <p>
-    All of my furmeet photos are released under the
-    <a href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank">CC BY-NC-ND</a> licence.
+    My furmeet photos are released under the
+    <a href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank">CC BY-NC-ND</a>
+    licence.
 </p>
 <p class="fineprint">
-    This means you are free to repost my photos without asking me, so long as you leave them unedited and attribute them to me. Leaving the watermark uncropped is sufficient attribution, but tagging me on any social platform I'm on is also appreciated.
+    This means you are free to repost my photos without asking me, so long as you leave them unedited and attribute them to me.
+    Leaving the watermark uncropped is sufficient attribution, but tagging me on any social platform I'm on is also appreciated.
 </p>
 <p>
     If you wish to license a photo for commercial use, or would like an unwatermarked version for personal printing, please email me:
