@@ -52,7 +52,7 @@
                     <td>
                         @if (!string.IsNullOrWhiteSpace(calendarEvent.Url))
                         {
-                            <a href="@calendarEvent.Url" target="_blank" rel="noopener">@calendarEvent.Name</a>
+                            <a href="@calendarEvent.Url" target="_blank" rel="noopener noreferrer">@calendarEvent.Name</a>
                         }
                         else
                         {
@@ -120,7 +120,7 @@
                     <td>
                         @if (!string.IsNullOrWhiteSpace(calendarEvent.Url))
                         {
-                            <a href="@calendarEvent.Url" target="_blank" rel="noopener">@calendarEvent.Name</a>
+                            <a href="@calendarEvent.Url" target="_blank" rel="noreferrer">@calendarEvent.Name</a>
                         }
                         else
                         {

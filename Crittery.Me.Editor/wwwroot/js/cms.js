@@ -157,7 +157,7 @@ photoSourceJpeg?.addEventListener("change", async function () {
     let fileUrl = photoSourceJpeg.value;
     fileUrl = encodeURIComponent(fileUrl);
     if (fileUrl.length > 0) {
-        let request = new Request("New?handler=Metadata&src=" + fileUrl, {
+        let request = new Request("?handler=Metadata&src=" + fileUrl, {
             method: "GET",
             headers: {
                 "Accept": "text/html",
@@ -186,7 +186,7 @@ photoSourceJpeg?.addEventListener("change", async function () {
 });
 
 const photoSourceWebp = document.getElementById("FormData_ImageFullSize_Files_1__Source");
-iconSourceWebp?.addEventListener("change", function () {
+photoSourceWebp?.addEventListener("change", function () {
     const photoPreviewWebp = document.getElementById("preview-fullsize-webp");
     photoPreviewWebp.src = photoSourceWebp.value;
 });

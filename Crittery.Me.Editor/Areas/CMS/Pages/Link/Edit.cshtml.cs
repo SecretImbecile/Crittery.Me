@@ -25,6 +25,7 @@ namespace Crittery.Me.Editor.Areas.CMS.Pages.Link
         public async Task<IActionResult> OnGetAsync(Guid id)
         {
             Link? dbItem = await context.Links
+                .AsNoTracking()
                 .SingleOrDefaultAsync(link => link.Id == id);
 
             if (dbItem != null)

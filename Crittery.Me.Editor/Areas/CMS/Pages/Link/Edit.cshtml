@@ -41,6 +41,7 @@
         <h4>Icon</h4>
         <div class="row">
             <div class="col-xs-12 col-lg-6 mb-3">
+                <input type="hidden" asp-for="FormData.Icon.Files[0].Id" />
                 <label asp-for="FormData.Icon.Files[0].Source" class="form-label">Source (PNG)</label>
                 <input asp-for="FormData.Icon.Files[0].Source" inputmode="url" autocomplete="photo" class="form-control" placeholder="/img/icons/myspace.png" maxlength="255" required />
                 <input type="hidden" asp-for="FormData.Icon.Files[0].MediaType" value="image/png" />
@@ -54,6 +55,7 @@
         </div>
         <div class="row">
             <div class="col-xs-12 col-lg-6 mb-3">
+                <input type="hidden" asp-for="FormData.Icon.Files[1].Id" />
                 <label asp-for="FormData.Icon.Files[1].Source" class="form-label">Source (WEBP)</label>
                 <input asp-for="FormData.Icon.Files[1].Source" inputmode="url" autocomplete="photo" class="form-control" placeholder="/img/icons/myspace.webp" maxlength="255" required />
                 <input type="hidden" asp-for="FormData.Icon.Files[1].MediaType" value="image/webp" />

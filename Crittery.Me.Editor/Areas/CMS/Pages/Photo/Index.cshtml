@@ -1,0 +1,100 @@
+﻿@page
+
+@using Crittery.Me.Data.Models
+@using Crittery.Me.Data.Models.Images
+
+@model Crittery.Me.Editor.Areas.CMS.Pages.Photo.IndexModel
+
+@{
+    ViewData["Title"] = "Photos";
+}
+
+@section Header
+{
+    <div class="d-flex justify-content-between gap-2 mb-2">
+        <h1 class="h2 mb-0">Photos</h1>
+        <a asp-page="/Photo/New" class="btn btn-success">Add New</a>
+    </div>
+}
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Date</th>
+            <th>Title</th>
+            <th>FurTrack URL</th>
+            <th class="text-center">Image</th>
+            <th class="text-center">Thumbnail</th>
+            <th aria-hidden="true"></th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model.Photos.Count > 0)
+        {
+            foreach (Photo photo in Model.Photos)
+            {
+                ImageFile? fileJpg = photo.ImageFullSize.Files
+                    .FirstOrDefault(file => file.MediaType.EndsWith("jpeg", StringComparison.OrdinalIgnoreCase));
+                ImageFile? fileWebp = photo.ImageFullSize.Files
+                    .FirstOrDefault(file => file.MediaType.EndsWith("webp", StringComparison.OrdinalIgnoreCase));
+                ImageFile? thumbJpg = photo.ImageThumbnail.Files
+                    .FirstOrDefault(file => file.MediaType.EndsWith("jpeg", StringComparison.OrdinalIgnoreCase));
+                ImageFile? thumbWebp = photo.ImageThumbnail.Files
+                    .FirstOrDefault(file => file.MediaType.EndsWith("webp", StringComparison.OrdinalIgnoreCase));
+
+                <tr class="align-middle">
+                    <td>
+                        <time datetime="@photo.CapturedOn.ToString("yyyy-MM-dd")">@photo.CapturedOn.ToString("d MMM yyyy")</time>
+                    </td>
+                    <td>
+                        @photo.Title
+                    </td>
+                    <td>
+                        @if (!string.IsNullOrWhiteSpace(photo.UrlFurTrack))
+                        {
+                            <a href="@photo.UrlFurTrack" target="_blank" rel="noopener noreferrer">@photo.UrlFurTrack</a>
+                        }
+                    </td>
+                    <td class="py-1 text-center bg-dark">
+                        @if (fileJpg != null)
+                        {
+                            <picture>
+                                @if (fileWebp != null)
+                                {
+                                    <source srcset="@fileWebp.Source" type="image/webp" />
+                                }
+                                <source srcset="@fileJpg.Source" type="image/png" />
+                                <a href="@fileJpg.Source" target="_blank">
+                                    <img src="@fileJpg.Source" loading="lazy" height="256" title="@photo.Metadata.ImageDescription" alt="@photo.Metadata.ImageDescription" class="shadow" />
+                                </a>
+                            </picture>
+                        }
+                    </td>
+                    <td class="text-center bg-dark">
+                        @if (thumbJpg != null)
+                        {
+                            <picture>
+                                @if (thumbWebp != null)
+                                {
+                                    <source srcset="@thumbWebp.Source" type="image/webp" />
+                                }
+                                <source srcset="@thumbJpg.Source" type="image/png" />
+                                <img src="@thumbJpg.Source" loading="lazy" height="128" width="128" alt="@photo.Title" class="shadow" />
+                            </picture>
+                        }
+                    </td>
+                    <td class="text-end">
+                        <a asp-page="/Photo/Edit" asp-route-id="@photo.Id" class="btn btn-primary">Edit</a>
+                        <a asp-page-handler="Delete" asp-route-id="@photo.Id" class="btn btn-danger delete-photo">Delete</a>
+                    </td>
+                </tr>
+            }
+        }
+        else
+        {
+            <tr>
+                <td colspan="5" class="fst-italic text-center text-secondary">No photos</td>
+            </tr>
+        }
+    </tbody>
+</table>
