@@ -132,6 +132,7 @@ namespace Crittery.Me.Editor.Areas.CMS.Pages.Photo
 
             if (dbItem != null)
             {
+                dbItem.Stub = this.FormData.Stub;
                 dbItem.CapturedOn = this.FormData.CapturedOn;
                 dbItem.Title = this.FormData.Title;
                 dbItem.UrlFurTrack = this.FormData.UrlFurTrack;

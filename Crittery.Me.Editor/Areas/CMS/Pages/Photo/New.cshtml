@@ -12,16 +12,20 @@
 
 <form method="post">
     <div class="mb-3">
-        <label asp-for="FormData.CapturedOn" class="form-label">Photo Date</label>
-        <input type="datetime-local" asp-for="FormData.CapturedOn" class="form-control" max="@(DateTime.Now.ToString())" value="" required />
+        <label asp-for="FormData.Stub" class="form-label">URL Stub</label>
+        <input asp-for="FormData.Stub" inputmode="url" class="form-control" placeholder="Bob-At-Event" maxlength="50" required />
     </div>
     <div class="mb-3">
         <label asp-for="FormData.Title" class="form-label">Title</label>
-        <input asp-for="FormData.Title" class="form-control" placeholder="Bob" maxlength="40" required />
+        <input asp-for="FormData.Title" class="form-control" placeholder="Bob At event" maxlength="50" required />
     </div>
     <div class="mb-3">
         <label asp-for="FormData.Metadata.ImageDescription" class="form-label">Description</label>
         <textarea asp-for="FormData.Metadata.ImageDescription" class="form-control" placeholder="Bob, a fursuiter, poses for the camera in front of some backdrop" rows="3" maxlength="1000" required></textarea>
+    </div>
+    <div class="mb-3">
+        <label asp-for="FormData.CapturedOn" class="form-label">Photo Date</label>
+        <input type="datetime-local" asp-for="FormData.CapturedOn" class="form-control" max="@(DateTime.Now.ToString())" value="" required />
     </div>
     <div class="mb-3">
         <label asp-for="FormData.UrlFurTrack" class="form-label">FurTrack URL</label>

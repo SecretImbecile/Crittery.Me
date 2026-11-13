@@ -127,6 +127,10 @@ namespace Crittery.Me.Migrations
                     b.Property<DateTime>("CapturedOn")
                         .HasColumnType("TEXT");
 
+                    b.Property<string>("Stub")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
                     b.Property<string>("Title")
                         .IsRequired()
                         .HasColumnType("TEXT");
@@ -138,6 +142,9 @@ namespace Crittery.Me.Migrations
 
                     b.HasIndex("CapturedOn")
                         .IsDescending();
+
+                    b.HasIndex("Stub")
+                        .IsUnique();
 
                     b.ToTable("Photos", (string)null);
                 });

@@ -13,6 +13,11 @@
         public Guid Id { get; set; }
 
         /// <summary>
+        /// Gets or sets the URL stub for this photo.
+        /// </summary>
+        public required string Stub { get; set; }
+
+        /// <summary>
         /// Gets or sets the photo's capture date.
         /// </summary>
         public required DateTime CapturedOn { get; set; }

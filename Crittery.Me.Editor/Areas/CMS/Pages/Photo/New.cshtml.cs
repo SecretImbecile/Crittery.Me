@@ -44,6 +44,7 @@ namespace Crittery.Me.Editor.Areas.CMS.Pages.Photo
         {
             this.FormData = new()
             {
+                Stub = string.Empty,
                 CapturedOn = default,
                 Title = string.Empty,
                 ImageFullSize = new()

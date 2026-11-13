@@ -75,6 +75,11 @@
 
             modelBuilder.Entity<Photo>()
                 .ToTable(nameof(Photos))
+                .HasIndex(photo => photo.Stub)
+                .IsUnique();
+
+            modelBuilder.Entity<Photo>()
+                .ToTable(nameof(Photos))
                 .HasIndex(photo => photo.CapturedOn)
                 .IsDescending();
 

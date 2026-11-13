@@ -1,0 +1,28 @@
+﻿using Microsoft.EntityFrameworkCore.Migrations;
+
+#nullable disable
+
+namespace Crittery.Me.Migrations
+{
+    /// <inheritdoc />
+    public partial class MakePhotoUrlStubUnique : Migration
+    {
+        /// <inheritdoc />
+        protected override void Up(MigrationBuilder migrationBuilder)
+        {
+            migrationBuilder.CreateIndex(
+                name: "IX_Photos_Stub",
+                table: "Photos",
+                column: "Stub",
+                unique: true);
+        }
+
+        /// <inheritdoc />
+        protected override void Down(MigrationBuilder migrationBuilder)
+        {
+            migrationBuilder.DropIndex(
+                name: "IX_Photos_Stub",
+                table: "Photos");
+        }
+    }
+}
