@@ -1,4 +1,4 @@
-﻿@page
+﻿@page "/Photos/{stub?}"
 
 @using Crittery.Me.Data.Models
 
@@ -10,10 +10,19 @@
 
 @section Header {
     <picture id="logo">
-        <source srcset="img/logo-photo-v2.png" type="image/webp">
-        <source srcset="img/logo-photo-v2.webp" type="image/png">
-        <img src="img/logo-photo-v2.png" width="1024" height="256" alt="crittery.me">
+        <source srcset="/img/logo-photo-v2.png" type="image/webp">
+        <source srcset="/img/logo-photo-v2.webp" type="image/png">
+        <img src="/img/logo-photo-v2.png" width="1024" height="256" alt="crittery.me">
     </picture>
+}
+
+@section Figures {
+    <figure id="photo-full">
+        @if (Model.CurrentPhoto != null)
+        {
+            <partial name="Partials/_Photo" model="@Model.CurrentPhoto" />
+        }
+    </figure>
 }
 
 <p>
@@ -22,24 +31,21 @@
 
 <nav aria-label="Links" class="mb-3">
     <a class="button" href="https://www.furtrack.com/index/photographer:crittery_me" target="_blank" rel="noopener" title="Photographer tag on FurTrack">
-        <img src="img/icons/furtrack.png" width="28" height="28" alt="">
+        <img src="/img/icons/furtrack.png" width="28" height="28" alt="">
         <span>All Photographs</span>
     </a>
 </nav>
 
 @if (Model.Photos.Count > 0)
 {
-    <div class="photos" aria-label="Photo Highlights">
+    <div id="photos" class="photos" aria-label="Photo Highlights">
         @foreach (Photo photo in Model.Photos)
         {
-            <a href="@photo.ImageFullSize.Files[0].Source"
-               data-webp="@photo.ImageFullSize.Files[1].Source"
-               data-caption="@photo.Metadata.ImageDescription"
-               data-furtrack="@photo.UrlFurTrack">
+            <a asp-page="/Photos" asp-route-stub="@photo.Stub" data-photo="@photo.Stub" title="@photo.Title">
                 <picture>
                     <source srcset="@photo.ImageThumbnail.Files[1].Source" type="image/webp">
                     <source srcset="@photo.ImageThumbnail.Files[0].Source" type="image/jpg">
-                    <img src="@photo.ImageThumbnail.Files[0].Source" width="512" height="512" alt="@photo.Title">
+                    <img src="@photo.ImageThumbnail.Files[0].Source" loading="lazy" width="512" height="512" alt="@photo.Title">
                 </picture>
             </a>
         }

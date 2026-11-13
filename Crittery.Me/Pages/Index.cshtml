@@ -10,9 +10,9 @@
 
 @section Header {
     <picture id="logo">
-        <source srcset="img/logo-v2.webp" type="image/webp">
-        <source srcset="img/logo-v2.webp" type="image/png">
-        <img src="img/logo-v2.webp" width="900" height="450" alt="Linden (he/they)">
+        <source srcset="/img/logo-v2.webp" type="image/webp">
+        <source srcset="/img/logo-v2.webp" type="image/png">
+        <img src="/img/logo-v2.webp" width="900" height="450" alt="Linden (he/they)">
     </picture>
 }
 
@@ -44,7 +44,7 @@
 
 @if (Model.ContentCalendar.Count > 0)
 {
-    <div class="mb-3">
+    <div id="attending" class="mb-3">
         <p class="fw-bold text-center mb-0">Attending:</p>
         @foreach(CalendarEvent calendarEvent in Model.ContentCalendar)
         {

@@ -1,0 +1,22 @@
+﻿@using Crittery.Me.Data.Models
+
+@model Photo
+
+<picture tabindex="0" onclick="photoClose();">
+    <source srcset="@Model.ImageFullSize.Files[1].Source" type="image/webp" />
+    <source srcset="@Model.ImageFullSize.Files[0].Source" type="image/jpg" />
+    <img src="@Model.ImageFullSize.Files[0].Source" loading="eager" alt="@Model.ImageFullSize.Alt" />
+</picture>
+<figcaption>
+    <span id="photo-caption"></span>
+    @if (!string.IsNullOrWhiteSpace(Model.UrlFurTrack))
+    {
+        <p class="fw-bold">
+            @Model.Title
+        </p>
+        <p>
+            @Model.Metadata.ImageDescription
+        </p>
+        <a href="@Model.UrlFurTrack" target="_blank" rel="noopener">FurTrack</a>
+    }
+</figcaption>

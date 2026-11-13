@@ -8,25 +8,25 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"]</title>
     <script type="importmap"></script>
-    <link rel="stylesheet" href="~/lib/bootstrap/css/bootstrap-reboot.min.css" />
-    <link rel="stylesheet" href="~/css/main.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/Crittery.Me.styles.css" asp-append-version="true" />
+    <link rel="stylesheet" href="@Url.Content("~/lib/bootstrap/css/bootstrap-reboot.min.css")" />
+    <link rel="stylesheet" href="@Url.Content("~/css/main.css")" asp-append-version="true" />
+    <link rel="stylesheet" href="@Url.Content("~/css/main.css")" asp-append-version="true" />
 </head>
 <body>
     <picture id="artwork" role="button" tabindex="0" onclick="inspectOpen();">
-        <source srcset="img/art/character-awd.webp" type="image/webp">
-        <source srcset="img/art/character-awd.png" type="image/png">
-        <img src="img/art/character-awd.png" width="773" height="1920" alt="A black and white sketch of Linden by AWD!">
+        <source srcset="/img/art/character-awd.webp" type="image/webp">
+        <source srcset="/img/art/character-awd.png" type="image/png">
+        <img src="/img/art/character-awd.png" width="773" height="1920" alt="A black and white sketch of Linden by AWD!">
     </picture>
     <figure id="artwork-full">
         <picture tabindex="0" onclick="inspectClose();">
-            <source srcset="img/art/character-awd-full.webp" type="image/webp">
-            <source srcset="img/art/character-awd-full.jpg" type="image/jpg">
-            <img src="img/art/character-awd-full.jpg" width="1484" height="1920" loading="lazy" alt="A black and white sketch of Linden by AWD!">
+            <source srcset="/img/art/character-awd-full.webp" type="image/webp">
+            <source srcset="/img/art/character-awd-full.jpg" type="image/jpg">
+            <img src="/img/art/character-awd-full.jpg" width="1484" height="1920" loading="lazy" alt="A black and white sketch of Linden by AWD!">
         </picture>
         <figcaption><a href="https://vgen.co/awd/service/character-sketch/91797a16-670d-458b-9bd1-40f189bd9310" target="_blank">Character Sketch</a> commission of Linden by <a href="https://awd.carrd.co/" target="_blank">AWD!</a></figcaption>
     </figure>
+    @await RenderSectionAsync("Figures", required: false)
 
     <div id="container">
         <main>
@@ -40,7 +40,7 @@
             @RenderBody()
         </main>
     </div>        
-    <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="@Url.Content("~/js/site.js")" asp-append-version="true"></script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>
