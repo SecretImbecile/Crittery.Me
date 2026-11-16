@@ -205,6 +205,7 @@ main {
     border: var(--border);
     border-radius: 2rem;
     box-shadow: 4px 4px 16px rgba(0, 0, 0, 0.5);
+    font-family: "Caroni", cursive;
 }
 
     main > header {
@@ -227,7 +228,6 @@ main {
         display: flex;
         justify-content: center;
         gap: 2rem;
-        font-family: "Caroni", cursive;
         font-size: 2rem;
         font-weight: bold;
         font-optical-sizing: auto;
@@ -243,8 +243,7 @@ main {
         display: flex;
         flex-flow: row wrap;
         justify-content: center;
-        gap: 0.25rem 1rem;
-        font-family: "Caroni", cursive;
+        gap: 0.25rem 1rem;        
         font-size: 16pt;
         font-optical-sizing: auto;
         font-weight: normal;
@@ -252,7 +251,6 @@ main {
     }
 
     main p {
-        font-family: "Caroni", cursive;
         font-size: 16pt;
         font-optical-sizing: auto;
         font-weight: normal;
@@ -383,7 +381,8 @@ article {
         border-color: #c5b69d;
     }
 
-    .button > img {
+    .button > img,
+    .button > svg {
         width: auto;
         flex-grow: 0;
         user-select: none;

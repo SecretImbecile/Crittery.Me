@@ -1,0 +1,16 @@
+﻿@page "/{statusCode:int}"
+
+@model Crittery.Me.Pages.StatusModel
+
+@section Header {
+    <picture id="logo">
+        <source srcset="/img/logo-v2.webp" type="image/webp">
+        <source srcset="/img/logo-v2.webp" type="image/png">
+        <img src="/img/logo-v2.webp" width="900" height="450" alt="Linden (he/they)">
+    </picture>
+}
+
+<div class="text-center">
+    <h1>@this.Response.StatusCode</h1>
+    <p>@Model.StatusDescription</p>
+</div>
