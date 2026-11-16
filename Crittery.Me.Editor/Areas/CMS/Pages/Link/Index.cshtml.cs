@@ -1,3 +1,20 @@
+// <copyright file="Index.cshtml.cs" company="Jack Kelly">
+// Copyright © 2026 Jack Kelly.
+//
+// The crittery.me website is free software: you can redistribute it and/or modify it
+// under the terms of the GNU General Public License as published by the
+// Free Software Foundation, either version 3 of the License, or
+// (at your option)any later version.
+//
+// The crittery.me source code is distributed in the hope that it will be useful, but
+// WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
+// or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for
+// more details.
+//
+// You should have received a copy of the GNU General Public License along with
+// The crittery.me source code. If not, see [https://www.gnu.org/licenses/].
+// </copyright>
+
 namespace Crittery.Me.Editor.Areas.CMS.Pages.Link
 {
     using Crittery.Me.Data;
@@ -11,11 +28,17 @@ namespace Crittery.Me.Editor.Areas.CMS.Pages.Link
     /// </summary>
     public class IndexModel(CritteryMeContext context) : PageModel
     {
+        /// <summary>
+        /// Gets or sets the links to list.
+        /// </summary>
         public List<Link> Links { get; set; } = [];
 
         /// <summary>
         /// Load the links.
         /// </summary>
+        /// <returns>
+        /// A <see cref="Task"/> representing the duration of the HTTP request.
+        /// </returns>
         public async Task OnGetAsync()
         {
             this.Links = await context.Links
@@ -28,6 +51,10 @@ namespace Crittery.Me.Editor.Areas.CMS.Pages.Link
         /// Delete a link.
         /// </summary>
         /// <param name="id">ID of the link to delete.</param>
+        /// <returns>
+        /// A <see cref="Task"/> representing the duration of the HTTP request.
+        /// Results in a page redirect.
+        /// </returns>
         public async Task<IActionResult> OnGetDeleteAsync(Guid id)
         {
             int count = await context.Links
@@ -50,6 +77,10 @@ namespace Crittery.Me.Editor.Areas.CMS.Pages.Link
         /// Shift the order of a link upwards.
         /// </summary>
         /// <param name="id">ID of the link to shift.</param>
+        /// <returns>
+        /// A <see cref="Task"/> representing the duration of the HTTP request.
+        /// Results in a page redirect.
+        /// </returns>
         public async Task<IActionResult> OnGetOrderUpAsync(Guid id)
         {
             List<Link> links = await context.Links
@@ -75,7 +106,7 @@ namespace Crittery.Me.Editor.Areas.CMS.Pages.Link
                 links[selectedIndex - 1] = selected;
 
                 // Renumber items in list
-                for(int i = 0; i < links.Count; i++)
+                for (int i = 0; i < links.Count; i++)
                 {
                     links[i].Order = i + 1;
                 }
@@ -106,6 +137,10 @@ namespace Crittery.Me.Editor.Areas.CMS.Pages.Link
         /// Shift the order of a link downwards.
         /// </summary>
         /// <param name="id">ID of the link to shift.</param>
+        /// <returns>
+        /// A <see cref="Task"/> representing the duration of the HTTP request.
+        /// Results in a page redirect.
+        /// </returns>
         public async Task<IActionResult> OnGetOrderDownAsync(Guid id)
         {
             List<Link> links = await context.Links

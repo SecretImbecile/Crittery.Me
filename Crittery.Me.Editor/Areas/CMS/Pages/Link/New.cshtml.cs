@@ -1,15 +1,31 @@
+// <copyright file="New.cshtml.cs" company="Jack Kelly">
+// Copyright © 2026 Jack Kelly.
+//
+// The crittery.me website is free software: you can redistribute it and/or modify it
+// under the terms of the GNU General Public License as published by the
+// Free Software Foundation, either version 3 of the License, or
+// (at your option)any later version.
+//
+// The crittery.me source code is distributed in the hope that it will be useful, but
+// WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
+// or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for
+// more details.
+//
+// You should have received a copy of the GNU General Public License along with
+// The crittery.me source code. If not, see [https://www.gnu.org/licenses/].
+// </copyright>
+
 namespace Crittery.Me.Editor.Areas.CMS.Pages.Link
 {
+    using System.Net.Mime;
     using Crittery.Me.Data;
     using Crittery.Me.Data.Models;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.AspNetCore.Mvc.RazorPages;
     using Microsoft.EntityFrameworkCore;
-    using System.Net.Mime;
-
 
     /// <summary>
-    /// Page model for the new bio item form.
+    /// Page model for the new link form.
     /// </summary>
     public class NewModel(CritteryMeContext context) : PageModel
     {
@@ -19,6 +35,9 @@ namespace Crittery.Me.Editor.Areas.CMS.Pages.Link
         [BindProperty]
         public Link FormData { get; set; } = null!;
 
+        /// <summary>
+        /// Loads the new link form.
+        /// </summary>
         public void OnGet()
         {
             this.FormData = new()
@@ -40,7 +59,7 @@ namespace Crittery.Me.Editor.Areas.CMS.Pages.Link
                         {
                             Source = string.Empty,
                             MediaType = MediaTypeNames.Image.Webp,
-                        }
+                        },
                     ],
                     Alt = string.Empty,
                 },
@@ -50,7 +69,10 @@ namespace Crittery.Me.Editor.Areas.CMS.Pages.Link
         /// <summary>
         /// Submits the new bio item form.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>
+        /// A <see cref="Task"/> representing the duration of the HTTP request.
+        /// Results in a page redirect.
+        /// </returns>
         public async Task<IActionResult> OnPostAsync()
         {
             int? highestOrderValue = await context.Links
@@ -60,11 +82,11 @@ namespace Crittery.Me.Editor.Areas.CMS.Pages.Link
 
             highestOrderValue = highestOrderValue ?? 0;
 
-            Link newItem = FormData with
+            Link newItem = this.FormData with
             {
                 Id = Guid.NewGuid(),
                 Order = highestOrderValue.Value + 1,
-                Icon = FormData.Icon with
+                Icon = this.FormData.Icon with
                 {
                     Alt = string.Empty,
                 },
@@ -77,7 +99,6 @@ namespace Crittery.Me.Editor.Areas.CMS.Pages.Link
                 .SaveChangesAsync();
 
             return this.RedirectToPage("/Link/Index", new { Area = "CMS" });
-
         }
     }
 }

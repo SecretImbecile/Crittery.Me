@@ -1,9 +1,24 @@
+// <copyright file="Index.cshtml.cs" company="Jack Kelly">
+// Copyright © 2026 Jack Kelly.
+//
+// The crittery.me website is free software: you can redistribute it and/or modify it
+// under the terms of the GNU General Public License as published by the
+// Free Software Foundation, either version 3 of the License, or
+// (at your option)any later version.
+//
+// The crittery.me source code is distributed in the hope that it will be useful, but
+// WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
+// or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for
+// more details.
+//
+// You should have received a copy of the GNU General Public License along with
+// The crittery.me source code. If not, see [https://www.gnu.org/licenses/].
+// </copyright>
+
 namespace Crittery.Me.Editor.Areas.CMS.Pages.Relationship
 {
-    using System.Net.WebSockets;
     using Crittery.Me.Data;
     using Crittery.Me.Data.Models;
-    using Microsoft.AspNetCore.Http.Metadata;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.AspNetCore.Mvc.RazorPages;
     using Microsoft.EntityFrameworkCore;
@@ -13,11 +28,18 @@ namespace Crittery.Me.Editor.Areas.CMS.Pages.Relationship
     /// </summary>
     public class IndexModel(CritteryMeContext context) : PageModel
     {
+        /// <summary>
+        /// Gets or sets the relationships to list.
+        /// </summary>
         public List<RelationshipContent> Relationships { get; set; } = [];
 
         /// <summary>
         /// Load the relationship items.
         /// </summary>
+        /// <returns>
+        /// A <see cref="Task"/> representing the duration of the request.
+        /// Results in a page view.
+        /// </returns>
         public async Task OnGetAsync()
         {
             this.Relationships = await context.RelationshipItems
@@ -30,6 +52,10 @@ namespace Crittery.Me.Editor.Areas.CMS.Pages.Relationship
         /// Delete a relationship item.
         /// </summary>
         /// <param name="id">ID of the relationship item to delete.</param>
+        /// <returns>
+        /// A <see cref="Task"/> representing the duration of the request.
+        /// Results in a page redirect.
+        /// </returns>
         public async Task<IActionResult> OnGetDeleteAsync(Guid id)
         {
             int count = await context.RelationshipItems
@@ -52,6 +78,10 @@ namespace Crittery.Me.Editor.Areas.CMS.Pages.Relationship
         /// Shift the order of a relationship item upwards.
         /// </summary>
         /// <param name="id">ID of the relationship item to shift.</param>
+        /// <returns>
+        /// A <see cref="Task"/> representing the duration of the request.
+        /// Results in a page redirect.
+        /// </returns>
         public async Task<IActionResult> OnGetOrderUpAsync(Guid id)
         {
             List<RelationshipContent> relationships = await context.RelationshipItems
@@ -77,7 +107,7 @@ namespace Crittery.Me.Editor.Areas.CMS.Pages.Relationship
                 relationships[selectedIndex - 1] = selected;
 
                 // Renumber items in list
-                for(int i = 0; i < relationships.Count; i++)
+                for (int i = 0; i < relationships.Count; i++)
                 {
                     relationships[i].Order = i + 1;
                 }
@@ -108,6 +138,10 @@ namespace Crittery.Me.Editor.Areas.CMS.Pages.Relationship
         /// Shift the order of a relationship item downwards.
         /// </summary>
         /// <param name="id">ID of the relationship item to shift.</param>
+        /// <returns>
+        /// A <see cref="Task"/> representing the duration of the request.
+        /// Results in a page redirect.
+        /// </returns>
         public async Task<IActionResult> OnGetOrderDownAsync(Guid id)
         {
             List<RelationshipContent> relationships = await context.RelationshipItems

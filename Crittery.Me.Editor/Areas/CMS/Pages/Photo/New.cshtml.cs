@@ -1,5 +1,23 @@
+// <copyright file="New.cshtml.cs" company="Jack Kelly">
+// Copyright © 2026 Jack Kelly.
+//
+// The crittery.me website is free software: you can redistribute it and/or modify it
+// under the terms of the GNU General Public License as published by the
+// Free Software Foundation, either version 3 of the License, or
+// (at your option)any later version.
+//
+// The crittery.me source code is distributed in the hope that it will be useful, but
+// WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
+// or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for
+// more details.
+//
+// You should have received a copy of the GNU General Public License along with
+// The crittery.me source code. If not, see [https://www.gnu.org/licenses/].
+// </copyright>
+
 namespace Crittery.Me.Editor.Areas.CMS.Pages.Photo
 {
+    using System.Net.Mime;
     using Crittery.Me.Data;
     using Crittery.Me.Data.Models;
     using Crittery.Me.Editor.Areas.CMS.Classes;
@@ -8,18 +26,16 @@ namespace Crittery.Me.Editor.Areas.CMS.Pages.Photo
     using Microsoft.AspNetCore.Http;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.AspNetCore.Mvc.RazorPages;
-    using System.Net.Mime;
 
     /// <summary>
     /// Page model for the new photo form.
     /// </summary>
-    /// <param name="hostEnvironment">The current host environment.</param>
     public class NewModel(
         CritteryMeContext context,
         IWebHostEnvironment hostEnvironment) : PageModel
     {
         /// <summary>
-        /// Gets a list of URLS for known license names
+        /// Gets a list of URLS for known license names.
         /// </summary>
         public static Dictionary<string, string> KnownLicenseUrls => new()
         {
@@ -60,7 +76,7 @@ namespace Crittery.Me.Editor.Areas.CMS.Pages.Photo
                         {
                             Source = string.Empty,
                             MediaType = MediaTypeNames.Image.Webp,
-                        }
+                        },
                     ],
                     Alt = string.Empty,
                 },
@@ -77,7 +93,7 @@ namespace Crittery.Me.Editor.Areas.CMS.Pages.Photo
                         {
                             Source = string.Empty,
                             MediaType = MediaTypeNames.Image.Webp,
-                        }
+                        },
                     ],
                     Alt = string.Empty,
                 },
@@ -88,7 +104,10 @@ namespace Crittery.Me.Editor.Areas.CMS.Pages.Photo
         /// <summary>
         /// Fetch the metadata for an iamge file.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>
+        /// A <see cref="Task"/> representing the duration of the HTTP request.
+        /// Results in a page redirect.
+        /// </returns>
         public async Task<IActionResult> OnGetMetadataAsync(string src)
         {
             try
@@ -119,7 +138,10 @@ namespace Crittery.Me.Editor.Areas.CMS.Pages.Photo
         /// <summary>
         /// Submit the new photo form.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>
+        /// A <see cref="Task"/> representing the duration of the HTTP request.
+        /// Results in a page redirect.
+        /// </returns>
         public async Task<IActionResult> OnPostAsync()
         {
             // Validate the image paths
@@ -158,21 +180,21 @@ namespace Crittery.Me.Editor.Areas.CMS.Pages.Photo
                 return this.Page();
             }
 
-            Photo newItem = FormData with
+            Photo newItem = this.FormData with
             {
                 Id = Guid.NewGuid(),
-                ImageFullSize = FormData.ImageFullSize with
+                ImageFullSize = this.FormData.ImageFullSize with
                 {
-                    Alt = FormData.Metadata.ImageDescription!,
+                    Alt = this.FormData.Metadata.ImageDescription!,
                 },
-                ImageThumbnail = FormData.ImageThumbnail with
+                ImageThumbnail = this.FormData.ImageThumbnail with
                 {
-                    Alt = FormData.Title!,
+                    Alt = this.FormData.Title!,
                 },
-                Metadata = FormData.Metadata with
+                Metadata = this.FormData.Metadata with
                 {
-                    DateTimeOriginal = FormData.CapturedOn,
-                }
+                    DateTimeOriginal = this.FormData.CapturedOn,
+                },
             };
 
             _ = context.Photos

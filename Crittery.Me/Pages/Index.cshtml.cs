@@ -1,47 +1,70 @@
-using Crittery.Me.Data;
-using Crittery.Me.Data.Models;
-using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Primitives;
+// <copyright file="Index.cshtml.cs" company="Jack Kelly">
+// Copyright © 2026 Jack Kelly.
+//
+// The crittery.me website is free software: you can redistribute it and/or modify it
+// under the terms of the GNU General Public License as published by the
+// Free Software Foundation, either version 3 of the License, or
+// (at your option)any later version.
+//
+// The crittery.me source code is distributed in the hope that it will be useful, but
+// WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
+// or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for
+// more details.
+//
+// You should have received a copy of the GNU General Public License along with
+// The crittery.me source code. If not, see [https://www.gnu.org/licenses/].
+// </copyright>
 
 namespace Crittery.Me.Pages
 {
+    using Crittery.Me.Data;
+    using Crittery.Me.Data.Models;
+    using Microsoft.AspNetCore.Mvc.RazorPages;
+    using Microsoft.EntityFrameworkCore;
+    using Microsoft.Extensions.Primitives;
+
+    /// <summary>
+    /// Page model for the site homepage.
+    /// </summary>
     public class IndexModel(CritteryMeContext context) : PageModel
     {
         /// <summary>
-        /// Gets or sets the next meet and convention I'm attending.
+        /// Gets the next meet and convention I'm attending.
         /// </summary>
         public List<CalendarEvent> ContentCalendar { get; private set; } = [];
 
         /// <summary>
-        /// Gets or sets the bio content.
+        /// Gets the bio content.
         /// </summary>
-        public List<BioContent> ContentBio { get; set; } = [];
+        public List<BioContent> ContentBio { get; private set; } = [];
 
         /// <summary>
-        /// Gets or sets the interests content.
+        /// Gets the interests content.
         /// </summary>
-        public List<InterestContent> ContentInterests { get; set; } = [];
+        public List<InterestContent> ContentInterests { get; private set; } = [];
 
         /// <summary>
-        /// Gets or sets the relationships content.
+        /// Gets the relationships content.
         /// </summary>
-        public List<RelationshipContent> ContentRelationships { get; set; } = [];
-
-        public List<Link> Links { get; set; } = [];
+        public List<RelationshipContent> ContentRelationships { get; private set; } = [];
 
         /// <summary>
-        /// Gets or sets a value indicating whether today is an event day.
+        /// Gets the links content.
         /// </summary>
-        public bool IsDayOfEvent { get; set; }
+        public List<Link> Links { get; private set; } = [];
 
         /// <summary>
-        /// Gets or sets a value indicating whether extra content should be displayed.
+        /// Gets a value indicating whether today is an event day.
+        /// </summary>
+        public bool IsDayOfEvent { get; private set; }
+
+        /// <summary>
+        /// Gets a value indicating whether extra content should be displayed.
         /// </summary>
         /// <remarks>
         /// Value is true <see langword="true"/> when <see cref="IsDayOfEvent"/> is true, or when a specific query parameter is present.
         /// </remarks>
-        public bool IsExtraContentEnabled { get; set; }
+        public bool IsExtraContentEnabled { get; private set; }
 
         /// <summary>
         /// Gets my current age.
@@ -54,17 +77,24 @@ namespace Crittery.Me.Pages
                 int year = today.Year;
                 int month = today.Month;
                 int day = today.Day;
-                
+
                 if (month > 6 || (month == 6 && day >= 15))
                 {
                     return year - 1994;
                 }
+                else
                 {
                     return year - 1994 - 1;
                 }
             }
         }
 
+        /// <summary>
+        /// Loads the homepage.
+        /// </summary>
+        /// <returns>
+        /// A <see cref="Task"/> representing the duration of the page request.
+        /// </returns>
         public async Task OnGetAsync()
         {
             CalendarEvent? nextMeet = await context.CalendarEvents
@@ -102,7 +132,7 @@ namespace Crittery.Me.Pages
                 .ToListAsync();
 
             // Substitute my actual age
-            foreach(BioContent item in this.ContentBio)
+            foreach (BioContent item in this.ContentBio)
             {
                 if (item.Text.Equals("{Age}", StringComparison.OrdinalIgnoreCase))
                 {
@@ -113,12 +143,12 @@ namespace Crittery.Me.Pages
             // Determine the extra content flags
             DateOnly today = DateOnly
                 .FromDateTime(DateTime.Today);
-            
+
             this.IsDayOfEvent = this.ContentCalendar
                 .Where(calendarEvent => calendarEvent.DateStart <= today && calendarEvent.DateEnd >= today)
                 .Any();
 
-            this.IsExtraContentEnabled = this.IsDayOfEvent || DetermineExtraContentParameters();
+            this.IsExtraContentEnabled = this.IsDayOfEvent || this.DetermineExtraContentParameters();
         }
 
         /// <summary>
@@ -127,8 +157,8 @@ namespace Crittery.Me.Pages
         /// <returns>A <see langword="bool"/> indicating whether extra content should be displayed.</returns>
         private bool DetermineExtraContentParameters()
         {
-            StringValues sourceParameter = Request.Query["from"];
-            
+            StringValues sourceParameter = this.Request.Query["from"];
+
             return sourceParameter.Contains("CMS", StringComparer.OrdinalIgnoreCase)
                 || sourceParameter.Contains("NFC", StringComparer.OrdinalIgnoreCase)
                 || sourceParameter.Contains("QR", StringComparer.OrdinalIgnoreCase);

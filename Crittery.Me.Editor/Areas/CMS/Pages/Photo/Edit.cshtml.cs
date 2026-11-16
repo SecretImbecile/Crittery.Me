@@ -1,3 +1,20 @@
+// <copyright file="Edit.cshtml.cs" company="Jack Kelly">
+// Copyright © 2026 Jack Kelly.
+//
+// The crittery.me website is free software: you can redistribute it and/or modify it
+// under the terms of the GNU General Public License as published by the
+// Free Software Foundation, either version 3 of the License, or
+// (at your option)any later version.
+//
+// The crittery.me source code is distributed in the hope that it will be useful, but
+// WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
+// or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for
+// more details.
+//
+// You should have received a copy of the GNU General Public License along with
+// The crittery.me source code. If not, see [https://www.gnu.org/licenses/].
+// </copyright>
+
 namespace Crittery.Me.Editor.Areas.CMS.Pages.Photo
 {
     using Crittery.Me.Data;
@@ -13,7 +30,6 @@ namespace Crittery.Me.Editor.Areas.CMS.Pages.Photo
     /// <summary>
     /// Page model for the edit photo form.
     /// </summary>
-    /// <param name="hostEnvironment">The current host environment.</param>
     public class EditModel(
         CritteryMeContext context,
         IWebHostEnvironment hostEnvironment) : PageModel
@@ -27,6 +43,10 @@ namespace Crittery.Me.Editor.Areas.CMS.Pages.Photo
         /// <summary>
         /// Load the edit photo form.
         /// </summary>
+        /// <returns>
+        /// A <see cref="Task"/> representing the duration of the request.
+        /// Results in a page view.
+        /// </returns>
         public async Task<IActionResult> OnGetAsync(Guid id)
         {
             Photo? dbItem = await context.Photos
@@ -57,7 +77,10 @@ namespace Crittery.Me.Editor.Areas.CMS.Pages.Photo
         /// <summary>
         /// Fetch the metadata for an iamge file.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>
+        /// A <see cref="Task"/> representing the duration of the request.
+        /// Results in a partial view.
+        /// </returns>
         public async Task<IActionResult> OnGetMetadataAsync(string src)
         {
             try
@@ -88,7 +111,10 @@ namespace Crittery.Me.Editor.Areas.CMS.Pages.Photo
         /// <summary>
         /// Submit the edit photo form.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>
+        /// A <see cref="Task"/> representing the duration of the request.
+        /// Results in a page redirect.
+        /// </returns>
         public async Task<IActionResult> OnPostAsync(Guid id)
         {
             // Validate the image paths
@@ -152,7 +178,7 @@ namespace Crittery.Me.Editor.Areas.CMS.Pages.Photo
             else
             {
                 return this
-                    .NotFound("");
+                    .NotFound();
             }
         }
 
