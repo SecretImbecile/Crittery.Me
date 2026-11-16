@@ -1,0 +1,31 @@
+﻿@using Crittery.Me.Data.Models
+
+@model IEnumerable<Photo>?
+
+<div id="dashboard-photos" class="card">
+    <div class="card-body">
+        <div class="card-title d-flex justify-content-between gap-2">
+            <h2 class="h5 m-0">Latest Photos</h2>
+            <a asp-page="/Photo/Index" class="btn btn-outline-info">View All</a>
+        </div>
+        @if (Model != null && Model.Any())
+        {
+            <div id="photos" class="d-flex flex-row flex-wrap justify-content-around gap-3">
+                @foreach(Photo photo in Model)
+                {
+                    <a asp-area="" asp-page="/Photos" asp-route-stub="@photo.Stub" target="_blank">
+                        <picture>
+                            <source srcset="@photo.ImageThumbnail.Files[1].Source" type="image/webp">
+                            <source srcset="@photo.ImageThumbnail.Files[0].Source" type="image/jpg">
+                            <img src="@photo.ImageThumbnail.Files[0].Source" loading="lazy" width="128" height="128" title="@photo.Title" alt="@photo.Title">
+                        </picture>
+                    </a>
+                }
+            </div>
+        }
+        else
+        {
+            <div id="photos" class="w-100 text-center text-secondary fst-italic">No photos</div>
+        }
+    </div>
+</div>

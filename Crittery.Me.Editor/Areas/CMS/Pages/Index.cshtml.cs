@@ -9,6 +9,7 @@ namespace Crittery.Me.Editor.Areas.CMS.Pages
     public class IndexModel(CritteryMeContext context) : PageModel
     {
         private const int TopN = 10;
+        private const int TopNPhotos = 6;
 
         /// <summary>
         /// Fetch the dashboard AJAX partial for bio content.
@@ -36,6 +37,20 @@ namespace Crittery.Me.Editor.Areas.CMS.Pages
 
             return this
                 .Partial("Partials/_Dashboard_Calendar", model);
+        }
+
+        /// <summary>
+        /// Fetch the dashboard AJAX partial for photos.
+        /// </summary>
+        public async Task<IActionResult> OnGetPhotosAsync()
+        {
+            IEnumerable<Crittery.Me.Data.Models.Photo> model = await context.Photos
+                .OrderByDescending(photo => photo.CapturedOn)
+                .Take(TopNPhotos)
+                .ToListAsync();
+
+            return this
+                .Partial("Partials/_Dashboard_Photos", model);
         }
 
         /// <summary>

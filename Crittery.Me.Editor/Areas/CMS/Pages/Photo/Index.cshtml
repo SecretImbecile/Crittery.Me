@@ -88,8 +88,11 @@
                         }
                     </td>
                     <td class="text-end">
-                        <a asp-page="/Photo/Edit" asp-route-id="@photo.Id" class="btn btn-primary">Edit</a>
-                        <a asp-page-handler="Delete" asp-route-id="@photo.Id" class="btn btn-danger delete-photo">Delete</a>
+                        <div class="btn-group-vertical">
+                            <a asp-area="" asp-page="/Photos" asp-route-stub="@photo.Stub" asp-route-id="@photo.Id" target="_blank" class="btn btn-info">View</a>
+                            <a asp-page="/Photo/Edit" asp-route-id="@photo.Id" class="btn btn-primary">Edit</a>
+                            <a asp-page-handler="Delete" asp-route-id="@photo.Id" class="btn btn-danger delete-photo">Delete</a>
+                        </div>
                     </td>
                 </tr>
             }

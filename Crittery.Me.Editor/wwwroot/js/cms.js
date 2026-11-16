@@ -57,6 +57,7 @@ iconSourceWebp?.addEventListener("change", function () {
 
 document.addEventListener("DOMContentLoaded", async () => {
     const dashboardBio = document.getElementById("dashboard-bio");
+    const dashboardPhotos = document.getElementById("dashboard-photos");
     const dashboardCalendar = document.getElementById("dashboard-calendar");
     const dashboardInterests = document.getElementById("dashboard-interests");
     const dashboardLinks = document.getElementById("dashboard-links");
@@ -76,6 +77,23 @@ document.addEventListener("DOMContentLoaded", async () => {
         }
         catch (error) {
             console.error("Failed to load calendar events");
+        }
+    }
+
+    if (dashboardPhotos != null) {
+        let request = new Request("CMS?handler=Photos", {
+            method: "GET",
+            headers: {
+                "Accept": "text/html",
+            }
+        });
+
+        try {
+            let response = await fetch(request);
+            dashboardPhotos.outerHTML = await response.text();
+        }
+        catch (error) {
+            console.error("Failed to load photos");
         }
     }
 

@@ -17,6 +17,9 @@
     .dashboard-grid {
         grid-template-columns: 1fr 1fr;
     }
+        .dashboard-grid #dashboard-photos {
+            grid-column: 1 / -1;
+        }
 
         .dashboard-grid #dashboard-calendar {
             grid-column: 1 / -1;
