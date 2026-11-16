@@ -17,17 +17,23 @@
 }
 
 @section Figures {
-    <figure id="photo-full">
-        @if (Model.CurrentPhoto != null)
-        {
-            <partial name="Partials/_Photo" model="@Model.CurrentPhoto" />
-        }
-    </figure>
+    @if (Model.PhotoCurrent != null)
+    {
+        <figure id="photo-full">
+            <partial name="Partials/_Photo" model="Model" />
+        </figure>
+    }
+    else
+    {
+        <figure id="photo-full" class="d-none">
+        </figure>
+    }
 }
 
 <p>
     I take photgraphs at local furmeets and publish them under the <em>crittery.me</em> branding.
-    All of my fursuit photography can be found in full-resoluton on FurTrack:</p>
+    All of my fursuit photography can be found in full-resoluton on FurTrack:
+</p>
 
 <nav aria-label="Links" class="mb-3">
     <a class="button" href="https://www.furtrack.com/index/photographer:crittery_me" target="_blank" rel="noopener" title="Photographer tag on FurTrack">

@@ -3,9 +3,15 @@
   "defaultProvider": "cdnjs",
   "libraries": [
     {
-      "provider": "cdnjs",
       "library": "bootstrap@5.3.8",
       "destination": "wwwroot/lib/bootstrap/"
+    },
+    {
+      "library": "bootstrap-icons@1.13.2",
+      "destination": "wwwroot/lib/bootstrap-icons",
+      "files": [
+        "icons/x-lg.svg"
+      ]
     }
   ]
 }

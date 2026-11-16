@@ -1,22 +1,134 @@
 ﻿@using Crittery.Me.Data.Models
-
-@model Photo
-
-<picture tabindex="0" onclick="photoClose();">
-    <source srcset="@Model.ImageFullSize.Files[1].Source" type="image/webp" />
-    <source srcset="@Model.ImageFullSize.Files[0].Source" type="image/jpg" />
-    <img src="@Model.ImageFullSize.Files[0].Source" loading="eager" alt="@Model.ImageFullSize.Alt" />
-</picture>
-<figcaption>
-    <span id="photo-caption"></span>
-    @if (!string.IsNullOrWhiteSpace(Model.UrlFurTrack))
+@model PhotosModel
+@{
+    Photo photo = Model.PhotoCurrent ?? throw new NullReferenceException("Selected photo could not be referenced");
+}
+<button type="button" onclick="photoClose();" class="button-close" title="Close Gallery">
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-lg" viewBox="0 0 16 16" aria-hidden="true">
+        <path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8z" />
+    </svg>
+</button>
+<div class="lightbox">
+    @if (Model.PhotoPrevious != null)
     {
-        <p class="fw-bold">
-            @Model.Title
-        </p>
-        <p>
-            @Model.Metadata.ImageDescription
-        </p>
-        <a href="@Model.UrlFurTrack" target="_blank" rel="noopener">FurTrack</a>
+        <a asp-page="Photos" asp-route-stub="@Model.PhotoPrevious.Stub" class="button" id="photo-previous" data-photo="@Model.PhotoPrevious.Stub" title="@Model.PhotoPrevious.Title" role="button" aria-label="Previous Photo">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-left" viewBox="0 0 16 16" aria-hidden="true">
+                <path fill-rule="evenodd" d="M11.354 1.646a.5.5 0 0 1 0 .708L5.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0" />
+            </svg>
+        </a>
     }
+    else
+    {
+        <button type="button" aria-label="Previous Photo" disabled>
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-left" viewBox="0 0 16 16" aria-hidden="true">
+                <path fill-rule="evenodd" d="M11.354 1.646a.5.5 0 0 1 0 .708L5.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0" />
+            </svg>
+        </button>
+    }
+    <picture>
+        <source srcset="@photo.ImageFullSize.Files[1].Source" type="image/webp" />
+        <source srcset="@photo.ImageFullSize.Files[0].Source" type="image/jpg" />
+        <img src="@photo.ImageFullSize.Files[0].Source" loading="eager" alt="@photo.ImageFullSize.Alt" />
+    </picture>
+    @if (Model.PhotoNext != null)
+    {
+        <a asp-page="Photos" asp-route-stub="@Model.PhotoNext.Stub" class="button" id="photo-next" data-photo="@Model.PhotoNext.Stub" title="@Model.PhotoNext.Title" role="button" aria-label="Next Photo">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-right" viewBox="0 0 16 16" aria-hidden="true">
+                <path fill-rule="evenodd" d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708" />
+            </svg>
+        </a>
+    }
+    else
+    {
+        <button type="button" aria-label="Next Photo" disabled>
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-right" viewBox="0 0 16 16" aria-hidden="true">
+                <path fill-rule="evenodd" d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708" />
+            </svg>
+        </button>
+    }
+</div>
+<figcaption>
+    <p class="fw-bold">
+        @photo.Title
+    </p>
+    <p>
+        @photo.Metadata.ImageDescription
+    </p>
+    <details id="photo-metadata">
+        @if (!string.IsNullOrWhiteSpace(photo.Metadata.CameraModel))
+        {
+            <summary>Taken On <strong>@photo.Metadata.CameraModel</strong></summary>
+        }
+        else
+        {
+            <summary>Taken On</summary>
+        }
+        <dl>
+            @if (!string.IsNullOrWhiteSpace(photo.Metadata.CameraModel))
+            {
+                <dt>Camera</dt>
+                <dd>@photo.Metadata.CameraModel</dd>
+            }
+            @if (!string.IsNullOrWhiteSpace(photo.Metadata.LensModel))
+            {
+                <dt>Lens</dt>
+                <dd>@photo.Metadata.LensModel</dd>
+            }
+            @if (photo.Metadata.FocalLength.HasValue)
+            {
+                <dt aria-label="Focal Length">Focal</dt>
+                <dd>@($"{photo.Metadata.FocalLength:0} mm")</dd>
+            }
+            @if (photo.Metadata.ApertureValue.HasValue)
+            {
+                <dt>Aperture</dt>
+                <dd>@($"f/{photo.Metadata.ApertureValue:0.#}")</dd>
+            }
+            @if (photo.Metadata.ExposureTime.HasValue)
+            {
+                <dt>Exposure</dt>
+                if (photo.Metadata.ExposureTime >= 1.0)
+                {
+                    <dd>@($"{photo.Metadata.ExposureTime:0.#} s")</dd>
+                }
+                else
+                {
+                    double fraction = 1 / photo.Metadata.ExposureTime.Value;
+                    <dd>@($"1/{fraction:0} s")</dd>
+                }
+            }
+            @if (photo.Metadata.IsoSpeedRating.HasValue)
+            {
+                <dt>ISO</dt>
+                <dd>@($"{photo.Metadata.IsoSpeedRating:0} s")</dd>
+            }
+            @if (photo.Metadata.Flash == true)
+            {
+                <dt>Flash</dt>
+                <dd>Yes</dd>
+            }
+            else if (photo.Metadata.Flash == false)
+            {
+                <dt>Flash</dt>
+                <dd>No</dd>
+            }
+        </dl>
+    </details>
+    <div class="d-flex">
+        @if (!string.IsNullOrWhiteSpace(photo.Metadata.Copyright))
+        {
+            if (!string.IsNullOrWhiteSpace(photo.Metadata.CopyrightUrl))
+            {
+                <a href="@photo.Metadata.CopyrightUrl" target="_blank" rel="noopener">@photo.Metadata.Copyright</a>
+            }
+            else
+            {
+                <span>@photo.Metadata.Copyright</span>
+            }
+        }
+        @if (!string.IsNullOrWhiteSpace(photo.UrlFurTrack))
+        {
+            <a href="@photo.UrlFurTrack" target="_blank" rel="noopener">View on FurTrack</a>
+        }
+    </div>
 </figcaption>

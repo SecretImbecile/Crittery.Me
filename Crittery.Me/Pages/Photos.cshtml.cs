@@ -19,7 +19,18 @@ namespace Crittery.Me.Pages
         /// <summary>
         /// Gets or sets the currently viewed photo, if any.
         /// </summary>
-        public Photo? CurrentPhoto { get; set; }
+        public Photo? PhotoCurrent { get; set; }
+
+        /// <summary>
+        /// Gets or sets the previous photo to navigate to, if any.
+        /// </summary>
+        public Photo? PhotoPrevious { get; set; }
+
+        /// <summary>
+        /// Gets or set the next photo to navigate to, if any.
+        /// </summary>
+        public Photo? PhotoNext { get; set; }
+
 
         /// <summary>
         /// Load the photos page.
@@ -67,23 +78,33 @@ namespace Crittery.Me.Pages
         /// <param name="partial">If <see langword="true"/>, returns a partial view.</param>
         public async Task<IActionResult> OnGetViewAsync(string stub, bool partial)
         {
-            this.CurrentPhoto = await context.Photos
+            this.PhotoCurrent = await context.Photos
                 .Where(photo => EF.Functions.Like(photo.Stub, stub))
                 .SingleOrDefaultAsync();
 
-            if (this.CurrentPhoto != null)
+            if (this.PhotoCurrent != null)
             {
-                if (partial)
-                {
-                    return this
-                        .Partial("Partials/_Photo", this.CurrentPhoto);
-                }
-                else
-                {
-                    this.Photos = await context.Photos
+                this.Photos = await context.Photos
                         .OrderByDescending(photo => photo.CapturedOn)
                         .ToListAsync();
 
+                this.PhotoPrevious = this.Photos
+                        .Where(photo => photo.CapturedOn > this.PhotoCurrent.CapturedOn)
+                        .OrderBy(photo => photo.CapturedOn)
+                        .FirstOrDefault();
+
+                this.PhotoNext = this.Photos
+                    .Where(photo => photo.CapturedOn < this.PhotoCurrent.CapturedOn)
+                    .OrderByDescending(photo => photo.CapturedOn)
+                    .FirstOrDefault();
+
+                if (partial)
+                {
+                    return this
+                        .Partial("Partials/_Photo", this);
+                }
+                else
+                {
                     foreach (Photo photo in this.Photos)
                     {
                         photo.ImageFullSize.Files = photo.ImageFullSize.Files
