@@ -86,7 +86,8 @@ body {
 }
 
     #photo-full button,
-    #photo-full .button {
+    #photo-full .button,
+    #photo-full .button-close {
         padding: 1rem;
         border: none;
         background: unset;
@@ -99,17 +100,16 @@ body {
             color: var(--bs-secondary);
         }
 
-        #photo-full button > svg,
-        #photo-full .button > svg {
-            height: 2rem;
-            width: 2rem;
-        }
+    #photo-full .button-close {
+        position: absolute;
+        top: 0rem;
+        right: 0rem;
+    }
 
-        #photo-full button.button-close {
-            position: absolute;
-            top: 0rem;
-            right: 0rem;
-        }
+    #photo-full svg {
+        height: 2rem;
+        width: 2rem;
+    }
 
     #photo-full picture {
         display: flex;
@@ -465,7 +465,11 @@ article {
     .photos {
         grid-template-columns: auto auto;
     }
+}
 
+@media
+    screen and (max-width: 575px),
+    screen and (orientation: landscape) and (max-height: 575px) {
     #photo-full {
         padding: 0.5rem;
     }

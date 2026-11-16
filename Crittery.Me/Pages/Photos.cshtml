@@ -47,7 +47,7 @@
     <div id="photos" class="photos" aria-label="Photo Highlights">
         @foreach (Photo photo in Model.Photos)
         {
-            <a asp-page="/Photos" asp-route-stub="@photo.Stub" data-photo="@photo.Stub" title="@photo.Title">
+            <a asp-page="/Photos" asp-route-stub="@photo.Stub" id="@photo.Stub" data-photo="@photo.Stub" title="@photo.Title">
                 <picture>
                     <source srcset="@photo.ImageThumbnail.Files[1].Source" type="image/webp">
                     <source srcset="@photo.ImageThumbnail.Files[0].Source" type="image/jpg">

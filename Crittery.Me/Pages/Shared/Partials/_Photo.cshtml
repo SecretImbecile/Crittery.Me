@@ -3,15 +3,15 @@
 @{
     Photo photo = Model.PhotoCurrent ?? throw new NullReferenceException("Selected photo could not be referenced");
 }
-<button type="button" onclick="photoClose();" class="button-close" title="Close Gallery">
+<a asp-page="/Photos" asp-route-stub="" role="button" class="button-close" title="Close Gallery">
     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-lg" viewBox="0 0 16 16" aria-hidden="true">
         <path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8z" />
     </svg>
-</button>
+</a>
 <div class="lightbox">
     @if (Model.PhotoPrevious != null)
     {
-        <a asp-page="Photos" asp-route-stub="@Model.PhotoPrevious.Stub" class="button" id="photo-previous" data-photo="@Model.PhotoPrevious.Stub" title="@Model.PhotoPrevious.Title" role="button" aria-label="Previous Photo">
+        <a asp-page="/Photos" asp-route-stub="@Model.PhotoPrevious.Stub" role="button" class="button" title="@Model.PhotoPrevious.Title" aria-label="Previous Photo">
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-left" viewBox="0 0 16 16" aria-hidden="true">
                 <path fill-rule="evenodd" d="M11.354 1.646a.5.5 0 0 1 0 .708L5.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0" />
             </svg>
@@ -32,7 +32,7 @@
     </picture>
     @if (Model.PhotoNext != null)
     {
-        <a asp-page="Photos" asp-route-stub="@Model.PhotoNext.Stub" class="button" id="photo-next" data-photo="@Model.PhotoNext.Stub" title="@Model.PhotoNext.Title" role="button" aria-label="Next Photo">
+        <a asp-page="/Photos" asp-route-stub="@Model.PhotoNext.Stub" role="button" class="button" title="@Model.PhotoNext.Title" aria-label="Next Photo">
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-right" viewBox="0 0 16 16" aria-hidden="true">
                 <path fill-rule="evenodd" d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708" />
             </svg>

@@ -43,7 +43,7 @@ namespace Crittery.Me.Pages
             }
             else
             {
-                return OnGetViewAsync(stub, false);
+                return OnGetViewAsync(stub);
             }
         }
 
@@ -75,8 +75,7 @@ namespace Crittery.Me.Pages
         /// Load the photos page with a specific image opened.
         /// </summary>
         /// <param name="stub">The URL stub of the image to view.</param>
-        /// <param name="partial">If <see langword="true"/>, returns a partial view.</param>
-        public async Task<IActionResult> OnGetViewAsync(string stub, bool partial)
+        public async Task<IActionResult> OnGetViewAsync(string stub)
         {
             this.PhotoCurrent = await context.Photos
                 .Where(photo => EF.Functions.Like(photo.Stub, stub))
@@ -98,27 +97,19 @@ namespace Crittery.Me.Pages
                     .OrderByDescending(photo => photo.CapturedOn)
                     .FirstOrDefault();
 
-                if (partial)
+                foreach (Photo photo in this.Photos)
                 {
-                    return this
-                        .Partial("Partials/_Photo", this);
-                }
-                else
-                {
-                    foreach (Photo photo in this.Photos)
-                    {
-                        photo.ImageFullSize.Files = photo.ImageFullSize.Files
-                            .OrderBy(file => file.MediaType.EndsWith("webp", StringComparison.OrdinalIgnoreCase))
-                            .ToList();
+                    photo.ImageFullSize.Files = photo.ImageFullSize.Files
+                        .OrderBy(file => file.MediaType.EndsWith("webp", StringComparison.OrdinalIgnoreCase))
+                        .ToList();
 
-                        photo.ImageThumbnail.Files = photo.ImageThumbnail.Files
-                            .OrderBy(file => file.MediaType.EndsWith("webp", StringComparison.OrdinalIgnoreCase))
-                            .ToList();
-                    }
-
-                    return this
-                        .Page();
+                    photo.ImageThumbnail.Files = photo.ImageThumbnail.Files
+                        .OrderBy(file => file.MediaType.EndsWith("webp", StringComparison.OrdinalIgnoreCase))
+                        .ToList();
                 }
+
+                return this
+                    .Page();
             }
             else
             {
