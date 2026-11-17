@@ -16,6 +16,7 @@
 // </copyright>
 
 using Crittery.Me.Data;
+using Microsoft.AspNetCore.HttpOverrides;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -34,12 +35,19 @@ if (app.Environment.IsDevelopment())
 }
 else
 {
+    // Forwarded headers for the Kestrel proxy server
+    app.UseForwardedHeaders(new ForwardedHeadersOptions
+    {
+        ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto,
+    });
+
     app.UseExceptionHandler("/Error");
+
     app.UseHsts();
+    app.UseHttpsRedirection();
 }
 
 // Configure default middleware
-app.UseHttpsRedirection();
 app.UseRouting();
 
 app.MapStaticAssets();
