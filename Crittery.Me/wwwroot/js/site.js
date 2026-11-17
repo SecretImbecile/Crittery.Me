@@ -5,7 +5,9 @@ const photoFull = document.getElementById("photo-full");
  * Opens the artwork inspector.
  */
 function inspectOpen() {
-    photoFull.style.display = "none";
+    if (photoFull != null) {
+        photoFull.style.display = "none";
+    }
     artworkFull.style.display = "flex";
 }
 
