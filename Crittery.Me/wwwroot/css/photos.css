@@ -1,0 +1,202 @@
+﻿#photo-full {
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    margin: 0;
+    padding: 1rem;
+    background-color: rgba(0, 0, 0, 0.75);
+    z-index: 95;
+}
+
+    #photo-full button,
+    #photo-full .button,
+    #photo-full .button-close {
+        padding: 1rem;
+        border: none;
+        background: unset;
+        color: var(--bs-white);
+        transition: var(--cm-transition-duration);
+    }
+
+        #photo-full button:disabled,
+        #photo-full .button:disabled {
+            color: var(--bs-secondary);
+        }
+
+    #photo-full .button-close {
+        position: absolute;
+        top: 0rem;
+        right: 0rem;
+    }
+
+    #photo-full svg {
+        height: 2rem;
+        width: 2rem;
+    }
+
+    #photo-full picture {
+        display: flex;
+        flex-flow: column nowrap;
+        justify-content: center;
+    }
+
+    #photo-full figcaption {
+        display: block;
+        position: absolute;
+        right: 0;
+        bottom: 0;
+        margin: 1rem;
+        padding: 1rem;
+        max-width: calc(100vw - 4rem);
+        width: 36em;
+        border: 2pt solid #333;
+        border-radius: 1rem;
+        background-color: #222;
+        color: var(--bs-light);
+    }
+
+        #photo-full figcaption .d-flex {
+            display: flex;
+            flex-flow: row wrap;
+            gap: 0 1rem;
+        }
+
+            #photo-full figcaption .d-flex a {
+                padding: 0.5rem;
+            }
+
+    #photo-full #photo-metadata {
+        margin-bottom: 1rem;
+    }
+
+        #photo-full #photo-metadata dl {
+            margin: 0;
+            margin-top: 1rem;
+            display: grid;
+            grid-template-columns: auto 1fr;
+            grid-template-rows: auto;
+            gap: 0 1rem;
+            font-size: 10pt;
+        }
+
+            #photo-full #photo-metadata dl > * {
+                margin: 0;
+            }
+
+.lightbox {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: center;
+    align-items: center;
+}
+
+    .lightbox picture {
+        height: 100%;
+        width: fit-content;
+    }
+
+    .lightbox img {
+        max-height: 100%;
+        max-width: 100%;
+        height: auto;
+        width: auto;
+        object-fit: contain;
+        box-shadow: 0 0 1.5rem black;
+        border: 2rem solid white;
+    }
+
+.photos {
+    display: grid;
+    grid-template-columns: auto auto auto;
+    gap: 0.5em;
+    margin: 1em 0;
+}
+
+    .photos img {
+        width: 100%;
+        height: auto;
+        border: 0.75em solid #fff;
+        border-bottom-width: 2em;
+        box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.33);
+        transition: var(--cm-transition-duration);
+    }
+
+    /* Gives each photo a slight angle */
+    .photos > *:nth-child(5n) img {
+        transform: rotate(-0.32deg);
+    }
+
+    .photos > *:nth-child(5n+1) img {
+        transform: rotate(0.11deg);
+    }
+
+    .photos > *:nth-child(5n+2) img {
+        transform: rotate(-0.24deg);
+    }
+
+    .photos > *:nth-child(5n+3) img {
+        transform: rotate(0.06deg);
+    }
+
+    .photos > *:nth-child(5n+4) img {
+        transform: rotate(0.21deg);
+    }
+
+@media (prefers-reduced-motion: no-preference) {
+    /* Animate photo angle on hover */
+    .photos > *:nth-child(odd) img:hover {
+        transform: rotate(4deg) scale(1.1);
+        box-shadow: 4px 4px 12px rgba(0, 0, 0, 0.25);
+    }
+
+    .photos > *:nth-child(even) img:hover {
+        transform: rotate(-4deg) scale(1.1);
+        box-shadow: 4px 4px 12px rgba(0, 0, 0, 0.25);
+    }
+
+    #photo-full button:hover:not(:disabled),
+    #photo-full .button:hover:not(:disabled) {
+        transform: scale(1.1);
+    }
+}
+
+@media screen and (max-width: 575px) {
+    .photos {
+        grid-template-columns: auto auto;
+    }
+}
+
+@media screen and (max-width: 575px), screen and (orientation: landscape) and (max-height: 575px) {
+    #photo-full {
+        padding: 0.5rem;
+    }
+
+        #photo-full button,
+        #photo-full .button {
+            padding: 1rem 0;
+        }
+
+            #photo-full button.button-close {
+                padding: 0.5rem;
+            }
+
+        #photo-full figcaption {
+            margin: 0.5rem;
+        }
+
+    .lightbox img {
+        box-shadow: 0 0 1rem black;
+        border: 1rem solid white;
+    }
+}
+
+@media screen and (min-width: 768px) {
+    .lightbox img {
+        box-shadow: 0 0 2rem black;
+        border: 4rem solid white;
+    }
+}

@@ -27,22 +27,22 @@
 
 @if (Model.ContentBio.Count > 0)
 {
-    <p class="bio">
+    <ul id="aboutme" class="bio">
         @foreach (BioContent item in Model.ContentBio)
         {
-            <span>@item.Text</span>
+            <li>@item.Text</li>
         }
-    </p>
+    </ul>
 }
 
 @if (Model.Links.Count > 0)
 {
-    <nav aria-label="Links" class="mb-3">
+    <nav id="links" class="links mb-3" aria-label="Links">
         @foreach(Link link in Model.Links)
         {
             @if (Model.IsExtraContentEnabled || link.Visiblity.HasFlag(Data.Enums.LinkVisiblity.OnOtherDays))
             {
-                <a class="button" href="@link.Url" title="@link.Title">
+                <a class="btn" href="@link.Url" title="@link.Title">
                     <img src="@link.Icon.Files.FirstOrDefault()?.Source" width="28" height="28" alt="">
                     <span>@link.Text</span>
                 </a>
@@ -53,44 +53,42 @@
 
 @if (Model.ContentCalendar.Count > 0)
 {
-    <div id="attending" class="mb-3">
-        <p class="fw-bold text-center mb-0">Attending:</p>
+    <ul id="attending" class="attending @(Model.IsExtraContentEnabled ? "mb-3" : "mb-0")">
+        <li class="fw-bold">Attending:</li>
         @foreach(CalendarEvent calendarEvent in Model.ContentCalendar)
         {
-            <p class="text-center mb-0"><partial name="Partials/_CalendarEvent" model="calendarEvent" /></p>
+            <li><partial name="Partials/_CalendarEvent" model="calendarEvent" /></li>
         }
-    </div>
+    </ul>
 }
 
 @if (Model.IsExtraContentEnabled)
 {
     if (Model.ContentInterests.Count > 0)
     {
-        <div class="mb-3">
-            <p class="fw-bold text-center mb-0">Interests include:</p>
-            <p class="bio">
-                @foreach(InterestContent content in Model.ContentInterests)
-                {
-                    <span><i class="icon" aria-hidden="true">@content.Emoji</i> @content.Text</span>
-                }
-            </p>
-        </div>
+        <ul class="bio mb-3">
+            <li class="fw-bold">Interests include:</li>
+            @foreach(InterestContent content in Model.ContentInterests)
+            {
+                <li><i class="icon" aria-hidden="true">@content.Emoji</i> @content.Text</li>
+            }
+        </ul>
     }
 
     if (Model.ContentRelationships.Count > 0)
     {
-        <p class="bio mb-0">
+        <ul class="bio mb-0">
             @foreach(RelationshipContent content in Model.ContentRelationships)
             {
                 if (content.Text.Contains("🏳️‍🌈"))
                 {
-                    <span aria-label="Gay">@content.Text</span>
+                    <li><i class="icon" aria-label="Gay">@content.Text</i></li>
                 }
                 else
                 {
-                    <span>@content.Text</span>
+                    <li>@content.Text</li>
                 }
             }
-        </p>
+        </ul>
     }
 }

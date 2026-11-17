@@ -12,7 +12,7 @@
     "https": {
       "commandName": "Project",
       "launchBrowser": true,
-      "launchUrl": "CMS",
+      "launchUrl": "Photos",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       },

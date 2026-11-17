@@ -19,11 +19,12 @@
         <meta property="og:type" content="website" />
     }
     <link rel="preload" as="style" href="@Url.Content("~/lib/bootstrap/css/bootstrap-reboot.min.css")" />
-    <link rel="preload" as="style" href="@Url.Content("~/css/main.css")" />
+    <link rel="preload" as="style" href="@Url.Content("~/css/site.css")" />
     <script type="importmap"></script>
     <link rel="icon" type="image/png" href="img/favicon.png">
     <link rel="stylesheet" href="@Url.Content("~/lib/bootstrap/css/bootstrap-reboot.min.css")" />
-    <link rel="stylesheet" href="@Url.Content("~/css/main.css")" asp-append-version="true" />    
+    <link rel="stylesheet" href="@Url.Content("~/css/site.css")" asp-append-version="true" />    
+    @await RenderSectionAsync("Head", required: false)
 </head>
 <body>
     <picture id="artwork" role="button" tabindex="0" onclick="inspectOpen();">

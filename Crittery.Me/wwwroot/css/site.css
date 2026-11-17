@@ -1,0 +1,271 @@
+/* Root */
+
+:root {
+    --cm-background-color: #758060;
+    --cm-main-background-color: #fff2d9;
+    --cm-main-text-color: #333333;
+    --cm-hover-backgroud-color: #f3e4c9;
+    --cm-border: var(--cm-border-thickness) solid var(--cm-border-color);
+    --cm-border-color: #e6d5b8;
+    --cm-border-thickness: 2pt;
+    --cm-border-radius: 2rem;
+    --cm-box-shadow-lg: 4px 4px 16px rgba(0, 0, 0, 0.25);
+    --cm-transition-duration: 0.25s;
+}
+
+@font-face {
+    font-family: "Shantell Sans";
+    font-weight: 300 800;
+    font-style: normal italic;
+    src: url("../font//ShantellSans.woff2") format("woff2");
+}
+
+body {
+    background-color: var(--cm-background-color);
+    min-width: 320px;
+}
+
+i.icon {
+    font-weight: normal;
+    font-style: normal;
+}
+
+/* Container */
+
+#artwork {
+    position: absolute;
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+    z-index: 0;
+    height: 75vh;
+    width: fit-content;
+    cursor: zoom-in;
+    user-select: none;
+}
+
+    #artwork img,
+    #artwork-full img {
+        cursor: zoom-in;
+        height: 100%;
+        width: 100%;
+        object-fit: contain;
+    }
+
+#container {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 40vh;
+    padding: 0.5rem;
+    min-width: 320px;
+    z-index: 1;
+}
+
+main {
+    width: 576px;
+    max-width: 100%;
+    margin: 0 auto;
+    padding: 2rem;
+    color: var(--cm-main-text-color);
+    background-color: var(--cm-main-background-color);
+    border: var(--cm-border);
+    border-radius: var(--cm-border-radius);
+    box-shadow: var(--cm-box-shadow-lg);
+    font-family: "Shantell Sans", cursive;
+    font-weight: 400;
+    font-variation-settings: "BNCE" 20, "INFM" 50;
+}
+
+    /* Header */
+
+    main > header {
+        text-align: center;
+        margin-bottom: 1rem;
+    }
+
+        main > header img {
+            height: auto;
+            width: auto;
+            max-height: 8rem;
+            max-width: 100%;
+        }
+
+    main .site-nav {
+        display: flex;
+        flex-flow: row wrap;
+        justify-content: center;
+        gap: 2rem;
+        font-size: 1.5rem;
+    }
+
+        main .site-nav a {
+            text-decoration: none;
+        }
+
+            main .site-nav a.active:not(:hover) {
+                color: #666666;
+            }
+
+    /* Common elements */
+
+    main article {
+        font-variation-settings: "BNCE" 0, "INFM" 0;
+    }
+
+    main nav.links {
+        display: flex;
+        flex-flow: row wrap;
+        justify-content: center;
+        gap: 0.5rem 1rem;
+    }
+
+    main ul.bio {
+        list-style: none;
+        display: flex;
+        flex-flow: row wrap;
+        justify-content: center;
+        gap: 0.25rem 1rem;
+        font-variation-settings: "BNCE" 30, "INFM" 100;
+    }
+
+    main ul.attending {
+        list-style: none;
+        display: flex;
+        flex-flow: column nowrap;
+        justify-content: flex-start;
+        align-items: center;
+        gap: 0.25rem 1rem;
+    }
+
+        main ul.attending .fw-bold,
+        main ul.bio .fw-bold {
+            font-weight: 600;
+        }
+
+    main a {
+        text-decoration: none;
+        font-variation-settings: "BNCE" 0, "INFM" 0;
+        font-weight: 500;
+    }
+
+    main .btn {
+        width: fit-content;
+        height: 3rem;
+        padding: 0 1rem;
+        border: var(--cm-border);
+        border-radius: 1.5rem;
+        display: flex;
+        flex-flow: row nowrap;
+        justify-content: space-between;
+        align-items: center;
+        gap: 0.75rem;
+        font-weight: 500;
+        font-variation-settings: "BNCE" 0, "INFM" 0;
+    }
+
+        main .btn:not(:hover) {
+            color: unset;
+        }
+
+        main .btn svg,
+        main .btn img {
+            width: auto;
+            flex-grow: 0;
+            user-select: none;
+        }
+
+/* Misc. elements */
+
+.fineprint {
+    color: #555;
+    font-size: 10pt;
+    font-style: italic;
+}
+
+.d-none {
+    display: none;
+}
+
+.mb-3 {
+    margin-bottom: 1rem;
+}
+
+.mb-0 {
+    margin-bottom: 0;
+}
+
+.text-center {
+    text-align: center;
+}
+
+/* Artwork viewer */
+
+#artwork-full {
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    margin: 0;
+    padding: 1rem;
+    background-color: rgba(0, 0, 0, 0.75);
+    z-index: 90;
+    display: none;
+    flex-flow: column nowrap;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+    #artwork-full > picture {
+        flex-grow: 1;
+        height: 50%;
+        width: auto;
+        max-width: 100vw;
+        cursor: zoom-out;
+        user-select: none;
+    }
+
+    #artwork-full > figcaption {
+        padding: 0.5rem;
+        font-size: smaller;
+        color: #fff;
+        text-align: center;
+    }
+
+    #artwork-full a {
+        color: deepskyblue;
+    }
+
+/* Media Queries */
+
+@media (pointer: fine) {
+    main .site-nav a:not(:hover) {
+        color: unset;
+    }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+    main .btn {
+        transition: background-color var(--cm-transition-duration), color var(--cm-transition-duration), transform var(--cm-transition-duration);
+    }
+
+        main .btn:hover {
+            transform: scale(1.1);
+            background-color: var(--cm-hover-backgroud-color);
+        }
+
+    main a {
+        transition: color var(--cm-transition-duration), transform var(--cm-transition-duration);
+    }
+
+    main .site-nav a:hover {
+        transform: scale(1.1);
+    }
+}
+
+@media screen and (max-width: 575px) {
+    main {
+        padding: 1rem;
+    }
+}
