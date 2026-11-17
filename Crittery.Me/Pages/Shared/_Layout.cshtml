@@ -4,14 +4,26 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <title>@ViewData["Title"]</title>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"]</title>
-    <script type="importmap"></script>
+    @if (IsSectionDefined("OpenGraph"))
+    {
+        @await RenderSectionAsync("OpenGraph")
+    }
+    else
+    {
+        <meta property="og:title" content="@ViewData["Title"]">
+        <meta property="og:url" content="https://crittery.me/" />
+        <meta property="og:image" content="https://crittery.me/img/cover.jpg" />
+        <meta property="og:type" content="website" />
+    }
     <link rel="preload" as="style" href="@Url.Content("~/lib/bootstrap/css/bootstrap-reboot.min.css")" />
     <link rel="preload" as="style" href="@Url.Content("~/css/main.css")" />
+    <script type="importmap"></script>
+    <link rel="icon" type="image/png" href="img/favicon.png">
     <link rel="stylesheet" href="@Url.Content("~/lib/bootstrap/css/bootstrap-reboot.min.css")" />
-    <link rel="stylesheet" href="@Url.Content("~/css/main.css")" asp-append-version="true" />
+    <link rel="stylesheet" href="@Url.Content("~/css/main.css")" asp-append-version="true" />    
 </head>
 <body>
     <picture id="artwork" role="button" tabindex="0" onclick="inspectOpen();">
@@ -40,7 +52,7 @@
             </nav>
             @RenderBody()
         </main>
-    </div>        
+    </div>
     <script src="@Url.Content("~/js/site.js")" asp-append-version="true"></script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>

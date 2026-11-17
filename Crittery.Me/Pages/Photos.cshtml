@@ -1,11 +1,48 @@
 ﻿@page "/Photos/{stub?}"
 
+@using Crittery.Me.Classes
 @using Crittery.Me.Data.Models
 
 @model Crittery.Me.Pages.PhotosModel
 
 @{
-    ViewData["Title"] = "Photos ⭒ Crittery Me";
+    string description = "Fursuit photographs by Linden";
+
+    if (Model.PhotoCurrent != null)
+    {
+        ViewData["Title"] = $"{Model.PhotoCurrent.Title} ⭒ Crittery Me";
+        if (!string.IsNullOrWhiteSpace(Model.PhotoCurrent.Metadata.ImageDescription))
+        {
+            description = Model.PhotoCurrent.Metadata.ImageDescription;
+        }
+    }
+    else
+    {
+        ViewData["Title"] = "Photos ⭒ Crittery Me";
+    }
+}
+
+@section OpenGraph {
+    @if (Model.PhotoCurrent != null)
+    {
+        <meta name="description" content="@description">
+        <meta property="og:title" content="@ViewData["Title"]">
+        <meta property="og:description" content="@description">
+        <meta property="og:url" content="@Url.PhotoPage(Model.PhotoCurrent)" />
+        <meta property="og:image" content="@Url.PhotoThumbnail(Model.PhotoCurrent)" />
+        <meta property="og:type" content="article" />
+        <meta property="article:published_time" content="@Model.PhotoCurrent.CapturedOn" />
+        <meta property="article:author" content="crittery.me" />
+    }
+    else
+    {
+        <meta name="description" content="@description">
+        <meta property="og:title" content="@ViewData["Title"]">
+        <meta property="og:description" content="@description">
+        <meta property="og:url" content="https://crittery.me/Photos" />
+        <meta property="og:image" content="https://crittery.me/img/cover.jpg" />
+        <meta property="og:type" content="website" />
+    }
 }
 
 @section Header {

@@ -8,6 +8,15 @@
     ViewData["Title"] = "Linden ⭒ Jittery Critter";
 }
 
+@section OpenGraph {
+    <meta name="description" content="The personal homepage of Linden, aka Jack">
+    <meta property="og:title" content="@ViewData["Title"]">
+    <meta property="og:description" content="The personal homepage of Linden, aka Jack">
+    <meta property="og:url" content="https://crittery.me/" />
+    <meta property="og:image" content="https://crittery.me/img/cover.jpg" />
+    <meta property="og:type" content="website" />
+}
+
 @section Header {
     <picture id="logo">
         <source srcset="/img/logo-v2.webp" type="image/webp">
