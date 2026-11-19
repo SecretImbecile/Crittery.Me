@@ -21,33 +21,36 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav">
                     <li class="nav-item">
-                        <a asp-page="/Index" class="nav-link @(page.Equals("/Index") ? "active" : string.Empty)" aria-current="page">Dashboard</a>
+                        <a asp-page="/Index" class="nav-link @(page.Equals("/Index") ? "active" : string.Empty)" aria-current="@(page.Equals("/Index") ? "page" : null)">Dashboard</a>
                     </li>
-                    <li class="nav-item dropdown" ">
+                    <li class="nav-item">
+                        <a asp-page="/Visitor/Index" class="nav-link @(page.StartsWith("/Visitor") ? "active" : string.Empty)" aria-current="@(page.StartsWith("/Visitor") ? "page" : null)">Visitors</a>
+                    </li>
+                    <li class="nav-item dropdown">
                         <a asp-page="/Calendar/Index" class="nav-link @(page.StartsWith("/Calendar") ? "active" : string.Empty) dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                             Calendar
                         </a>
                         <ul class="dropdown-menu">
-                            <li><a asp-page="/Calendar/Index" class="dropdown-item @(page.Equals("/Calendar/Index") ? "active" : string.Empty)">View</a></li>
-                            <li><a asp-page="/Calendar/New" class="dropdown-item @(page.Equals("/Calendar/New") ? "active" : string.Empty)">+ Add New</a></li>
+                            <li><a asp-page="/Calendar/Index" class="dropdown-item @(page.Equals("/Calendar/Index") ? "active" : string.Empty)" aria-current="@(page.Equals("/Calendar/Index") ? "page" : null)">View</a></li>
+                            <li><a asp-page="/Calendar/New" class="dropdown-item @(page.Equals("/Calendar/New") ? "active" : string.Empty)" aria-current="@(page.Equals("/Calendar/New") ? "page" : null)">+ Add New</a></li>
                         </ul>
                     </li>
-                    <li class="nav-item dropdown" ">
+                    <li class="nav-item dropdown">
                         <a asp-page="/Photo/Index" class="nav-link @(page.StartsWith("/Photo") ? "active" : string.Empty) dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                             Photos
                         </a>
                         <ul class="dropdown-menu">
-                            <li><a asp-page="/Photo/Index" class="dropdown-item @(page.Equals("/Photo/Index") ? "active" : string.Empty)">View</a></li>
-                            <li><a asp-page="/Photo/New" class="dropdown-item @(page.Equals("/Photo/New") ? "active" : string.Empty)">+ Add New</a></li>
+                            <li><a asp-page="/Photo/Index" class="dropdown-item @(page.Equals("/Photo/Index") ? "active" : string.Empty)" aria-current="@(page.Equals("/Photo/Index") ? "page" : null)">View</a></li>
+                            <li><a asp-page="/Photo/New" class="dropdown-item @(page.Equals("/Photo/New") ? "active" : string.Empty)" aria-current="@(page.Equals("/Photo/New") ? "page" : null)">+ Add New</a></li>
                         </ul>
                     </li>
-                    <li class="nav-item dropdown" ">
+                    <li class="nav-item dropdown">
                         <a asp-page="/Link/Index" class="nav-link @(page.StartsWith("/Link") ? "active" : string.Empty) dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                             Links
                         </a>
                         <ul class="dropdown-menu">
-                            <li><a asp-page="/Link/Index" class="dropdown-item @(page.Equals("/Link/Index") ? "active" : string.Empty)">View</a></li>
-                            <li><a asp-page="/Link/New" class="dropdown-item @(page.Equals("/Link/New") ? "active" : string.Empty)">+ Add New</a></li>
+                            <li><a asp-page="/Link/Index" class="dropdown-item @(page.Equals("/Link/Index") ? "active" : string.Empty)" aria-current="@(page.Equals("/Link/Index") ? "page" : null)">View</a></li>
+                            <li><a asp-page="/Link/New" class="dropdown-item @(page.Equals("/Link/New") ? "active" : string.Empty)" aria-current="@(page.Equals("/Link/New") ? "page" : null)">+ Add New</a></li>
                         </ul>
                     </li>
                     <li class="nav-item dropdown">
@@ -55,14 +58,14 @@
                             Content
                         </a>
                         <ul class="dropdown-menu">
-                            <li><a asp-page="/Bio/Index" class="dropdown-item @(page.Equals("/Bio/Index") ? "active" : string.Empty)">Bio</a></li>
-                            <li><a asp-page="/Bio/New" class="dropdown-item @(page.Equals("/Bio/New") ? "active" : string.Empty)">+ Add New</a></li>
+                            <li><a asp-page="/Bio/Index" class="dropdown-item @(page.Equals("/Bio/Index") ? "active" : string.Empty)" aria-current="@(page.Equals("/Bio/Index") ? "page" : null)">Bio</a></li>
+                            <li><a asp-page="/Bio/New" class="dropdown-item @(page.Equals("/Bio/New") ? "active" : string.Empty)" aria-current="@(page.Equals("/Bio/New") ? "page" : null)">+ Add New</a></li>
                             <li><hr class="dropdown-divider"></li>
-                            <li><a asp-page="/Interests/Index" class="dropdown-item @(page.Equals("/Interests/Index") ? "active" : string.Empty)">Interests</a></li>
-                            <li><a asp-page="/Interests/New" class="dropdown-item @(page.Equals("/Interests/New") ? "active" : string.Empty)">+ Add New</a></li>
+                            <li><a asp-page="/Interests/Index" class="dropdown-item @(page.Equals("/Interests/Index") ? "active" : string.Empty)" aria-current="@(page.Equals("/Interests/Index") ? "page" : null)">Interests</a></li>
+                            <li><a asp-page="/Interests/New" class="dropdown-item @(page.Equals("/Interests/New") ? "active" : string.Empty)" aria-current="@(page.Equals("/Interests/New") ? "page" : null)">+ Add New</a></li>
                             <li><hr class="dropdown-divider"></li>
-                            <li><a asp-page="/Relationship/Index" class="dropdown-item @(page.Equals("/Relationship/Index") ? "active" : string.Empty)">Relationship</a></li>
-                            <li><a asp-page="/Relationship/New" class="dropdown-item @(page.Equals("/Relationship/New") ? "active" : string.Empty)">+ Add New</a></li>
+                            <li><a asp-page="/Relationship/Index" class="dropdown-item @(page.Equals("/Relationship/Index") ? "active" : string.Empty)" aria-current="@(page.Equals("/Relationship/Index") ? "page" : null)">Relationship</a></li>
+                            <li><a asp-page="/Relationship/New" class="dropdown-item @(page.Equals("/Relationship/New") ? "active" : string.Empty)" aria-current="@(page.Equals("/Relationship/New") ? "page" : null)">+ Add New</a></li>
                         </ul>
                     </li>
                 </ul>

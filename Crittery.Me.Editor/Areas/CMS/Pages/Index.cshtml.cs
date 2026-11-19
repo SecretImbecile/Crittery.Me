@@ -138,5 +138,21 @@ namespace Crittery.Me.Editor.Areas.CMS.Pages
             return this
                 .Partial("Partials/_Dashboard_Relationships", model);
         }
+
+        /// <summary>
+        /// Fetch the dashboard AJAX partial for visitor/view count.
+        /// </summary>
+        /// <returns>
+        /// A <see cref="Task"/> representing the duration of the request.
+        /// Results in a partial view.
+        /// </returns>
+        public async Task<IActionResult> OnGetVisitorsAsync()
+        {
+            int model = await context.Visitors
+                .SumAsync(visitor => visitor.Count);
+
+            return this
+                .Partial("Partials/_Dashboard_Visitors", model);
+        }
     }
 }

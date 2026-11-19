@@ -1,0 +1,27 @@
+﻿@using Crittery.Me.Data.Models
+
+@model int?
+
+<div id="dashboard-visitors" class="card">
+    <div class="card-body">
+        <div class="card-title d-flex justify-content-between gap-2">
+            <h2 class="h5 m-0">Visitors</h2>
+            <a asp-page="/Visitor/Index" class="btn btn-outline-info">View All</a>
+        </div>
+        <table class="table table-sm table-borderless mb-0">
+            <tbody>
+                <tr>
+                    <th scope="row">Total Views</th>
+                    @if (Model.HasValue)
+                    {
+                        <td>@Model.Value</td>
+                    }
+                    else
+                    {
+                        <td class="text-secondary">Loading...</td>
+                    }
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

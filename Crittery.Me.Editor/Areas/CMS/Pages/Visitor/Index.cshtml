@@ -1,0 +1,52 @@
+﻿@page
+
+@using Crittery.Me.Data.Models
+
+@model Crittery.Me.Editor.Areas.CMS.Pages.Visitor.IndexModel
+
+@{
+    ViewData["Title"] = "Visitors";
+}
+
+@section Header
+{
+    <h1 class="h2 mb-0">Visitors</h1>
+}
+
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">Page</th>
+            <th scope="col">Referrer</th>
+            <th scope="colgroup" colspan="2">Last Visit</th>
+            <th scope="col">Page Count</th>
+        </tr>
+    </thead>    
+    <tbody>
+        @foreach (IEnumerable<Visitor> grouping in Model.VisitorsByPage)
+        {
+            int count = grouping.Count();
+            bool first = true;
+            foreach(Visitor visitor in grouping)
+            {
+                <tr>
+                    @if (first)
+                    {
+                        <th scope="rowgroup" rowspan="@count" class="fw-normal">@visitor.Page</th>
+                        first = false;
+                    }
+                    <td>@visitor.Referrer</td>
+                    <td><time datetime="@visitor.ModifiedOn">@visitor.ModifiedOn.ToString("HH:mm")</time></td>
+                    <td><time datetime="@visitor.ModifiedOn">@visitor.ModifiedOn.ToString("d MMM")</time></td>
+                    <td>@visitor.Count</td>
+                </tr>
+            }
+        }
+    </tbody>
+    <tfoot>
+        <tr>
+            <th scope="row" colspan="4">Total</th>
+            <td>@Model.TotalVisitors</td>
+        </tr>
+    </tfoot>
+</table>

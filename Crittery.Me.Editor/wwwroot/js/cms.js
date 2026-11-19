@@ -61,7 +61,25 @@ document.addEventListener("DOMContentLoaded", async () => {
     const dashboardCalendar = document.getElementById("dashboard-calendar");
     const dashboardInterests = document.getElementById("dashboard-interests");
     const dashboardLinks = document.getElementById("dashboard-links");
-    const dashboardRelationships = document.getElementById("dashboard-relationships");    
+    const dashboardRelationships = document.getElementById("dashboard-relationships");
+    const dashboardVisitors = document.getElementById("dashboard-visitors");
+
+    if (dashboardVisitors != null) {
+        let request = new Request("CMS?handler=Visitors", {
+            method: "GET",
+            headers: {
+                "Accept": "text/html",
+            }
+        });
+
+        try {
+            let response = await fetch(request);
+            dashboardVisitors.outerHTML = await response.text();
+        }
+        catch (error) {
+            console.error("Failed to load visitor count");
+        }
+    }
 
     if (dashboardCalendar != null) {
         let request = new Request("CMS?handler=Calendar", {
