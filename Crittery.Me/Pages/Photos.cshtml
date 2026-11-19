@@ -6,42 +6,49 @@
 @model Crittery.Me.Pages.PhotosModel
 
 @{
-    string description = "Fursuit photographs by Linden";
-
     if (Model.PhotoCurrent != null)
     {
         ViewData["Title"] = $"{Model.PhotoCurrent.Title} ⭒ Crittery Me";
-        if (!string.IsNullOrWhiteSpace(Model.PhotoCurrent.Metadata.ImageDescription))
-        {
-            description = Model.PhotoCurrent.Metadata.ImageDescription;
-        }
+        ViewData["Description"] = Model.PhotoCurrent.Metadata.ImageDescription
+            ?? "Fursuit photograph";
     }
     else
     {
         ViewData["Title"] = "Photos ⭒ Crittery Me";
+        ViewData["Description"] = "Fursuit photography by Linden, aka Jack";
     }
 }
 
 @section OpenGraph {
     @if (Model.PhotoCurrent != null)
     {
-        <meta name="description" content="@description">
+        <meta property="og:site_name" content="Crittery Me">
         <meta property="og:title" content="@ViewData["Title"]">
-        <meta property="og:description" content="@description">
-        <meta property="og:url" content="@Url.PhotoPage(Model.PhotoCurrent)" />
-        <meta property="og:image" content="@Url.PhotoThumbnail(Model.PhotoCurrent)" />
+        <meta property="og:description" content="@ViewData["Description"]">
         <meta property="og:type" content="article" />
         <meta property="article:published_time" content="@Model.PhotoCurrent.CapturedOn" />
         <meta property="article:author" content="crittery.me" />
+        <meta property="og:url" content="@Url.PhotoPage(Model.PhotoCurrent)" />
+        <meta property="og:image" content="@Url.PhotoThumbnail(Model.PhotoCurrent)" />
+        <meta property="og:image:type" content="image/jpeg">
+        <meta property="og:image:width" content="256">
+        <meta property="og:image:height" content="256">
+        <meta property="twitter:card" content="summary_large_image">
+        <link rel="canonical" href="@Url.PhotoPage(Model.PhotoCurrent)">
     }
     else
     {
-        <meta name="description" content="@description">
+        <meta property="og:site_name" content="Crittery Me">
         <meta property="og:title" content="@ViewData["Title"]">
-        <meta property="og:description" content="@description">
+        <meta property="og:description" content="@ViewData["Description"]">
+        <meta property="og:type" content="website" />
         <meta property="og:url" content="https://crittery.me/Photos" />
         <meta property="og:image" content="https://crittery.me/img/cover.jpg" />
-        <meta property="og:type" content="website" />
+        <meta property="og:image:type" content="image/jpeg">
+        <meta property="og:image:width" content="1600">
+        <meta property="og:image:height" content="1200">
+        <meta property="twitter:card" content="summary_large_image">
+        <link rel="canonical" href="https://crittery.me/Photos">
     }
 }
 
