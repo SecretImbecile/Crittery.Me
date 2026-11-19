@@ -19,6 +19,7 @@ namespace Crittery.Me.Pages
 {
     using Crittery.Me.Data;
     using Crittery.Me.Data.Models;
+    using Crittery.Me.Services;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.AspNetCore.Mvc.RazorPages;
     using Microsoft.EntityFrameworkCore;
@@ -26,7 +27,7 @@ namespace Crittery.Me.Pages
     /// <summary>
     /// Page model for the photos page.
     /// </summary>
-    public class PhotosModel(CritteryMeContext context) : PageModel
+    public class PhotosModel(CritteryMeContext context, IVisitorService visitorService) : PageModel
     {
         /// <summary>
         /// Gets the photos to display.
@@ -76,6 +77,9 @@ namespace Crittery.Me.Pages
         /// </returns>
         public async Task<IActionResult> OnGetHomeAsync()
         {
+            // Record the visit
+            await visitorService.RecordVisitAsync(this.Request, "/Photos");
+
             this.Photos = await context.Photos
                 .OrderByDescending(photo => photo.CapturedOn)
                 .ToListAsync();
@@ -105,6 +109,9 @@ namespace Crittery.Me.Pages
         /// </returns>
         public async Task<IActionResult> OnGetViewAsync(string stub)
         {
+            // Record the visit
+            await visitorService.RecordVisitAsync(this.Request, $"/Photos/{stub}");
+
             this.PhotoCurrent = await context.Photos
                 .Where(photo => EF.Functions.Like(photo.Stub, stub))
                 .SingleOrDefaultAsync();

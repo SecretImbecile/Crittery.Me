@@ -19,6 +19,7 @@ namespace Crittery.Me.Pages
 {
     using Crittery.Me.Data;
     using Crittery.Me.Data.Models;
+    using Crittery.Me.Services;
     using Microsoft.AspNetCore.Mvc.RazorPages;
     using Microsoft.EntityFrameworkCore;
     using Microsoft.Extensions.Primitives;
@@ -26,7 +27,7 @@ namespace Crittery.Me.Pages
     /// <summary>
     /// Page model for the site homepage.
     /// </summary>
-    public class IndexModel(CritteryMeContext context) : PageModel
+    public class IndexModel(CritteryMeContext context, IVisitorService visitorService) : PageModel
     {
         /// <summary>
         /// Gets the next meet and convention I'm attending.
@@ -97,6 +98,9 @@ namespace Crittery.Me.Pages
         /// </returns>
         public async Task OnGetAsync()
         {
+            // Record the visit
+            await visitorService.RecordVisitAsync(this.Request, "/");
+
             CalendarEvent? nextMeet = await context.CalendarEvents
                 .Where(item => item.Type == Data.Enums.CalendarEventType.Meet)
                 .Where(item => item.DateEnd >= DateOnly.FromDateTime(DateTime.Today))

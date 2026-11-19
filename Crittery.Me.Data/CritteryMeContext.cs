@@ -57,6 +57,11 @@ namespace Crittery.Me.Data
         /// </summary>
         public DbSet<RelationshipContent> RelationshipItems { get; set; }
 
+        /// <summary>
+        /// Gets or sets the relationship status table.
+        /// </summary>
+        public DbSet<Visitor> Visitors { get; set; }
+
         /// <inheritdoc/>
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
             => optionsBuilder.UseSqlite($"Data Source=content.db");
@@ -124,6 +129,11 @@ namespace Crittery.Me.Data
                     .ToTable("Photos_Thumbnails")
                     .WithOwner(file => file.Image)
                     .HasForeignKey(file => file.ImageId));
+
+            modelBuilder.Entity<Visitor>()
+                .ToTable(nameof(this.Visitors))
+                .HasIndex(visitor => new { visitor.Page, visitor.Referrer })
+                .IsUnique();
         }
     }
 }

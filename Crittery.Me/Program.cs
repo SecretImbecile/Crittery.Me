@@ -16,6 +16,8 @@
 // </copyright>
 
 using Crittery.Me.Data;
+using Crittery.Me.Services;
+using Crittery.Me.Services.Implementations;
 using Microsoft.AspNetCore.HttpOverrides;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -23,6 +25,7 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddRazorPages();
 builder.Services.AddDbContext<CritteryMeContext>();
+builder.Services.AddScoped<IVisitorService, VisitorService>();
 
 var app = builder.Build();
 

@@ -169,6 +169,34 @@ namespace Crittery.Me.Migrations
                     b.ToTable("RelationshipItems", (string)null);
                 });
 
+            modelBuilder.Entity("Crittery.Me.Data.Models.Visitor", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("Count")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<DateTime>("ModifiedOn")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Page")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Referrer")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("Page", "Referrer")
+                        .IsUnique();
+
+                    b.ToTable("Visitors", (string)null);
+                });
+
             modelBuilder.Entity("Crittery.Me.Data.Models.Link", b =>
                 {
                     b.OwnsOne("Crittery.Me.Data.Models.Images.Image", "Icon", b1 =>
