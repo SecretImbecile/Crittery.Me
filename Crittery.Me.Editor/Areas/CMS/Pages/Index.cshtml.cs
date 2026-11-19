@@ -59,6 +59,7 @@ namespace Crittery.Me.Editor.Areas.CMS.Pages
         public async Task<IActionResult> OnGetCalendarAsync()
         {
             IEnumerable<CalendarEvent> model = await context.CalendarEvents
+                .Where(calendarEvent => calendarEvent.DateEnd >= DateOnly.FromDateTime(DateTime.Now))
                 .OrderByDescending(calendarEvent => calendarEvent.DateEnd)
                 .Take(TopN)
                 .ToListAsync();
